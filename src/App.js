@@ -3,12 +3,16 @@ import {
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
+  Navigate,
 } from 'react-router-dom'
 import Login from './pages/login/Login'
 
 const App = () => {
   const router = createBrowserRouter(
-    createRoutesFromElements([<Route path='/login' element={<Login />} />]),
+    createRoutesFromElements([
+      <Route path='/' element={<Navigate to='/login' />} />,
+      <Route path='/login' element={<Login />} />,
+    ]),
   )
   return <RouterProvider router={router} />
 }
