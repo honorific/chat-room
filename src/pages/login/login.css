@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: gainsboro;
+}
+
+.container form {
+  display: flex;
+  width: 300px;
+  flex-direction: column;
+}
+
+.container form > input,
+.container form > button {
+  outline: none;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+
+.container > form > input {
+  margin-bottom: 20px;
+}
+
+.container form > button {
+  background-color: #146ef5;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+}
