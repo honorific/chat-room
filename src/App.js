@@ -6,6 +6,7 @@ import {
   Navigate,
 } from 'react-router-dom'
 import Login from './pages/login/Login'
+import './app.css'
 
 const App = () => {
   const router = createBrowserRouter(
