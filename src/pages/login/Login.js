@@ -1,13 +1,13 @@
-import './login.css'
+import {StyledLogin} from './Login.styles'
 
 const Login = () => {
   return (
-    <div className='container'>
+    <StyledLogin>
       <form>
         <input type='text' />
         <button>Enter</button>
       </form>
-    </div>
+    </StyledLogin>
   )
 }
 
