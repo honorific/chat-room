@@ -1,11 +1,12 @@
-import './chat.css'
+import './Chat.styles.js'
+import {StyledChat} from './Chat.styles.js'
 
 const Chat = () => {
   return (
-    <div className='container'>
+    <StyledChat>
       <div className='rightbar'></div>
       <div className='main'></div>
-    </div>
+    </StyledChat>
   )
 }
 
