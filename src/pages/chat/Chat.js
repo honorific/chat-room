@@ -9,6 +9,14 @@ const Chat = () => {
         <ul className='onlineUsers'>
           <OnlineUser gender='male' username='ali' />
           <OnlineUser gender='female' username='zahra' />
+          <OnlineUser gender='male' username='ali' chatting={{number: 3}} />
+          <OnlineUser gender='female' username='zahra' />
+          <OnlineUser gender='male' username='ali' />
+          <OnlineUser gender='female' username='zahra' />
+          <OnlineUser gender='male' username='ali' />
+          <OnlineUser gender='female' username='zahra' chatting />
+          <OnlineUser gender='male' username='ali' />
+          <OnlineUser gender='female' username='zahra' />
         </ul>
       </div>
       <div className='main'></div>

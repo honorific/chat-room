@@ -19,6 +19,10 @@ export const StyledChat = styled.div`
   .rightbar {
     grid-column: 1 / 4;
   }
+  .onlineUsers {
+    list-style-type: none;
+    margin: 10px 20px 20px 10px;
+  }
   .main {
     grid-column: 4 / 13;
   }

@@ -1,11 +1,18 @@
-import {Female, Male} from '@mui/icons-material'
-import StyledOnlineUser from './OnlineUser.styles'
+import {Female, Male, PropaneSharp} from '@mui/icons-material'
+import {StyledOnlineUser} from './OnlineUser.styles'
 
-const OnlineUser = ({gender, username}) => {
+const OnlineUser = ({gender, username, chatting}) => {
   return (
-    <StyledOnlineUser>
-      {gender === 'male' ? <Male /> : <Female />}
-      {username}
+    <StyledOnlineUser sty={{chatting}}>
+      <div>
+        {gender === 'male' ? (
+          <Male sx={{color: 'blueviolet'}} />
+        ) : (
+          <Female sx={{color: 'pink'}} />
+        )}
+        {username}
+      </div>
+      {chatting && <span>{chatting.number ? chatting.number : ''}</span>}
     </StyledOnlineUser>
   )
 }
