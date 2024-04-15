@@ -28,6 +28,7 @@ export const StyledOnlineUser = styled.li`
     border-radius: 20px;
     padding: 4px;
     font-size: 12px;
+    font-weight: bold;
     color: white;
   }
 `
