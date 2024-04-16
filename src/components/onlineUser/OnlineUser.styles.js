@@ -26,7 +26,7 @@ export const StyledOnlineUser = styled.li`
     order: -1;
     background-color: blue;
     border-radius: 20px;
-    padding: 4px;
+    padding: ${(props) => (props.sty.chatting?.number ? '4px 7px' : '4px')};
     font-size: 12px;
     font-weight: bold;
     color: white;
