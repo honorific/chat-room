@@ -16,12 +16,8 @@ export const StyledChat = styled.div`
     border-radius: 10px;
     background-color: white;
   }
-  .rightbar {
+  .rightbarContainer {
     grid-column: 1 / 4;
-  }
-  .onlineUsers {
-    list-style-type: none;
-    margin: 10px 20px 20px 10px;
   }
   .main {
     grid-column: 4 / 13;
