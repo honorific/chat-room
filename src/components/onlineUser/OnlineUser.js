@@ -1,4 +1,4 @@
-import {Female, Male, PropaneSharp} from '@mui/icons-material'
+import {Female, Male} from '@mui/icons-material'
 import {StyledOnlineUser} from './OnlineUser.styles'
 
 const OnlineUser = ({gender, username, chatting}) => {
