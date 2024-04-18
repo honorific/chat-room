@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
-export const StyledOnlineUser = styled.li`
+export const StyledOnlineUser = styled.li.withConfig({
+  shouldForwardProp: (props) => props !== 'sty',
+})`
   margin-top: 5px;
   font-size: 18px;
   cursor: pointer;
@@ -12,7 +14,7 @@ export const StyledOnlineUser = styled.li`
   justify-content: ${(props) =>
     props.sty.chatting ? 'space-between' : 'flex-end'};
   align-items: center;
-  background-color: ${(props) => (props.sty.chatting ? 'aliceblue' : '')};
+  background-color: ${(props) => (props.sty.chatting ? 'aliceblue' : 'white')};
   &:hover {
     background-color: aliceblue;
   }
