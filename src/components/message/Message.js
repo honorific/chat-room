@@ -2,9 +2,9 @@ import {StyledMessage} from './Message.styles'
 
 const Message = ({own, message}) => {
   return (
-    <StyledMessage>
-      <span></span>
-      <div>{message}</div>
+    <StyledMessage sty={own}>
+      {own !== true ? <span>{message.username}:</span> : ''}
+      <p>{message.text}</p>
     </StyledMessage>
   )
 }
