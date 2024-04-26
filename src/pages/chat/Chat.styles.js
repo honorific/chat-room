@@ -21,5 +21,6 @@ export const StyledChat = styled.div`
   }
   .main {
     grid-column: 4 / 13;
+    direction: ltr;
   }
 `
