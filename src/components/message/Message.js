@@ -1,10 +1,13 @@
 import {StyledMessage} from './Message.styles'
 
-const Message = ({own, message}) => {
+const Message = ({own, message, last}) => {
   return (
     <StyledMessage sty={own}>
       {own !== true ? <span>{message.username}:</span> : ''}
-      <p>{message.text}</p>
+      <div className='timeContainer'>
+        <p>{message.text}</p>
+        {last === true && <time>{message.time}</time>}
+      </div>
     </StyledMessage>
   )
 }

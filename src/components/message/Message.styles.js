@@ -5,9 +5,9 @@ export const StyledMessage = styled.div.withConfig({
 })`
   display: flex;
   flex-direction: row;
+  justify-content: ${(props) => (props.sty ? 'flex-end' : 'flex-start')};
   align-items: center;
   margin: 10px;
-  justify-content: ${(props) => (props.sty ? 'flex-end' : 'flex-start')};
   & span {
     font-weight: bold;
   }
@@ -17,5 +17,18 @@ export const StyledMessage = styled.div.withConfig({
     color: ${(props) => (props.sty ? 'white' : 'black')};
     padding: 10px 15px;
     margin-left: 5px;
+    width: max-content;
+  }
+  & .timeContainer {
+    position: relative;
+  }
+  & time {
+    font-size: 14px;
+    color: #c9c9c9;
+    font-style: italic;
+    margin: ${(props) => (props.sty ? '0px 15px 0px 0px' : '0px 0px 0px 15px')};
+    position: absolute;
+    width: 100%;
+    bottom: -18px;
   }
 `

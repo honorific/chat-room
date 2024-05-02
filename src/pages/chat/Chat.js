@@ -9,9 +9,17 @@ const Chat = () => {
         <Rightbar />
       </div>
       <div className='main'>
-        <Message own={true} message={{username: 'ali', text: 'hello'}} />
-        <Message message={{username: 'reza', text: 'hello world'}} />
-        <Message message={{username: 'sara', text: 'hi'}} />
+        <Message
+          own={true}
+          message={{username: 'ali', text: 'hello', time: '1 min ago'}}
+        />
+        <Message
+          message={{username: 'reza', text: 'hello world', time: 'just now'}}
+        />
+        <Message
+          message={{username: 'sara', text: 'hi', time: 'just now'}}
+          last={true}
+        />
       </div>
     </StyledChat>
   )
