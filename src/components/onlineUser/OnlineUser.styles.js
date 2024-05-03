@@ -11,6 +11,7 @@ export const StyledOnlineUser = styled.li.withConfig({
   transition: 0.3s ease-out;
   display: flex;
   flex-direction: row;
+  position: relative;
   justify-content: ${(props) =>
     props.sty.chatting ? 'space-between' : 'flex-end'};
   align-items: center;
