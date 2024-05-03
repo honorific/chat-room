@@ -1,5 +1,6 @@
 import {Female, Male} from '@mui/icons-material'
 import {StyledOnlineUser} from './OnlineUser.styles'
+import OnlineUserOptions from '../onlineUserOptions/OnlineUserOptions'
 
 const OnlineUser = ({gender, username, chatting}) => {
   return (
@@ -13,6 +14,7 @@ const OnlineUser = ({gender, username, chatting}) => {
         {username}
       </div>
       {chatting && <span>{chatting.number ? chatting.number : ''}</span>}
+      <OnlineUserOptions show={true} />
     </StyledOnlineUser>
   )
 }
