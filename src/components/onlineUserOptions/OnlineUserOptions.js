@@ -1,7 +1,7 @@
 import {StyledOnlineUserOptions} from './OnlineUserOptions.styles'
-const OnlineUserOptions = () => {
+const OnlineUserOptions = ({show, coordinates}) => {
   return (
-    <StyledOnlineUserOptions>
+    <StyledOnlineUserOptions show={show} coordinates={coordinates}>
       <li>chat in private</li>
       <li>chat in new window</li>
     </StyledOnlineUserOptions>
