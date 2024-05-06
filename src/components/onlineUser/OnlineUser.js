@@ -1,4 +1,4 @@
-import {Female, Male} from '@mui/icons-material'
+import {CleaningServices, Female, Male} from '@mui/icons-material'
 import {StyledOnlineUser} from './OnlineUser.styles'
 import OnlineUserOptions from '../onlineUserOptions/OnlineUserOptions'
 import {useState} from 'react'
@@ -11,7 +11,9 @@ const OnlineUser = ({gender, username, chatting}) => {
       sty={{chatting}}
       onClick={(e) => {
         setShow(!show)
-        setCords([e.pageX, e.pageY])
+        const rect = e.target.getBoundingClientRect()
+        setCords([rect.left, rect.top])
+        console.log(e)
       }}
     >
       <div>

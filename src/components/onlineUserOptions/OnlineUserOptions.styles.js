@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const StyledOnlineUserOptions = styled.ul`
   position: absolute;
-  left: ${(props) => props.coordinates[0]};
+  left: calc(${(props) => props.coordinates[0]}px - 200px);
   top: ${(props) => props.coordinates[1]};
   background-color: aliceblue;
   list-style-type: none;
