@@ -6,7 +6,6 @@ export const StyledOnlineUserOptions = styled.ul`
   top: ${(props) => props.coordinates[1]};
   background-color: aliceblue;
   list-style-type: none;
-  z-index: 10;
   display: ${(props) => (props.show ? 'block' : 'none')};
   width: 200px;
 `
