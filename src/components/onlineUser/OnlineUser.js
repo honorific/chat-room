@@ -1,14 +1,17 @@
-import {CleaningServices, Female, Male} from '@mui/icons-material'
+import {Female, Male} from '@mui/icons-material'
 import {StyledOnlineUser} from './OnlineUser.styles'
 import OnlineUserOptions from '../onlineUserOptions/OnlineUserOptions'
+import {setChatMenuOpen} from '../../utils/slices/general'
+import {useSelector, useDispatch} from 'react-redux'
 import {useState} from 'react'
 
 const OnlineUser = ({gender, username, chatting}) => {
-  const [show, setShow] = useState(false)
   const [cords, setCords] = useState([0, 0])
+  const show = useSelector((state) => state.general.chatMenuOpen)
+  const dispatch = useDispatch()
 
   const clickHandler = (e) => {
-    setShow(!show)
+    dispatch(setChatMenuOpen())
     const rect = e.target.getBoundingClientRect()
     setCords([rect.left, rect.top])
     console.log(e)
