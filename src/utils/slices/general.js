@@ -8,12 +8,15 @@ export const generalSlice = createSlice({
   name: 'general',
   initialState,
   reducers: {
-    setChatMenuOpen: (state) => {
-      state.chatMenuOpen = !state.chatMenuOpen
+    openChatMenuOpen: (state) => {
+      state.chatMenuOpen = true
+    },
+    closeChatMenuOpen: (state) => {
+      state.chatMenuOpen = false
     },
   },
 })
 
-export const {setChatMenuOpen} = generalSlice.actions
+export const {openChatMenuOpen, closeChatMenuOpen} = generalSlice.actions
 
 export default generalSlice.reducer
