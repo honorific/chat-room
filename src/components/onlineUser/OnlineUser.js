@@ -1,7 +1,7 @@
 import {Female, Male} from '@mui/icons-material'
 import {StyledOnlineUser} from './OnlineUser.styles'
 import OnlineUserOptions from '../onlineUserOptions/OnlineUserOptions'
-import {closeChatMenuOpen} from '../../utils/slices/general'
+import {closeChatMenuOpen, openChatMenuOpen} from '../../utils/slices/general'
 import {useSelector, useDispatch} from 'react-redux'
 import {useState} from 'react'
 
@@ -12,8 +12,13 @@ const OnlineUser = ({gender, username, chatting}) => {
   const dispatch = useDispatch()
 
   const clickHandler = (e) => {
-    dispatch(closeChatMenuOpen())
-    setShow(!show)
+    if (show === true) {
+      dispatch(closeChatMenuOpen())
+      setShow(false)
+    } else {
+      dispatch(openChatMenuOpen())
+      setShow(true)
+    }
     const rect = e.target.getBoundingClientRect()
     setCords([rect.left, rect.top])
     console.log(e)
@@ -31,7 +36,7 @@ const OnlineUser = ({gender, username, chatting}) => {
         {username}
       </div>
       {chatting && <span>{chatting.number ? chatting.number : ''}</span>}
-      {<OnlineUserOptions show={!globalShow && show} coordinates={cords} />}
+      <OnlineUserOptions show={globalShow} coordinates={cords} />
     </StyledOnlineUser>
   )
 }
