@@ -1,22 +1,28 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
-  chatMenuOpen: false,
+  chatMenuOpen: [],
 }
 
 export const generalSlice = createSlice({
   name: 'general',
   initialState,
   reducers: {
-    openChatMenuOpen: (state) => {
-      state.chatMenuOpen = true
+    addChatopen: (state, action) => {
+      state.chatMenuOpen.push(action.payload)
     },
-    closeChatMenuOpen: (state) => {
-      state.chatMenuOpen = false
+    resetChatOpen: (state, action) => {
+      state.chatMenuOpen = [action.payload]
+    },
+    closeAllChatMenus: (state) => {
+      state.chatMenuOpen.map((ch) => {
+        ch.show = false
+      })
     },
   },
 })
 
-export const {openChatMenuOpen, closeChatMenuOpen} = generalSlice.actions
+export const {addChatopen, resetChatOpen, closeAllChatMenus} =
+  generalSlice.actions
 
 export default generalSlice.reducer
