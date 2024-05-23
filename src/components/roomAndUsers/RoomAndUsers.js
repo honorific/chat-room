@@ -10,7 +10,7 @@ const RoomAndUsers = ({otherRoom, roomTitle, users}) => {
       {otherRoom && <RoomTitle title={roomTitle} />}
       <ul className='onlineUsers'>
         {users.map((user) => {
-          return <OnlineUser {...user} key={uuidv4()} />
+          return <OnlineUser {...user} key={uuidv4()} selector={uuidv4()} />
         })}
       </ul>
     </StyledRoomAndUsers>

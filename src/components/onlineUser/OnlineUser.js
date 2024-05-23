@@ -1,28 +1,39 @@
 import {Female, Male} from '@mui/icons-material'
 import {StyledOnlineUser} from './OnlineUser.styles'
 import OnlineUserOptions from '../onlineUserOptions/OnlineUserOptions'
-import {closeChatMenuOpen, openChatMenuOpen} from '../../utils/slices/general'
+import {
+  addChatopen,
+  closeAllChatMenus,
+  closeChatMenuOpen,
+  openChatMenuOpen,
+  resetChatOpen,
+  setOpenner,
+} from '../../utils/slices/general'
 import {useSelector, useDispatch} from 'react-redux'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 
-const OnlineUser = ({gender, username, chatting}) => {
+const OnlineUser = ({gender, username, chatting, selector}) => {
   const [cords, setCords] = useState([0, 0])
-  const globalShow = useSelector((state) => state.general.chatMenuOpen)
   const [show, setShow] = useState(false)
+
   const dispatch = useDispatch()
+  let globalShow = useSelector((state) => state.general.chatMenuOpen)
+  let openner = useSelector((state) => state.general.openner)
 
   const clickHandler = (e) => {
-    if (show === true) {
-      dispatch(closeChatMenuOpen())
-      setShow(false)
-    } else {
-      dispatch(openChatMenuOpen())
-      setShow(true)
-    }
+    setShow(false)
+    let founder = false
+    dispatch(closeAllChatMenus())
+    dispatch(addChatopen({id: selector, show: true}))
+    globalShow.map((gs) => {
+      if (gs.id == selector) {
+        dispatch(resetChatOpen({id: selector, show: true}))
+      }
+    })
+
+    console.log(globalShow)
     const rect = e.target.getBoundingClientRect()
     setCords([rect.left, rect.top])
-    console.log(e)
-    console.log('show is: ', show)
   }
 
   return (
@@ -36,7 +47,13 @@ const OnlineUser = ({gender, username, chatting}) => {
         {username}
       </div>
       {chatting && <span>{chatting.number ? chatting.number : ''}</span>}
-      <OnlineUserOptions show={globalShow} coordinates={cords} />
+      <OnlineUserOptions
+        show={
+          globalShow[globalShow.length - 1]?.id === selector &&
+          globalShow[globalShow.length - 1]?.show === true
+        }
+        coordinates={cords}
+      />
     </StyledOnlineUser>
   )
 }
