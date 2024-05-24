@@ -19,7 +19,7 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
     dispatch(closeAllChatMenus())
     dispatch(addChatopen({id: selector, show: true}))
     globalShow.map((gs) => {
-      if (gs.id == selector) {
+      if (gs.id === selector) {
         dispatch(resetChatOpen({id: selector, show: true}))
       }
     })
