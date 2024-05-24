@@ -7,7 +7,7 @@ import {
   resetChatOpen,
 } from '../../utils/slices/general'
 import {useSelector, useDispatch} from 'react-redux'
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 
 const OnlineUser = ({gender, username, chatting, selector}) => {
   const [cords, setCords] = useState([0, 0])
@@ -19,7 +19,7 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
     dispatch(closeAllChatMenus())
     dispatch(addChatopen({id: selector, show: true}))
     globalShow.map((gs) => {
-      if (gs.id == selector) {
+      if (gs.id === selector) {
         dispatch(resetChatOpen({id: selector, show: true}))
       }
     })
@@ -38,13 +38,15 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
         {username}
       </div>
       {chatting && <span>{chatting.number ? chatting.number : ''}</span>}
-      <OnlineUserOptions
-        show={
-          globalShow[globalShow.length - 1]?.id === selector &&
-          globalShow[globalShow.length - 1]?.show === true
-        }
-        coordinates={cords}
-      />
+      {globalShow[globalShow.length - 1]?.show === true && (
+        <OnlineUserOptions
+          show={
+            globalShow[globalShow.length - 1]?.id === selector &&
+            globalShow[globalShow.length - 1]?.show === true
+          }
+          coordinates={cords}
+        />
+      )}
     </StyledOnlineUser>
   )
 }
