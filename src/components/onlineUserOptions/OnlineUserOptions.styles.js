@@ -6,6 +6,8 @@ export const StyledOnlineUserOptions = styled.ul`
   top: calc(${(props) => props.coordinates[1]}px - ${window.scrollY}px);
   background-color: aliceblue;
   list-style-type: none;
-  display: ${(props) => (props.show ? 'block' : 'none')};
+  visibility: ${(props) => (props.show ? 'visible' : 'hidden')};
+  transition: opacity 0.7s;
+  opacity: ${(props) => (props.show ? 1 : 0)};
   width: 200px;
 `
