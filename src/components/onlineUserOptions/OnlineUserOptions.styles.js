@@ -9,8 +9,18 @@ export const StyledOnlineUserOptions = styled.ul`
   list-style-type: none;
   visibility: ${(props) => (props.show ? 'visible' : 'hidden')};
   transition: opacity 0.7s;
-  opacity: ${(props) => (props.show ? 0.7 : 0)};
+  opacity: ${(props) => (props.show ? 0.8 : 0)};
   width: 200px;
   z-index: 99;
+  border-radius: 10px;
   padding: 10px;
+  & li {
+    border-radius: 4px;
+    padding: 5px;
+    transition: all 0.3s ease-out;
+  }
+  & li:hover {
+    background-color: aliceblue;
+    color: black;
+  }
 `
