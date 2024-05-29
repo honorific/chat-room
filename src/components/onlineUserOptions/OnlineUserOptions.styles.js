@@ -14,13 +14,18 @@ export const StyledOnlineUserOptions = styled.ul`
   z-index: 99;
   border-radius: 10px;
   padding: 10px;
+  cursor: auto;
   & li {
     border-radius: 4px;
     padding: 5px;
     transition: all 0.3s ease-out;
+    cursor: pointer;
   }
   & li:hover {
     background-color: aliceblue;
     color: black;
+  }
+  & svg {
+    cursor: pointer;
   }
 `
