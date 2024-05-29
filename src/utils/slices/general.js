@@ -12,7 +12,11 @@ export const generalSlice = createSlice({
       state.chatMenuOpen.push(action.payload)
     },
     resetChatOpen: (state, action) => {
-      state.chatMenuOpen = [action.payload]
+      if (action.payload !== undefined) {
+        state.chatMenuOpen = [action.payload]
+      } else {
+        state.chatMenuOpen = []
+      }
     },
     closeAllChatMenus: (state) => {
       state.chatMenuOpen.map((ch) => {
