@@ -26,7 +26,7 @@ const OnlineUserOptions = ({show, coordinates}) => {
       coordinates={coordinates}
       onClick={(e) => e.stopPropagation()}
     >
-      <Close onClick={closeMenuHandler} />
+      <Close onClick={closeMenuHandler} fontSize='lg' />
       <li onClick={newWindowHandler}>chat in private</li>
       <li onClick={newChatHandler}>chat in new window</li>
     </StyledOnlineUserOptions>

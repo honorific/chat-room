@@ -1,5 +1,7 @@
+import {useDispatch} from 'react-redux'
 import RoomAndUsers from '../roomAndUsers/RoomAndUsers'
 import {StyledRightbar} from './Rightbar.styles'
+import {resetChatOpen} from '../../utils/slices/general'
 
 const Rightbar = () => {
   const users = [
@@ -9,8 +11,13 @@ const Rightbar = () => {
     {gender: 'female', username: 'mohadese'},
     {gender: 'female', username: 'sara', chatting: {number: 3}},
   ]
+  const dispatch = useDispatch()
+  const scrollHandler = () => {
+    dispatch(resetChatOpen())
+  }
+
   return (
-    <StyledRightbar>
+    <StyledRightbar onScroll={scrollHandler}>
       <div className='content'>
         <RoomAndUsers users={users} />
         <RoomAndUsers
