@@ -8,7 +8,7 @@ export const StyledOnlineUserOptions = styled.ul`
   color: white;
   list-style-type: none;
   visibility: ${(props) => (props.show ? 'visible' : 'hidden')};
-  transition: opacity 0.7s;
+  transition: opacity 0.7s, visibility 0.7s;
   opacity: ${(props) => (props.show ? 0.8 : 0)};
   width: 200px;
   z-index: 99;
