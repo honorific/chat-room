@@ -3,7 +3,10 @@ import styled from 'styled-components'
 export const StyledOnlineUserOptions = styled.ul`
   position: absolute;
   left: calc(${(props) => props.coordinates[0]}px - 220px);
-  top: calc(${(props) => props.coordinates[1]}px - ${window.scrollY}px);
+  top: ${(props) =>
+    window.screen.height - 300 < props.coordinates[1]
+      ? `calc(${props.coordinates[1]}px - ${window.scrollY}px - 70px )`
+      : (props) => props.coordinates[1] - window.scrollY + 'px'};
   background-color: black;
   color: white;
   list-style-type: none;
