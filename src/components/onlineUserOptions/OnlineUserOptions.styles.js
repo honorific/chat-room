@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 
-export const StyledOnlineUserOptions = styled.ul`
+const passedProps = ['show', 'coordinates']
+
+export const StyledOnlineUserOptions = styled.ul.withConfig({
+  shouldForwardProp: (props) => !passedProps.includes(props),
+})`
   position: absolute;
   left: calc(${(props) => props.coordinates[0]}px - 220px);
   top: ${(props) =>
