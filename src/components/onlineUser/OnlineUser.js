@@ -45,6 +45,7 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
             globalShow[globalShow.length - 1]?.show === true
           }
           coordinates={cords}
+          username={username}
         />
       )}
     </StyledOnlineUser>
