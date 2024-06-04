@@ -28,7 +28,7 @@ const OnlineUserOptions = ({show, coordinates, username}) => {
     >
       <Close onClick={closeMenuHandler} fontSize='lg' />
       <li onClick={newWindowHandler}>
-        chat with <i style={{color: 'red'}}>{username}</i> in private
+        chat with <i>{username}</i> in private
       </li>
       <li onClick={newChatHandler}>chat in new window</li>
     </StyledOnlineUserOptions>

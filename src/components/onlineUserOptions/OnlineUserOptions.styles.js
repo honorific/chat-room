@@ -35,4 +35,7 @@ export const StyledOnlineUserOptions = styled.ul.withConfig({
   & svg {
     cursor: pointer;
   }
+  & i {
+    color: red;
+  }
 `
