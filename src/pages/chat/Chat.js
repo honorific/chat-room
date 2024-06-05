@@ -1,5 +1,6 @@
 import Message from '../../components/message/Message'
 import Rightbar from '../../components/rightbar/Rightbar'
+import SendMessage from '../../components/sendMessage/SendMessage'
 import {StyledChat} from './Chat.styles'
 
 const Chat = () => {
@@ -21,6 +22,7 @@ const Chat = () => {
           last={true}
         />
       </div>
+      <SendMessage />
     </StyledChat>
   )
 }
