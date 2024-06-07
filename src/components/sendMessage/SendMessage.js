@@ -1,11 +1,11 @@
-import {styledSendMessage} from './SendMessage.styles'
+import {StyledSendMessage} from './SendMessage.styles'
 
 const SendMessage = () => {
   return (
-    <styledSendMessage>
+    <StyledSendMessage>
       <input type='text' placeholder='Write your message...' />
       <button>Send</button>
-    </styledSendMessage>
+    </StyledSendMessage>
   )
 }
 

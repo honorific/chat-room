@@ -21,8 +21,8 @@ const Chat = () => {
           message={{username: 'sara', text: 'hi', time: 'just now'}}
           last={true}
         />
+        <SendMessage />
       </div>
-      <SendMessage />
     </StyledChat>
   )
 }
