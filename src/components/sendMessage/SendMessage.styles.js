@@ -11,7 +11,7 @@ export const StyledSendMessage = styled.form`
   border-radius: 10px;
   & input {
     width: 100%;
-    padding: 10px;
+    padding: 10px 15px;
     border-radius: 5px;
     border: none;
   }
