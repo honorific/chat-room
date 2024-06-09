@@ -2,6 +2,7 @@ import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
   chatMenuOpen: [],
+  chatBox: [],
 }
 
 export const generalSlice = createSlice({
@@ -22,6 +23,11 @@ export const generalSlice = createSlice({
       state.chatMenuOpen.map((ch) => {
         ch.show = false
       })
+    },
+    addChatBox: (state, action) => {
+      state.chatBox.push([
+        {username: action.payload.username, zIndex: action.payload.zIndex},
+      ])
     },
   },
 })
