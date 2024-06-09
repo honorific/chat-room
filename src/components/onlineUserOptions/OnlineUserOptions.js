@@ -1,9 +1,13 @@
 import {Close} from '@mui/icons-material'
 import {StyledOnlineUserOptions} from './OnlineUserOptions.styles'
-import {useDispatch} from 'react-redux'
-import {resetChatOpen} from '../../utils/slices/general'
+import {useDispatch, useSelector} from 'react-redux'
+import {resetChatOpen, addChatBox, addZindex} from '../../utils/slices/general'
+
 const OnlineUserOptions = ({show, coordinates, username}) => {
   const dispatch = useDispatch()
+  const globalShow = useSelector((state) => state.general.chatMenuOpen)
+  const zIndex = useSelector((state) => state.general.zIndex)
+  const chatBox = useSelector((state) => state.general.chatBox)
 
   const closeMenuHandler = (e) => {
     e.stopPropagation()
@@ -12,6 +16,15 @@ const OnlineUserOptions = ({show, coordinates, username}) => {
 
   const newWindowHandler = (e) => {
     e.stopPropagation()
+    dispatch(addZindex())
+    dispatch(
+      addChatBox({
+        username: globalShow[globalShow.length - 1].username,
+        zIndex,
+      }),
+    )
+    console.log('chatBox is: ', chatBox)
+    console.log('zIndex is :', zIndex)
     dispatch(resetChatOpen())
   }
 

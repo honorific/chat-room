@@ -17,10 +17,10 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
 
   const clickHandler = (e) => {
     dispatch(closeAllChatMenus())
-    dispatch(addChatopen({id: selector, show: true}))
+    dispatch(addChatopen({id: selector, show: true, username}))
     globalShow.map((gs) => {
       if (gs.id === selector) {
-        dispatch(resetChatOpen({id: selector, show: true}))
+        dispatch(resetChatOpen({id: selector, show: true, username}))
       }
     })
     const rect = e.target.getBoundingClientRect()

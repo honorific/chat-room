@@ -1,8 +1,10 @@
+import zIndex from '@mui/material/styles/zIndex'
 import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
   chatMenuOpen: [],
   chatBox: [],
+  zIndex: 100,
 }
 
 export const generalSlice = createSlice({
@@ -25,14 +27,23 @@ export const generalSlice = createSlice({
       })
     },
     addChatBox: (state, action) => {
-      state.chatBox.push([
-        {username: action.payload.username, zIndex: action.payload.zIndex},
-      ])
+      state.chatBox.push({
+        username: action.payload.username,
+        zIndex: action.payload.zIndex,
+      })
+    },
+    addZindex: (state) => {
+      state.zIndex++
     },
   },
 })
 
-export const {addChatopen, resetChatOpen, closeAllChatMenus} =
-  generalSlice.actions
+export const {
+  addChatopen,
+  resetChatOpen,
+  closeAllChatMenus,
+  addChatBox,
+  addZindex,
+} = generalSlice.actions
 
 export default generalSlice.reducer
