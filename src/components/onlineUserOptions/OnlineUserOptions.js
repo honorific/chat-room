@@ -7,7 +7,6 @@ const OnlineUserOptions = ({show, coordinates, username}) => {
   const dispatch = useDispatch()
   const globalShow = useSelector((state) => state.general.chatMenuOpen)
   const zIndex = useSelector((state) => state.general.zIndex)
-  const chatBox = useSelector((state) => state.general.chatBox)
 
   const closeMenuHandler = (e) => {
     e.stopPropagation()
@@ -23,8 +22,6 @@ const OnlineUserOptions = ({show, coordinates, username}) => {
         zIndex,
       }),
     )
-    console.log('chatBox is: ', chatBox)
-    console.log('zIndex is :', zIndex)
     dispatch(resetChatOpen())
   }
 

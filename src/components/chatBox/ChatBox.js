@@ -1,0 +1,15 @@
+import React from 'react'
+import {StyledChatBox} from './ChatBox.styles'
+import {Close, Fullscreen, Minimize} from '@mui/icons-material'
+
+const ChatBox = () => {
+  return (
+    <StyledChatBox>
+      <Close />
+      <Fullscreen />
+      <Minimize />
+    </StyledChatBox>
+  )
+}
+
+export default ChatBox
