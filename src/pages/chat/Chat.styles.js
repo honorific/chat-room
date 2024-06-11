@@ -7,7 +7,7 @@ export const StyledChat = styled.div`
   height: calc(100vh - 80px);
   gap: 15px;
   padding: 40px;
-  background-color: gainsboro;
+  background-color: ${({theme}) => theme.secondary};
 
   & > div {
     -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.05);

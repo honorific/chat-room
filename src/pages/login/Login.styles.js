@@ -5,7 +5,7 @@ export const StyledLogin = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: gainsboro;
+  background-color: ${({theme}) => theme.secondary};
 
   & form {
     display: flex;
