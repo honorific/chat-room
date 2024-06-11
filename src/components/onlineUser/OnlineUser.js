@@ -13,7 +13,9 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
   const [cords, setCords] = useState([0, 0])
 
   const dispatch = useDispatch()
-  let globalShow = useSelector((state) => state.general.chatMenuOpen)
+  let globalShow = useSelector(
+    (state) => state.rootReducer.general.chatMenuOpen,
+  )
 
   const clickHandler = (e) => {
     dispatch(closeAllChatMenus())
