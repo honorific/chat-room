@@ -8,6 +8,10 @@ import {
 import Login from './pages/login/Login'
 import './app.css'
 import Chat from './pages/chat/Chat'
+import {ThemeProvider} from 'styled-components'
+import {GlobalStyles} from './utils/globalStyles'
+import {lightTheme, darkTheme} from './utils/theme'
+import {useSelector} from 'react-redux'
 
 const App = () => {
   const router = createBrowserRouter(
@@ -17,7 +21,15 @@ const App = () => {
       <Route path='/chat' element={<Chat />} />,
     ]),
   )
-  return <RouterProvider router={router} />
+  const theme = useSelector((state) => state.rootReducer.theme.theme)
+  return (
+    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+      <>
+        <GlobalStyles />
+        <RouterProvider router={router} />
+      </>
+    </ThemeProvider>
+  )
 }
 
 export default App

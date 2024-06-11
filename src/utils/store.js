@@ -1,9 +1,9 @@
 import {configureStore} from '@reduxjs/toolkit'
-import generalReducer from './slices/general'
+import reducers from './reducers'
 
 export const store = configureStore({
   reducer: {
-    general: generalReducer,
+    rootReducer: reducers,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
   devTools: process.env.NODE_ENV !== 'production',

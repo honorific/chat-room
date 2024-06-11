@@ -5,8 +5,10 @@ import {resetChatOpen, addChatBox, addZindex} from '../../utils/slices/general'
 
 const OnlineUserOptions = ({show, coordinates, username}) => {
   const dispatch = useDispatch()
-  const globalShow = useSelector((state) => state.general.chatMenuOpen)
-  const zIndex = useSelector((state) => state.general.zIndex)
+  const globalShow = useSelector(
+    (state) => state.rootReducer.general.chatMenuOpen,
+  )
+  const zIndex = useSelector((state) => state.rootReducer.general.zIndex)
 
   const closeMenuHandler = (e) => {
     e.stopPropagation()

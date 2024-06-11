@@ -3,9 +3,16 @@ import Message from '../../components/message/Message'
 import Rightbar from '../../components/rightbar/Rightbar'
 import SendMessage from '../../components/sendMessage/SendMessage'
 import {StyledChat} from './Chat.styles'
+import {useDispatch} from 'react-redux'
+import {toggleTheme} from '../../utils/slices/theme.js'
 const ChatBox = lazy(() => import('../../components/chatBox/ChatBox.js'))
 
 const Chat = () => {
+  const dispatch = useDispatch()
+  const themeChanger = () => {
+    dispatch(toggleTheme())
+  }
+
   return (
     <StyledChat>
       <div className='rightbarContainer'>
@@ -25,6 +32,7 @@ const Chat = () => {
         />
         <SendMessage />
         <ChatBox />
+        <button onClick={themeChanger}>toggle</button>
       </div>
     </StyledChat>
   )
