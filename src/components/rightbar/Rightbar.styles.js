@@ -6,7 +6,7 @@ export const StyledRightbar = styled.div`
   overflow-y: scroll;
   direction: ltr;
   transition: 0.3s ease-out;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: ${({theme}) => theme.text};
   background-clip: text;
   margin: 0;
   padding: 0;
@@ -25,7 +25,7 @@ export const StyledRightbar = styled.div`
   }
   .content {
     direction: rtl;
-    background-color: white;
+    background-color: ${({theme}) => theme.body};
     border-radius: 10px;
     margin: 10px;
   }

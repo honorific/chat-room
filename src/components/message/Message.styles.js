@@ -10,6 +10,7 @@ export const StyledMessage = styled.div.withConfig({
   margin: 10px;
   & span {
     font-weight: bold;
+    color: ${({theme}) => theme.text};
   }
   & p {
     background-color: ${(props) => (props.sty ? 'blue' : '#dfdfdf')};

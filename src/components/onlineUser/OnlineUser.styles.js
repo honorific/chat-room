@@ -14,9 +14,11 @@ export const StyledOnlineUser = styled.li.withConfig({
   justify-content: ${(props) =>
     props.sty.chatting ? 'space-between' : 'flex-end'};
   align-items: center;
-  background-color: ${(props) => (props.sty.chatting ? 'aliceblue' : 'white')};
+  background-color: ${(props) =>
+    props.sty.chatting ? props.theme.accent : props.theme.body};
+  color: ${({theme}) => theme.text};
   &:hover {
-    background-color: aliceblue;
+    background-color: ${({theme}) => theme.accent};
   }
   & > div {
     display: flex;

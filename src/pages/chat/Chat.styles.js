@@ -14,7 +14,7 @@ export const StyledChat = styled.div`
     -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.05);
     box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.05);
     border-radius: 10px;
-    background-color: white;
+    background-color: ${({theme}) => theme.body};
   }
   .rightbarContainer {
     grid-column: 1 / 4;
