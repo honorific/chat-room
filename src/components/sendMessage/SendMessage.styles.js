@@ -4,7 +4,7 @@ export const StyledSendMessage = styled.form`
   position: absolute;
   bottom: 0;
   direction: rtl;
-  background-color: aliceblue;
+  background-color: ${({theme}) => theme.accent};
   display: flex;
   width: calc(100% - 40px);
   padding: 20px;
