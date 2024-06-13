@@ -29,8 +29,22 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
     setCords([rect.left, rect.top])
   }
 
+  const dragHandler = (e) => {
+    e.stopPropagation()
+    console.log(e)
+    // e.target.style.position = 'absolute'
+    e.target.style.width = '100%'
+    // e.target.style.left = `${e.clientX}px`
+    // e.target.style.top = `${e.clientY}px`
+    console.log(e.clientX)
+  }
+
   return (
-    <StyledOnlineUser sty={{chatting}} onClick={clickHandler}>
+    <StyledOnlineUser
+      sty={{chatting}}
+      onClick={clickHandler}
+      onMouseDown={dragHandler}
+    >
       <div>
         {gender === 'male' ? (
           <Male sx={{color: 'blueviolet'}} />
