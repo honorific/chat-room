@@ -7,12 +7,11 @@ import {
   resetChatOpen,
 } from '../../utils/slices/general'
 import {useSelector, useDispatch} from 'react-redux'
-import {useState, useRef, useEffect, useCallback} from 'react'
+import {useState, useRef} from 'react'
 
 const OnlineUser = ({gender, username, chatting, selector}) => {
   const [cords, setCords] = useState([0, 0])
-  const elem = useRef('')
-  const [mouseIsDown, setMouseIsDown] = useState('false')
+  const elemRef = useRef('')
   const dispatch = useDispatch()
   let globalShow = useSelector(
     (state) => state.rootReducer.general.chatMenuOpen,
@@ -31,27 +30,31 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
   }
 
   const dragHandler = (e) => {
+    e.stopPropagation()
+    elemRef.current = e.target.dataset.id
+    console.log(e.target)
     dispatch(closeAllChatMenus())
-    setMouseIsDown(true)
+
     document.addEventListener('mousemove', function (el) {
-      if (el.buttons === 1) {
-        elem.current.style.position = 'absolute'
-        elem.current.style.zIndex = '1000'
-        elem.current.style.top = `${el.clientY}px`
-        elem.current.style.left = `${el.clientX}px`
+      if (el.target.dataset.id === elemRef.current || elemRef.current === '') {
+        if (el.buttons === 1) {
+          e.target.style.position = 'absolute'
+          e.target.style.zIndex = '1000'
+          e.target.style.top = `${el.clientY}px`
+          e.target.style.left = `${el.clientX}px`
+        }
       }
     })
-    if (e.buttons === 1) {
-      document.addEventListener('mouseup', function (elm) {
-        dispatch(closeAllChatMenus())
-        elem.current.style.top = `${cords[0]}px`
-        elem.current.style.left = `${cords[1]}px`
-        console.log('mouse up')
-        setMouseIsDown(false)
-      })
-    }
-    console.log('e is:', e)
-    console.log(e.clientX)
+
+    document.addEventListener('mouseup', function (elm) {
+      dispatch(closeAllChatMenus())
+      e.target.style.top = `${cords[0]}px`
+      e.target.style.left = `${cords[1]}px`
+      // elemRef.current.style.position = 'static'
+      console.log('mouse up')
+      console.log('elemRef', elemRef)
+      e.preventDefault()
+    })
   }
 
   return (
@@ -59,7 +62,7 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
       sty={{chatting}}
       onClick={clickHandler}
       onMouseDown={dragHandler}
-      ref={elem}
+      data-id={selector}
     >
       <div>
         {gender === 'male' ? (
