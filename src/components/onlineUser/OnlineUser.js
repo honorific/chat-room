@@ -7,11 +7,12 @@ import {
   resetChatOpen,
 } from '../../utils/slices/general'
 import {useSelector, useDispatch} from 'react-redux'
-import {useState} from 'react'
+import {useState, useRef, useEffect, useCallback} from 'react'
 
 const OnlineUser = ({gender, username, chatting, selector}) => {
   const [cords, setCords] = useState([0, 0])
-
+  const elem = useRef('')
+  const [mouseIsDown, setMouseIsDown] = useState('false')
   const dispatch = useDispatch()
   let globalShow = useSelector(
     (state) => state.rootReducer.general.chatMenuOpen,
@@ -30,12 +31,26 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
   }
 
   const dragHandler = (e) => {
-    e.stopPropagation()
-    console.log(e)
-    // e.target.style.position = 'absolute'
-    e.target.style.width = '100%'
-    // e.target.style.left = `${e.clientX}px`
-    // e.target.style.top = `${e.clientY}px`
+    dispatch(closeAllChatMenus())
+    setMouseIsDown(true)
+    document.addEventListener('mousemove', function (el) {
+      if (el.buttons === 1) {
+        elem.current.style.position = 'absolute'
+        elem.current.style.zIndex = '1000'
+        elem.current.style.top = `${el.clientY}px`
+        elem.current.style.left = `${el.clientX}px`
+      }
+    })
+    if (e.buttons === 1) {
+      document.addEventListener('mouseup', function (elm) {
+        dispatch(closeAllChatMenus())
+        elem.current.style.top = `${cords[0]}px`
+        elem.current.style.left = `${cords[1]}px`
+        console.log('mouse up')
+        setMouseIsDown(false)
+      })
+    }
+    console.log('e is:', e)
     console.log(e.clientX)
   }
 
@@ -44,6 +59,7 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
       sty={{chatting}}
       onClick={clickHandler}
       onMouseDown={dragHandler}
+      ref={elem}
     >
       <div>
         {gender === 'male' ? (
