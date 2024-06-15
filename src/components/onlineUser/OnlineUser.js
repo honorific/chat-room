@@ -7,13 +7,12 @@ import {
   resetChatOpen,
 } from '../../utils/slices/general'
 import {useSelector, useDispatch} from 'react-redux'
-import {useState, useRef} from 'react'
+import {useState} from 'react'
 
 const OnlineUser = ({gender, username, chatting, selector}) => {
   const [cords, setCords] = useState([0, 0])
-  const elemRef = useRef('')
   const dispatch = useDispatch()
-  let globalShow = useSelector(
+  const globalShow = useSelector(
     (state) => state.rootReducer.general.chatMenuOpen,
   )
 
@@ -30,31 +29,24 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
   }
 
   const dragHandler = (e) => {
-    e.stopPropagation()
-    elemRef.current = e.target.dataset.id
-    console.log(e.target)
-    dispatch(closeAllChatMenus())
-
-    document.addEventListener('mousemove', function (el) {
-      if (el.target.dataset.id === elemRef.current || elemRef.current === '') {
-        if (el.buttons === 1) {
-          e.target.style.position = 'absolute'
-          e.target.style.zIndex = '1000'
-          e.target.style.top = `${el.clientY}px`
-          e.target.style.left = `${el.clientX}px`
-        }
+    const mouseMoveHandler = (el) => {
+      if (el.buttons === 1) {
+        e.target.style.position = 'absolute'
+        e.target.style.zIndex = '1000'
+        e.target.style.top = `${el.clientY}px`
+        e.target.style.left = `${el.clientX}px`
       }
-    })
-
-    document.addEventListener('mouseup', function (elm) {
+    }
+    const mouseUpHandler = (elm) => {
       dispatch(closeAllChatMenus())
       e.target.style.top = `${cords[0]}px`
       e.target.style.left = `${cords[1]}px`
-      // elemRef.current.style.position = 'static'
-      console.log('mouse up')
-      console.log('elemRef', elemRef)
-      e.preventDefault()
-    })
+      document.removeEventListener('mousedown', dragHandler)
+      document.removeEventListener('mousemove', mouseMoveHandler)
+      document.removeEventListener('mouseup', mouseUpHandler)
+    }
+    document.addEventListener('mousemove', mouseMoveHandler)
+    document.addEventListener('mouseup', mouseUpHandler)
   }
 
   return (
