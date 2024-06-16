@@ -7,15 +7,23 @@ import {
   resetChatOpen,
 } from '../../utils/slices/general'
 import {useSelector, useDispatch} from 'react-redux'
-import {useState, useRef} from 'react'
+import {useState, useRef, useEffect} from 'react'
 
 const OnlineUser = ({gender, username, chatting, selector}) => {
   const [cords, setCords] = useState([0, 0])
+  const [elemWidth, setElemWidth] = useState(0)
   const elemref = useRef('')
   const dispatch = useDispatch()
   const globalShow = useSelector(
     (state) => state.rootReducer.general.chatMenuOpen,
   )
+
+  useEffect(() => {
+    if (elemref.current !== '') {
+      setElemWidth(elemref.current.offsetWidth)
+      console.log('elemWidth is: ', elemWidth)
+    }
+  }, [elemref])
 
   const clickHandler = (e) => {
     dispatch(closeAllChatMenus())
@@ -37,6 +45,7 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
         elemref.current.style.zIndex = '1000'
         elemref.current.style.top = `${el.clientY}px`
         elemref.current.style.left = `${el.clientX}px`
+        elemref.current.style.width = `${elemWidth}px`
       }
     }
     const mouseUpHandler = (elm) => {
