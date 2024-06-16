@@ -7,14 +7,23 @@ import {
   resetChatOpen,
 } from '../../utils/slices/general'
 import {useSelector, useDispatch} from 'react-redux'
-import {useState} from 'react'
+import {useState, useRef, useEffect} from 'react'
 
 const OnlineUser = ({gender, username, chatting, selector}) => {
   const [cords, setCords] = useState([0, 0])
+  const [elemWidth, setElemWidth] = useState(0)
+  const elemref = useRef('')
   const dispatch = useDispatch()
   const globalShow = useSelector(
     (state) => state.rootReducer.general.chatMenuOpen,
   )
+
+  useEffect(() => {
+    if (elemref.current !== '') {
+      setElemWidth(elemref.current.offsetWidth)
+      console.log('elemWidth is: ', elemWidth)
+    }
+  }, [elemref])
 
   const clickHandler = (e) => {
     dispatch(closeAllChatMenus())
@@ -29,18 +38,20 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
   }
 
   const dragHandler = (e) => {
+    elemref.current.removeEventListener('click', clickHandler)
     const mouseMoveHandler = (el) => {
       if (el.buttons === 1) {
-        e.target.style.position = 'absolute'
-        e.target.style.zIndex = '1000'
-        e.target.style.top = `${el.clientY}px`
-        e.target.style.left = `${el.clientX}px`
+        elemref.current.style.position = 'absolute'
+        elemref.current.style.zIndex = '1000'
+        elemref.current.style.top = `${el.clientY}px`
+        elemref.current.style.left = `${el.clientX}px`
+        elemref.current.style.width = `${elemWidth}px`
       }
     }
     const mouseUpHandler = (elm) => {
       dispatch(closeAllChatMenus())
-      e.target.style.top = `${cords[0]}px`
-      e.target.style.left = `${cords[1]}px`
+      elemref.current.style.top = `${cords[0]}px`
+      elemref.current.style.left = `${cords[1]}px`
       document.removeEventListener('mousedown', dragHandler)
       document.removeEventListener('mousemove', mouseMoveHandler)
       document.removeEventListener('mouseup', mouseUpHandler)
@@ -55,6 +66,7 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
       onClick={clickHandler}
       onMouseDown={dragHandler}
       data-id={selector}
+      ref={elemref}
     >
       <div>
         {gender === 'male' ? (
