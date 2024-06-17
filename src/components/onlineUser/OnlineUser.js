@@ -38,7 +38,7 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
   }
 
   const dragHandler = (e) => {
-    elemref.current.removeEventListener('click', clickHandler)
+    document.removeEventListener('click', clickHandler)
     const mouseMoveHandler = (el) => {
       if (el.buttons === 1) {
         elemref.current.style.position = 'absolute'
@@ -46,12 +46,14 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
         elemref.current.style.top = `${el.clientY}px`
         elemref.current.style.left = `${el.clientX}px`
         elemref.current.style.width = `${elemWidth}px`
+        elemref.current.style.boxShadow = '-9px 4px 20px 3px rgba(0, 0, 0, 0.1)'
       }
     }
     const mouseUpHandler = (elm) => {
       dispatch(closeAllChatMenus())
       elemref.current.style.top = `${cords[0]}px`
       elemref.current.style.left = `${cords[1]}px`
+      elemref.current.style.boxShadow = 'none'
       document.removeEventListener('mousedown', dragHandler)
       document.removeEventListener('mousemove', mouseMoveHandler)
       document.removeEventListener('mouseup', mouseUpHandler)
