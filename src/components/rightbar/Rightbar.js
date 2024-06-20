@@ -2,6 +2,8 @@ import {useDispatch} from 'react-redux'
 import RoomAndUsers from '../roomAndUsers/RoomAndUsers'
 import {StyledRightbar} from './Rightbar.styles'
 import {resetChatOpen} from '../../utils/slices/general'
+import {setUsers} from '../../utils/slices/users'
+import {useEffect} from 'react'
 
 const Rightbar = () => {
   const users = [
@@ -15,6 +17,10 @@ const Rightbar = () => {
   const scrollHandler = () => {
     dispatch(resetChatOpen())
   }
+
+  useEffect(() => {
+    dispatch(setUsers(users))
+  }, [])
 
   return (
     <StyledRightbar onScroll={scrollHandler}>
