@@ -8,6 +8,7 @@ import {
 } from '../../utils/slices/general'
 import {useSelector, useDispatch} from 'react-redux'
 import {useState, useRef, useEffect} from 'react'
+import {addUserWithCords, resetUsersAndCords} from '../../utils/slices/users'
 
 const OnlineUser = ({gender, username, chatting, selector}) => {
   const [cords, setCords] = useState([0, 0])
@@ -16,6 +17,10 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
   const dispatch = useDispatch()
   const globalShow = useSelector(
     (state) => state.rootReducer.general.chatMenuOpen,
+  )
+  const users = useSelector((state) => state.rootReducer.users.users)
+  const usersAndCords = useSelector(
+    (state) => state.rootReducer.users.usersAndCords,
   )
 
   useEffect(() => {
@@ -39,6 +44,20 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
 
   const dragHandler = (e) => {
     document.removeEventListener('click', clickHandler)
+    dispatch(resetUsersAndCords())
+    users.forEach((user, i) => {
+      console.log('i is: ', i)
+      dispatch(
+        addUserWithCords({
+          gender: user.gender,
+          username: user.username,
+          ...(user.chatting && {chatting: user.chatting}),
+          cordY: document
+            .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
+            .getBoundingClientRect().top,
+        }),
+      )
+    })
     const mouseMoveHandler = (el) => {
       if (el.buttons === 1) {
         elemref.current.style.position = 'absolute'
