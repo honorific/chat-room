@@ -8,7 +8,11 @@ import {
 } from '../../utils/slices/general'
 import {useSelector, useDispatch} from 'react-redux'
 import {useState, useRef, useEffect} from 'react'
-import {addUserWithCords, resetUsersAndCords} from '../../utils/slices/users'
+import {
+  addUserWithCords,
+  changeCordY,
+  resetUsersAndCords,
+} from '../../utils/slices/users'
 
 const OnlineUser = ({gender, username, chatting, selector}) => {
   const [cords, setCords] = useState([0, 0])
@@ -66,12 +70,32 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
         elemref.current.style.left = `${el.clientX}px`
         elemref.current.style.width = `${elemWidth}px`
         elemref.current.style.boxShadow = '-9px 4px 20px 3px rgba(0, 0, 0, 0.1)'
+        console.log('top is:', elemref.current.getBoundingClientRect().top)
+        usersAndCords.forEach((u, i) => {
+          if (elemref.current.getBoundingClientRect().top > u.cordY) {
+            document.querySelector(
+              `.onlineUsers li:nth-child(${i + 1})`,
+            ).style.transform = `translateY(-${i * 34}px)`
+            dispatch(
+              changeCordY({index: i, value: usersAndCords[i].cordY - 34}),
+            )
+          }
+          if (elemref.current.getBoundingClientRect().top < u.cordY) {
+            document.querySelector(
+              `.onlineUsers li:nth-child(${i + 1})`,
+            ).style.transform = `translateY(${i * 34}px)`
+            dispatch(
+              changeCordY({index: i, value: usersAndCords[i].cordY + 34}),
+            )
+          }
+        })
       }
     }
     const mouseUpHandler = (elm) => {
       dispatch(closeAllChatMenus())
-      elemref.current.style.top = `${cords[0]}px`
-      elemref.current.style.left = `${cords[1]}px`
+      // elemref.current.style.top = `${cords[0]}px`
+      // elemref.current.style.left = `${cords[1]}px`
+      elemref.current.style.position = 'static'
       elemref.current.style.boxShadow = 'none'
       document.removeEventListener('mousedown', dragHandler)
       document.removeEventListener('mousemove', mouseMoveHandler)
