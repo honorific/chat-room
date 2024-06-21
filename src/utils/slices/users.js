@@ -18,10 +18,13 @@ export const usersSlice = createSlice({
     resetUsersAndCords: (state) => {
       state.usersAndCords = []
     },
+    changeCordY: (state, action) => {
+      state.usersAndCords[action.payload.index] = action.payload.value
+    },
   },
 })
 
-export const {setUsers, addUserWithCords, resetUsersAndCords} =
+export const {setUsers, addUserWithCords, resetUsersAndCords, changeCordY} =
   usersSlice.actions
 
 export default usersSlice.reducer
