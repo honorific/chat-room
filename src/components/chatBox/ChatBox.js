@@ -8,6 +8,7 @@ const ChatBox = () => {
       <Close />
       <Fullscreen />
       <Minimize />
+      <div></div>
     </StyledChatBox>
   )
 }
