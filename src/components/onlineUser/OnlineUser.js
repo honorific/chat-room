@@ -72,18 +72,31 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
         elemref.current.style.boxShadow = '-9px 4px 20px 3px rgba(0, 0, 0, 0.1)'
         console.log('top is:', elemref.current.getBoundingClientRect().top)
         usersAndCords.forEach((u, i) => {
-          if (elemref.current.getBoundingClientRect().top > u.cordY) {
-            document.querySelector(
-              `.onlineUsers li:nth-child(${i + 1})`,
-            ).style.transform = `translateY(-${i * 34}px)`
-            dispatch(
-              changeCordY({index: i, value: usersAndCords[i].cordY - 34}),
-            )
+          if (el.clientY >= u.cordY) {
+            if (
+              document
+                .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
+                .getBoundingClientRect().top > 55
+            ) {
+              document.querySelector(
+                `.onlineUsers li:nth-child(${i + 1})`,
+              ).style.transform = `translateY(-${34}px)`
+              dispatch(
+                changeCordY({index: i, value: usersAndCords[i].cordY - 34}),
+              )
+            } else {
+              document.querySelector(
+                `.onlineUsers li:nth-child(${i + 1})`,
+              ).style.transform = `translateY(${0}px)`
+              dispatch(
+                changeCordY({index: i, value: usersAndCords[i].cordY - 34}),
+              )
+            }
           }
-          if (elemref.current.getBoundingClientRect().top < u.cordY) {
+          if (el.clientY < u.cordY) {
             document.querySelector(
               `.onlineUsers li:nth-child(${i + 1})`,
-            ).style.transform = `translateY(${i * 34}px)`
+            ).style.transform = `translateY(${34}px)`
             dispatch(
               changeCordY({index: i, value: usersAndCords[i].cordY + 34}),
             )
