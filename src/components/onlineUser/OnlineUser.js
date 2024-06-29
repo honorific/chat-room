@@ -73,12 +73,25 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
         console.log('top is:', elemref.current.getBoundingClientRect().top)
         usersAndCords.forEach((u, i) => {
           if (el.clientY >= u.cordY) {
-            document.querySelector(
-              `.onlineUsers li:nth-child(${i + 1})`,
-            ).style.transform = `translateY(-${34}px)`
-            dispatch(
-              changeCordY({index: i, value: usersAndCords[i].cordY - 34}),
-            )
+            if (
+              document
+                .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
+                .getBoundingClientRect().top > 55
+            ) {
+              document.querySelector(
+                `.onlineUsers li:nth-child(${i + 1})`,
+              ).style.transform = `translateY(-${34}px)`
+              dispatch(
+                changeCordY({index: i, value: usersAndCords[i].cordY - 34}),
+              )
+            } else {
+              document.querySelector(
+                `.onlineUsers li:nth-child(${i + 1})`,
+              ).style.transform = `translateY(${0}px)`
+              dispatch(
+                changeCordY({index: i, value: usersAndCords[i].cordY - 34}),
+              )
+            }
           }
           if (el.clientY < u.cordY) {
             document.querySelector(
