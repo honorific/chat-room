@@ -68,7 +68,7 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
         elemref.current.style.zIndex = '1000'
         elemref.current.style.top = `${el.clientY}px`
         elemref.current.style.left = `${el.clientX}px`
-        elemref.current.style.width = `${elemWidth}px`
+        elemref.current.style.width = `${elemWidth - 10}px`
         elemref.current.style.boxShadow = '-9px 4px 20px 3px rgba(0, 0, 0, 0.1)'
         console.log('top is:', elemref.current.getBoundingClientRect().top)
         usersAndCords.forEach((u, i) => {
@@ -88,9 +88,6 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
               document.querySelector(
                 `.onlineUsers li:nth-child(${i + 1})`,
               ).style.transform = `translateY(${0}px)`
-              dispatch(
-                changeCordY({index: i, value: usersAndCords[i].cordY - 34}),
-              )
             }
           }
           if (el.clientY < u.cordY) {
@@ -106,10 +103,10 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
     }
     const mouseUpHandler = (elm) => {
       dispatch(closeAllChatMenus())
-      // elemref.current.style.top = `${cords[0]}px`
-      // elemref.current.style.left = `${cords[1]}px`
-      elemref.current.style.position = 'static'
+      //elemref.current.style.position = 'static'
       elemref.current.style.boxShadow = 'none'
+      elemref.current.style.top = elm.clientY
+      elemref.current.style.left = '960.5px'
       document.removeEventListener('mousedown', dragHandler)
       document.removeEventListener('mousemove', mouseMoveHandler)
       document.removeEventListener('mouseup', mouseUpHandler)
