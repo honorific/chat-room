@@ -17,6 +17,7 @@ import {
 const OnlineUser = ({gender, username, chatting, selector}) => {
   const [cords, setCords] = useState([0, 0])
   const [elemWidth, setElemWidth] = useState(0)
+  const [listHeight, setListHeight] = useState(0)
   const elemref = useRef('')
   const dispatch = useDispatch()
   const globalShow = useSelector(
@@ -31,6 +32,9 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
     if (elemref.current !== '') {
       setElemWidth(elemref.current.offsetWidth)
       console.log('elemWidth is: ', elemWidth)
+      setListHeight(
+        document.querySelector('.onlineUsers').getBoundingClientRect().height,
+      )
     }
   }, [elemref])
 
@@ -63,6 +67,9 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
       )
     })
     const mouseMoveHandler = (el) => {
+      document
+        .querySelector('.onlineUsers')
+        .getBoundingClientRect().height = `${listHeight}px`
       if (el.buttons === 1) {
         elemref.current.style.position = 'absolute'
         elemref.current.style.zIndex = '1000'
@@ -70,7 +77,6 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
         elemref.current.style.left = `${el.clientX}px`
         elemref.current.style.width = `${elemWidth - 10}px`
         elemref.current.style.boxShadow = '-9px 4px 20px 3px rgba(0, 0, 0, 0.1)'
-        console.log('top is:', elemref.current.getBoundingClientRect().top)
         usersAndCords.forEach((u, i) => {
           if (el.clientY >= u.cordY) {
             if (
@@ -107,6 +113,10 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
       elemref.current.style.boxShadow = 'none'
       elemref.current.style.top = elm.clientY
       elemref.current.style.left = '960.5px'
+      console.log(
+        'ul height is: ',
+        document.querySelector('.onlineUsers').getBoundingClientRect().height,
+      )
       document.removeEventListener('mousedown', dragHandler)
       document.removeEventListener('mousemove', mouseMoveHandler)
       document.removeEventListener('mouseup', mouseUpHandler)
