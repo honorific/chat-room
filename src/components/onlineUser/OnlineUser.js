@@ -17,7 +17,7 @@ import {
 const OnlineUser = ({gender, username, chatting, selector}) => {
   const [cords, setCords] = useState([0, 0])
   const [elemWidth, setElemWidth] = useState(0)
-  const [listHeight, setListHeight] = useState(0)
+  const listHeightRef = useRef(0)
   const elemref = useRef('')
   const dispatch = useDispatch()
   const globalShow = useSelector(
@@ -32,11 +32,13 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
     if (elemref.current !== '') {
       setElemWidth(elemref.current.offsetWidth)
       console.log('elemWidth is: ', elemWidth)
-      setListHeight(
-        document.querySelector('.onlineUsers').getBoundingClientRect().height,
-      )
+      listHeightRef.current = document
+        .querySelector('.onlineUsers')
+        .getBoundingClientRect().height
+
+      console.log('listheightRef: ', listHeightRef.current)
     }
-  }, [elemref])
+  }, [elemref.current, listHeightRef.current])
 
   const clickHandler = (e) => {
     dispatch(closeAllChatMenus())
@@ -52,6 +54,9 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
 
   const dragHandler = (e) => {
     document.removeEventListener('click', clickHandler)
+    document.querySelector(
+      '.onlineUsers',
+    ).style.height = `${listHeightRef.current}px`
     dispatch(resetUsersAndCords())
     users.forEach((user, i) => {
       console.log('i is: ', i)
@@ -67,9 +72,6 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
       )
     })
     const mouseMoveHandler = (el) => {
-      document
-        .querySelector('.onlineUsers')
-        .getBoundingClientRect().height = `${listHeight}px`
       if (el.buttons === 1) {
         elemref.current.style.position = 'absolute'
         elemref.current.style.zIndex = '1000'
