@@ -88,20 +88,28 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
             ) {
               document.querySelector(
                 `.onlineUsers li:nth-child(${i + 1})`,
-              ).style.transform = `translateY(-${34}px)`
+              ).style.top = `calc(${
+                document
+                  .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
+                  .getBoundingClientRect().top
+              }px - 34px)`
               dispatch(
                 changeCordY({index: i, value: usersAndCords[i].cordY - 34}),
               )
             } else {
               document.querySelector(
                 `.onlineUsers li:nth-child(${i + 1})`,
-              ).style.transform = `translateY(${0}px)`
+              ).style.top = 'auto'
             }
           }
           if (el.clientY < u.cordY) {
             document.querySelector(
               `.onlineUsers li:nth-child(${i + 1})`,
-            ).style.transform = `translateY(${34}px)`
+            ).style.transform = `calc(${
+              document
+                .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
+                .getBoundingClientRect().top
+            }px + 34px)`
             dispatch(
               changeCordY({index: i, value: usersAndCords[i].cordY + 34}),
             )
@@ -112,13 +120,21 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
     const mouseUpHandler = (elm) => {
       dispatch(closeAllChatMenus())
       //elemref.current.style.position = 'static'
-      elemref.current.style.boxShadow = 'none'
-      elemref.current.style.top = elm.clientY
-      elemref.current.style.left = '960.5px'
-      console.log(
-        'ul height is: ',
-        document.querySelector('.onlineUsers').getBoundingClientRect().height,
-      )
+      usersAndCords.forEach((u, i) => {
+        document.querySelector(
+          `.onlineUsers li:nth-child(${i + 1})`,
+        ).style.boxShadow = 'none'
+        document.querySelector(
+          `.onlineUsers li:nth-child(${i + 1})`,
+        ).style.top = usersAndCords[i].cordY
+        document.querySelector(
+          `.onlineUsers li:nth-child(${i + 1})`,
+        ).style.left = '960.5px'
+        console.log(
+          'ul height is: ',
+          document.querySelector('.onlineUsers').getBoundingClientRect().height,
+        )
+      })
       document.removeEventListener('mousedown', dragHandler)
       document.removeEventListener('mousemove', mouseMoveHandler)
       document.removeEventListener('mouseup', mouseUpHandler)

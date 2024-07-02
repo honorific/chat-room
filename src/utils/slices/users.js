@@ -19,8 +19,9 @@ export const usersSlice = createSlice({
       state.usersAndCords = []
     },
     changeCordY: (state, action) => {
-      state.usersAndCords[action.payload.index] = action.payload.value
+      state.usersAndCords[action.payload.index].cordY = action.payload.value
     },
+    
   },
 })
 
