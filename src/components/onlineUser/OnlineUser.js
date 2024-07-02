@@ -112,13 +112,15 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
     const mouseUpHandler = (elm) => {
       dispatch(closeAllChatMenus())
       //elemref.current.style.position = 'static'
-      elemref.current.style.boxShadow = 'none'
-      elemref.current.style.top = elm.clientY
-      elemref.current.style.left = '960.5px'
-      console.log(
-        'ul height is: ',
-        document.querySelector('.onlineUsers').getBoundingClientRect().height,
-      )
+      usersAndCords.forEach((u, i) => {
+        elemref.current.style.boxShadow = 'none'
+        elemref.current.style.top = usersAndCords[i].cordY
+        elemref.current.style.left = '960.5px'
+        console.log(
+          'ul height is: ',
+          document.querySelector('.onlineUsers').getBoundingClientRect().height,
+        )
+      })
       document.removeEventListener('mousedown', dragHandler)
       document.removeEventListener('mousemove', mouseMoveHandler)
       document.removeEventListener('mouseup', mouseUpHandler)
