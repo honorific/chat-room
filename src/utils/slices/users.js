@@ -21,7 +21,7 @@ export const usersSlice = createSlice({
     changeCordY: (state, action) => {
       state.usersAndCords[action.payload.index].cordY = action.payload.value
     },
-    sortByCordY: (state, action) => {
+    sortByCordY: (state) => {
       let max
       let swapper
       for (let i = 0; i < state.usersAndCords.length; i++) {
@@ -35,7 +35,7 @@ export const usersSlice = createSlice({
         state.usersAndCords[max] = state.usersAndCords[i]
         state.usersAndCords[i] = swapper
       }
-      return state.usersAndCords
+      state.usersAndCords = state.usersAndCords
     },
   },
 })
