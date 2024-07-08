@@ -86,16 +86,12 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
                 .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
                 .getBoundingClientRect().top > 55
             ) {
-              document.querySelector(
-                `.onlineUsers li:nth-child(${i + 1})`,
-              ).style.top = `calc(${
-                document
-                  .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
-                  .getBoundingClientRect().top
-              }px - 34px)`
               dispatch(
                 changeCordY({index: i, value: usersAndCords[i].cordY - 34}),
               )
+              document.querySelector(
+                `.onlineUsers li:nth-child(${i + 1})`,
+              ).style.top = `${usersAndCords[i].cordY}px`
             } else {
               document.querySelector(
                 `.onlineUsers li:nth-child(${i + 1})`,
@@ -103,16 +99,12 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
             }
           }
           if (el.clientY < u.cordY) {
-            document.querySelector(
-              `.onlineUsers li:nth-child(${i + 1})`,
-            ).style.transform = `calc(${
-              document
-                .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
-                .getBoundingClientRect().top
-            }px + 34px)`
             dispatch(
               changeCordY({index: i, value: usersAndCords[i].cordY + 34}),
             )
+            document.querySelector(
+              `.onlineUsers li:nth-child(${i + 1})`,
+            ).style.top = `${usersAndCords[i].cordY}px`
           }
         })
       }
