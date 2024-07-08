@@ -12,6 +12,7 @@ import {
   addUserWithCords,
   changeCordY,
   resetUsersAndCords,
+  sortByCordY,
 } from '../../utils/slices/users'
 
 const OnlineUser = ({gender, username, chatting, selector}) => {
@@ -31,12 +32,9 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
   useEffect(() => {
     if (elemref.current !== '') {
       setElemWidth(elemref.current.offsetWidth)
-      console.log('elemWidth is: ', elemWidth)
       listHeightRef.current = document
         .querySelector('.onlineUsers')
         .getBoundingClientRect().height
-
-      console.log('listheightRef: ', listHeightRef.current)
     }
   }, [elemref.current, listHeightRef.current])
 
@@ -59,7 +57,6 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
     ).style.height = `${listHeightRef.current}px`
     dispatch(resetUsersAndCords())
     users.forEach((user, i) => {
-      console.log('i is: ', i)
       dispatch(
         addUserWithCords({
           gender: user.gender,
@@ -75,12 +72,11 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
       if (el.buttons === 1) {
         elemref.current.style.position = 'absolute'
         elemref.current.style.zIndex = '1000'
-        elemref.current.style.top = `${el.clientY}px`
         elemref.current.style.left = `${el.clientX}px`
         elemref.current.style.width = `${elemWidth - 10}px`
         elemref.current.style.boxShadow = '-9px 4px 20px 3px rgba(0, 0, 0, 0.1)'
         usersAndCords.forEach((u, i) => {
-          if (el.clientY >= u.cordY) {
+          if (el.clientY > u.cordY) {
             if (
               document
                 .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
@@ -91,7 +87,7 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
               )
               document.querySelector(
                 `.onlineUsers li:nth-child(${i + 1})`,
-              ).style.top = `${usersAndCords[i].cordY}px`
+              ).style.top = `calc(${usersAndCords[i].cordY}px - 34px)`
             } else {
               document.querySelector(
                 `.onlineUsers li:nth-child(${i + 1})`,
@@ -104,9 +100,10 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
             )
             document.querySelector(
               `.onlineUsers li:nth-child(${i + 1})`,
-            ).style.top = `${usersAndCords[i].cordY}px`
+            ).style.top = `calc(${usersAndCords[i].cordY}px + 34px)`
           }
         })
+        elemref.current.style.top = `${el.clientY}px`
       }
     }
     const mouseUpHandler = (elm) => {
@@ -122,11 +119,8 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
         document.querySelector(
           `.onlineUsers li:nth-child(${i + 1})`,
         ).style.left = '960.5px'
-        console.log(
-          'ul height is: ',
-          document.querySelector('.onlineUsers').getBoundingClientRect().height,
-        )
       })
+      dispatch(sortByCordY)
       document.removeEventListener('mousedown', dragHandler)
       document.removeEventListener('mousemove', mouseMoveHandler)
       document.removeEventListener('mouseup', mouseUpHandler)
