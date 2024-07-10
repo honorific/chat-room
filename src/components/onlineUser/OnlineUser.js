@@ -18,6 +18,7 @@ import {
 const OnlineUser = ({gender, username, chatting, selector}) => {
   const [cords, setCords] = useState([0, 0])
   const [elemWidth, setElemWidth] = useState(0)
+  const [freeSpaceChecker, setFreeSpaceChecker] = useState(false)
   const listHeightRef = useRef(0)
   const elemref = useRef('')
   const dispatch = useDispatch()
@@ -52,6 +53,7 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
 
   const dragHandler = (e) => {
     document.removeEventListener('click', clickHandler)
+    let listArr = [220, 176, 132, 88, 44]
     document.querySelector(
       '.onlineUsers',
     ).style.height = `${listHeightRef.current}px`
@@ -62,9 +64,7 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
           gender: user.gender,
           username: user.username,
           ...(user.chatting && {chatting: user.chatting}),
-          cordY: document
-            .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
-            .getBoundingClientRect().top,
+          cordY: (i + 1) * 44,
         }),
       )
     })
@@ -85,77 +85,66 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
           document.querySelector(
             `.onlineUsers li:nth-child(${i + 1})`,
           ).style.top = `${usersAndCords[i].cordY}px`
-          document.querySelector(
-            `.onlineUsers li:nth-child(${i + 1})`,
-          ).style.left = '960.5px'
-          if (el.clientY > u.cordY) {
+          if (el.clientY >= u.cordY) {
             if (
               document
                 .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
-                .getBoundingClientRect().top > 55 &&
-              u.cordY < listHeightRef.current
+                .getBoundingClientRect().top > 55
             ) {
-              document.querySelector(
-                `.onlineUsers li:nth-child(${i + 1})`,
-              ).style.top = `calc(${
-                document.querySelector(`.onlineUsers li:nth-child(${i + 1})`)
-                  .style.top
-              }px - 34px)`
-              dispatch(
-                changeCordY({
-                  index: i,
-                  value:
-                    document.querySelector(
-                      `.onlineUsers li:nth-child(${i + 1})`,
-                    ).style.top - 34,
-                }),
-              )
-            } else {
-              document.querySelector(
-                `.onlineUsers li:nth-child(${i + 1})`,
-              ).style.top = `${usersAndCords[i].cordY}px`
+              if (u.cordY - 44 > 55 && i > 0) {
+                dispatch(
+                  changeCordY({
+                    index: i,
+                    value: listArr[i - 1],
+                  }),
+                )
+                // let cordYChecker = false
+                // usersAndCords.forEach((usr) => {
+                //   if (usr.cordY === u.cordY) cordYChecker = true
+                // })
+                // if (!cordYChecker) {
+                document.querySelector(
+                  `.onlineUsers li:nth-child(${i + 1})`,
+                ).style.top = `${u.cordY}px`
+                // }
+              }
             }
           }
-          if (el.clientY < u.cordY) {
+          if (el.clientY <= u.cordY) {
             if (
               document
                 .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
                 .getBoundingClientRect().top < listHeightRef.current &&
               u.cordY > listHeightRef.current
-            )
-              document.querySelector(
-                `.onlineUsers li:nth-child(${i + 1})`,
-              ).style.top = `calc(${
-                document.querySelector(`.onlineUsers li:nth-child(${i + 1})`)
-                  .style.top
-              }px + 34px)`
-            dispatch(
-              changeCordY({
-                index: i,
-                value:
-                  document.querySelector(`.onlineUsers li:nth-child(${i + 1})`)
-                    .style.top + 34,
-              }),
-            )
-          }
-          if (el.clientY === u.cordY) {
-            document.querySelector(
-              `.onlineUsers li:nth-child(${i + 1})`,
-            ).style.top = document
-              .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
-              .getBoundingClientRect().top
-            console.log(
-              document
-                .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
-                .getBoundingClientRect(),
-            )
+            ) {
+              if (u.cordY + 44 < listHeightRef.current && i < 5) {
+                dispatch(
+                  changeCordY({
+                    index: i,
+                    value: listArr[i] !== u.cordY ? listArr[i + 1] : listArr[i],
+                  }),
+                )
+                let cordYChecker = false
+                usersAndCords.forEach((usr) => {
+                  if (usr.cordY === u.cordY) cordYChecker = true
+                })
+                //if (!cordYChecker) {
+                document.querySelector(
+                  `.onlineUsers li:nth-child(${i + 1})`,
+                ).style.top = `${u.cordY}px`
+                // }
+
+                // `${i > 1 ? listArr[i + 1] : listArr[i]}px`
+              }
+            }
           }
         })
-        elemref.current.style.top = `${el.clientY}px`
       }
+      elemref.current.style.top = `${el.clientY}px`
     }
     const mouseUpHandler = (elm) => {
       dispatch(closeAllChatMenus())
+      dispatch(sortByCordY())
       //elemref.current.style.position = 'static'
       usersAndCords.forEach((u, i) => {
         document.querySelector(
@@ -163,12 +152,11 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
         ).style.boxShadow = 'none'
         document.querySelector(
           `.onlineUsers li:nth-child(${i + 1})`,
-        ).style.top = usersAndCords[i].cordY
+        ).style.top = `${u.cordY}px`
         document.querySelector(
           `.onlineUsers li:nth-child(${i + 1})`,
         ).style.left = '960.5px'
       })
-      dispatch(sortByCordY())
       document.removeEventListener('mousedown', dragHandler)
       document.removeEventListener('mousemove', mouseMoveHandler)
       document.removeEventListener('mouseup', mouseUpHandler)
