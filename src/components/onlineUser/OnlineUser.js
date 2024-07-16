@@ -44,7 +44,7 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
 
   const dragHandler = (e) => {
     document.removeEventListener('click', clickHandler)
-    let listArr = [220, 176, 132, 88, 44]
+    let listArr = [44, 88, 132, 176, 220]
     document.querySelector(
       '.onlineUsers',
     ).style.height = `${listHeightRef.current}px`
@@ -67,34 +67,39 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
         elemref.current.style.left = `${el.clientX}px`
         elemref.current.style.width = `${elemWidth - 10}px`
         elemref.current.style.boxShadow = '-9px 4px 20px 3px rgba(0, 0, 0, 0.1)'
-        users.forEach((u, i) => {
-          console.log('i is:', i)
+        // users.forEach((u, i) => {
+        for (let j = 0; j < users.length; j++) {
           if (
             el.clientY >=
             document
-              .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
+              .querySelector(`.onlineUsers li:nth-child(${j + 1})`)
               .getBoundingClientRect().top
           ) {
             document.querySelector(
-              `.onlineUsers li:nth-child(${i + 1})`,
-            ).style.top = `${listArr[i + 1]}px`
+              `.onlineUsers li:nth-child(${j + 1})`,
+            ).style.top = `${listArr[j + 1]}px`
+            break
           }
+        }
 
+        for (let j = 0; j < users.length; j++) {
           if (
             el.clientY <=
               document
-                .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
+                .querySelector(`.onlineUsers li:nth-child(${j + 1})`)
                 .getBoundingClientRect().top &&
             document
-              .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
+              .querySelector(`.onlineUsers li:nth-child(${j + 1})`)
               .getBoundingClientRect().top < listHeightRef.current
           ) {
             document.querySelector(
-              `.onlineUsers li:nth-child(${i + 1})`,
-            ).style.top = `${listArr[i - 1]}px`
+              `.onlineUsers li:nth-child(${j + 1})`,
+            ).style.top = `${listArr[j - 1]}px`
+            break
           }
-          elemref.current.style.top = `${el.clientY}px`
-        })
+        }
+        elemref.current.style.top = `${el.clientY}px`
+        // })
       }
     }
     const mouseUpHandler = (elm) => {
