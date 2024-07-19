@@ -67,44 +67,56 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
         elemref.current.style.left = `${el.clientX}px`
         elemref.current.style.width = `${elemWidth - 10}px`
         elemref.current.style.boxShadow = '-9px 4px 20px 3px rgba(0, 0, 0, 0.1)'
-        // users.forEach((u, i) => {
-        for (let j = 0; j < users.length; j++) {
+        users.forEach((u, i) => {
           if (
-            el.clientY >=
+            el.clientY >
             document
-              .querySelector(`.onlineUsers li:nth-child(${j + 1})`)
+              .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
               .getBoundingClientRect().top
+            //      &&
+            // document
+            //   .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
+            //   .getBoundingClientRect().top > listArr[0]
           ) {
             document.querySelector(
-              `.onlineUsers li:nth-child(${j + 1})`,
-            ).style.top = `${listArr[j + 1]}px`
-            break
+              `.onlineUsers li:nth-child(${i + 1})`,
+            ).style.top = `${listArr[i]}px`
           }
-        }
 
-        for (let j = 0; j < users.length; j++) {
           if (
-            el.clientY <=
-              document
-                .querySelector(`.onlineUsers li:nth-child(${j + 1})`)
-                .getBoundingClientRect().top &&
+            el.clientY <
             document
-              .querySelector(`.onlineUsers li:nth-child(${j + 1})`)
-              .getBoundingClientRect().top < listHeightRef.current
-          ) {
+              .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
+              .getBoundingClientRect().top
+            //      &&
+            // document
+            //   .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
+            //   .getBoundingClientRect().top < listArr[listArr.length - 1]
+          )
             document.querySelector(
-              `.onlineUsers li:nth-child(${j + 1})`,
-            ).style.top = `${listArr[j - 1]}px`
-            break
-          }
-        }
-        elemref.current.style.top = `${el.clientY}px`
-        // })
+              `.onlineUsers li:nth-child(${i + 1})`,
+            ).style.top = `${listArr[i + 1]}px`
+          elemref.current.style.top = `${el.clientY}px`
+        })
       }
     }
     const mouseUpHandler = (elm) => {
       dispatch(closeAllChatMenus())
       dispatch(sortByCordY())
+      // users.forEach((u, i) => {
+      //   document.querySelector(
+      //     `.onlineUsers li:nth-child(${i + 1})`,
+      //   ).style.position = 'absolute'
+      //   document.querySelector(
+      //     `.onlineUsers li:nth-child(${i + 1})`,
+      //   ).style.width = `${elemWidth - 10}px`
+      //   document.querySelector(
+      //     `.onlineUsers li:nth-child(${i + 1})`,
+      //   ).style.top = `${listArr[i]}px`
+      //   document.querySelector(
+      //     `.onlineUsers li:nth-child(${i + 1})`,
+      //   ).style.left = '960.5px'
+      // })
       users.forEach((u, i) => {
         document.querySelector(
           `.onlineUsers li:nth-child(${i + 1})`,
