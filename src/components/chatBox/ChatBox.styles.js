@@ -29,7 +29,7 @@ export const StyledChatBox = styled.div`
     background-color: #ddd;
     color: black;
   }
-  & div {
+  & > div {
     height: 200px;
     width: 100%;
     position: absolute;
