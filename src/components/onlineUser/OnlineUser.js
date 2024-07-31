@@ -74,7 +74,7 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
                 .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
                 .getBoundingClientRect().top &&
             el.clientY > oldY &&
-            el.clientY <= 220
+            el.clientY <= 240
           ) {
             i === 0
               ? (document.querySelector(
