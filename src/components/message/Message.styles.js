@@ -1,7 +1,8 @@
 import styled from 'styled-components'
+const unForwardedProps = ['sty', 'dm']
 
 export const StyledMessage = styled.div.withConfig({
-  shouldForwardProp: (props) => props !== 'sty',
+  shouldForwardProp: (props) => !unForwardedProps.includes(props),
 })`
   display: flex;
   flex-direction: row;
@@ -24,12 +25,13 @@ export const StyledMessage = styled.div.withConfig({
     position: relative;
   }
   & time {
+    display: block;
     font-size: 14px;
     color: #c9c9c9;
     font-style: italic;
     margin: ${(props) => (props.sty ? '0px 15px 0px 0px' : '0px 0px 0px 15px')};
     position: absolute;
-    width: 100%;
-    bottom: -18px;
+    bottom: ${(props) => (props.dm ? '0px' : '-16px')};
+    ${(props) => (props.sty ? 'left: -60px' : 'right: -60px')};
   }
 `
