@@ -2,6 +2,7 @@ import React from 'react'
 import {StyledChatBox} from './ChatBox.styles'
 import {Close, Fullscreen, Minimize} from '@mui/icons-material'
 import Message from '../message/Message'
+import SendMessage from '../sendMessage/SendMessage'
 
 const ChatBox = () => {
   return (
@@ -24,6 +25,7 @@ const ChatBox = () => {
           last={true}
           dm={true}
         />
+        <SendMessage />
       </div>
     </StyledChatBox>
   )
