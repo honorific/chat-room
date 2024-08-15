@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const StyledSendMessage = styled.form`
   position: absolute;
   bottom: 0;
-  direction: rtl;
+  direction: ltr;
   background-color: ${({theme}) => theme.accent};
   display: flex;
   width: calc(100% - 40px);
@@ -21,7 +21,7 @@ export const StyledSendMessage = styled.form`
   }
   & button {
     padding: 10px 20px;
-    margin-right: 20px;
+    margin-left: 20px;
     color: white;
     background-color: blue;
     border: none;
