@@ -36,7 +36,7 @@ const OnlineUserOptions = ({show, coordinates, username}) => {
     <StyledOnlineUserOptions
       show={show}
       coordinates={coordinates}
-      onClick={(e) => e.stopPropagation()}
+      //onClick={(e) => e.stopPropagation()}
     >
       <Close onClick={closeMenuHandler} fontSize='lg' />
       <li onClick={newWindowHandler}>

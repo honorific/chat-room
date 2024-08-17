@@ -74,25 +74,31 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
                 .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
                 .getBoundingClientRect().top &&
             el.clientY > oldY &&
-            el.clientY <= 240
+            el.clientY <= 240 &&
+            el.movementY >= 1
+            // &&
+            // i + 1 ===
+            //   Math.floor(
+            //     document
+            //       .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
+            //       .getBoundingClientRect().top / 44,
+            //   )
           ) {
-            i === 0
+            i !== 0
               ? (document.querySelector(
                   `.onlineUsers li:nth-child(${i + 1})`,
-                ).style.top = `${listArr[i]}px`)
+                ).style.top = `${listArr[i - 1]}px`)
               : (document.querySelector(
                   `.onlineUsers li:nth-child(${i + 1})`,
-                ).style.top = `${listArr[i - 1]}px`)
-            document.querySelector(
-              `.onlineUsers li:nth-child(${i + 1})`,
-            ).style.top = `${listArr[i - 1]}px`
+                ).style.top = `${listArr[i]}px`)
           }
           if (
             el.clientY <
               document
                 .querySelector(`.onlineUsers li:nth-child(${i + 1})`)
                 .getBoundingClientRect().top &&
-            el.clientY < oldY
+            el.clientY < oldY &&
+            el.movementY <= -1
           ) {
             document.querySelector(
               `.onlineUsers li:nth-child(${i + 1})`,
