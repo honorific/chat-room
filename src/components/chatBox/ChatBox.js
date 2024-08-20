@@ -1,12 +1,26 @@
-import React from 'react'
+import {useRef} from 'react'
 import {StyledChatBox} from './ChatBox.styles'
 import {Close, Fullscreen, Minimize} from '@mui/icons-material'
 import Message from '../message/Message'
 import SendMessage from '../sendMessage/SendMessage'
 
 const ChatBox = () => {
+  const elemref = useRef('')
+  const dragHandler = () => {
+    const mouseMoveHandler = (el) => {
+      if (el.buttons === 1) {
+        elemref.current.style.position = 'absolute'
+        elemref.current.style.left = `${el.clientX - 200}px`
+        elemref.current.style.top = `${el.clientY - 50}px`
+      }
+    }
+    document.addEventListener('mousemove', mouseMoveHandler)
+    document.addEventListener('mouseup', () => {
+      document.removeEventListener('mousemove', mouseMoveHandler)
+    })
+  }
   return (
-    <StyledChatBox>
+    <StyledChatBox ref={elemref} onMouseDown={dragHandler}>
       <Close />
       <Fullscreen />
       <Minimize />
