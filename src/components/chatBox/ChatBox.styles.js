@@ -38,5 +38,6 @@ export const StyledChatBox = styled.div`
     -webkit-box-shadow: -9px 4px 20px 3px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: -9px 4px 20px 3px rgba(0, 0, 0, 0.1);
     box-shadow: -9px 4px 20px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 0px 0px 10px 10px;
   }
 `
