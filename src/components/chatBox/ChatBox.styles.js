@@ -39,5 +39,29 @@ export const StyledChatBox = styled.div`
     -moz-box-shadow: -9px 4px 20px 3px rgba(0, 0, 0, 0.1);
     box-shadow: -9px 4px 20px 3px rgba(0, 0, 0, 0.1);
     border-radius: 0px 0px 10px 10px;
+    overflow-y: scroll;
+    background-clip: text;
+    transition: 0.3s ease-out;
+    margin: 0;
+    padding: 0;
+  }
+  & > div:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  & > div::-webkit-scrollbar {
+    width: 5px;
+    position: absolute;
+  }
+  & > div::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+  & > div::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: inherit;
+  }
+  & > div > div {
+    background-color: ${({theme}) => theme.body};
+    position: absolute;
+    width: 100%;
   }
 `

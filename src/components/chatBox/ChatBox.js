@@ -25,21 +25,64 @@ const ChatBox = () => {
       <Fullscreen />
       <Minimize />
       <div>
-        <Message
-          own={true}
-          message={{username: 'ali', text: 'hello', time: '1 min ago'}}
-          dm={true}
-        />
-        <Message
-          message={{username: 'reza', text: 'hello world', time: 'just now'}}
-          dm={true}
-        />
-        <Message
-          message={{username: 'sara', text: 'hi', time: 'just now'}}
-          last={true}
-          dm={true}
-        />
-        <SendMessage />
+        <div>
+          <Message
+            own={true}
+            message={{username: 'ali', text: 'hello', time: '1 min ago'}}
+            dm={true}
+          />
+          <Message
+            message={{username: 'reza', text: 'hello world', time: 'just now'}}
+            dm={true}
+          />
+          <Message
+            message={{username: 'sara', text: 'hi', time: 'just now'}}
+            dm={true}
+          />
+          <Message
+            own={true}
+            message={{username: 'ali', text: 'hello', time: '1 min ago'}}
+            dm={true}
+          />
+          <Message
+            message={{username: 'reza', text: 'hello world', time: 'just now'}}
+            dm={true}
+          />
+          <Message
+            message={{username: 'reza', text: 'hello world', time: 'just now'}}
+            dm={true}
+          />
+          <Message
+            message={{username: 'reza', text: 'hello world', time: 'just now'}}
+            dm={true}
+          />
+          <Message
+            message={{username: 'reza', text: 'hello world', time: 'just now'}}
+            dm={true}
+          />
+          <Message
+            message={{username: 'reza', text: 'hello world', time: 'just now'}}
+            dm={true}
+          />
+          <Message
+            message={{username: 'reza', text: 'hello world', time: 'just now'}}
+            dm={true}
+          />
+          <Message
+            message={{username: 'reza', text: 'hello world', time: 'just now'}}
+            dm={true}
+          />
+          <Message
+            message={{username: 'reza', text: 'hello world', time: 'just now'}}
+            dm={true}
+          />
+          <Message
+            message={{username: 'sara', text: 'hi', time: 'just now'}}
+            last={true}
+            dm={true}
+          />
+          <SendMessage />
+        </div>
       </div>
     </StyledChatBox>
   )
