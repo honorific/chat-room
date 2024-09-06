@@ -50,7 +50,6 @@ export const StyledChatBox = styled.div`
   }
   & > div::-webkit-scrollbar {
     width: 5px;
-    position: absolute;
   }
   & > div::-webkit-scrollbar-track {
     border-radius: 10px;
@@ -61,7 +60,13 @@ export const StyledChatBox = styled.div`
   }
   & > div > div {
     background-color: ${({theme}) => theme.body};
-    position: absolute;
     width: 100%;
+    position: absolute;
+  }
+  & > div > div > div:last-child {
+    margin-bottom: 140px;
+  }
+  & form {
+    bottom: -300px;
   }
 `
