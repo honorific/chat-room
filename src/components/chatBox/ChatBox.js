@@ -81,9 +81,9 @@ const ChatBox = () => {
             last={true}
             dm={true}
           />
-          <SendMessage />
         </div>
       </div>
+      <SendMessage />
     </StyledChatBox>
   )
 }
