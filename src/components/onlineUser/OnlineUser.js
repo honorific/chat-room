@@ -84,13 +84,20 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
             //       .getBoundingClientRect().top / 44,
             //   )
           ) {
-            i !== 0
-              ? (document.querySelector(
-                  `.onlineUsers li:nth-child(${i + 1})`,
-                ).style.top = `${listArr[i - 1]}px`)
-              : (document.querySelector(
-                  `.onlineUsers li:nth-child(${i + 1})`,
-                ).style.top = `${listArr[i]}px`)
+            if (i !== 0) {
+              document.querySelector(`.onlineUsers li:nth-child(${i + 1})`)
+                .style.top !== listArr[i]
+                ? (document.querySelector(
+                    `.onlineUsers li:nth-child(${i + 1})`,
+                  ).style.top = `${listArr[i]}px`)
+                : (document.querySelector(
+                    `.onlineUsers li:nth-child(${i + 1})`,
+                  ).style.top = `${listArr[i - 1]}px`)
+            } else {
+              document.querySelector(
+                `.onlineUsers li:nth-child(${i + 1})`,
+              ).style.top = `${listArr[i]}px`
+            }
           }
           if (
             el.clientY <
@@ -100,9 +107,19 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
             el.clientY < oldY &&
             el.movementY <= -1
           ) {
-            document.querySelector(
-              `.onlineUsers li:nth-child(${i + 1})`,
-            ).style.top = i === 4 ? `${listArr[i]}px` : `${listArr[i + 1]}px`
+            if (i !== 4) {
+              document.querySelector(
+                `.onlineUsers li:nth-child(${i + 1})`,
+              ).style.top =
+                document.querySelector(`.onlineUsers li:nth-child(${i + 1})`)
+                  .style.top !== listArr[i]
+                  ? `${listArr[i]}px`
+                  : `${listArr[i + 1]}px`
+            } else {
+              document.querySelector(
+                `.onlineUsers li:nth-child(${i + 1})`,
+              ).style.top = `${listArr[i]}px`
+            }
           }
           elemref.current.style.top = `${el.clientY}px`
         })
