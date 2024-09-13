@@ -19,20 +19,66 @@ const Chat = () => {
         <Rightbar />
       </div>
       <div className='main'>
-        <Message
-          own={true}
-          message={{username: 'ali', text: 'hello', time: '1 min ago'}}
-        />
-        <Message
-          message={{username: 'reza', text: 'hello world', time: 'just now'}}
-        />
-        <Message
-          message={{username: 'sara', text: 'hi', time: 'just now'}}
-          last={true}
-        />
-        <SendMessage />
-        <ChatBox />
-        <button onClick={themeChanger}>toggle</button>
+        <div>
+          <Message
+            own={true}
+            message={{username: 'ali', text: 'hello', time: '1 min ago'}}
+          />
+          <Message
+            message={{username: 'reza', text: 'hello world', time: 'just now'}}
+          />
+          <Message
+            message={{username: 'sara', text: 'hi', time: 'just now'}}
+            last={true}
+          />
+          <Message
+            own={true}
+            message={{username: 'ali', text: 'hello', time: '1 min ago'}}
+          />
+          <Message
+            message={{username: 'reza', text: 'hello world', time: 'just now'}}
+          />
+          <Message
+            message={{username: 'sara', text: 'hi', time: 'just now'}}
+            last={true}
+          />
+          <Message
+            own={true}
+            message={{username: 'ali', text: 'hello', time: '1 min ago'}}
+          />
+          <Message
+            message={{username: 'reza', text: 'hello world', time: 'just now'}}
+          />
+          <Message
+            message={{username: 'sara', text: 'hi', time: 'just now'}}
+            last={true}
+          />
+          <Message
+            own={true}
+            message={{username: 'ali', text: 'hello', time: '1 min ago'}}
+          />
+          <Message
+            message={{username: 'reza', text: 'hello world', time: 'just now'}}
+          />
+          <Message
+            message={{username: 'sara', text: 'hi', time: 'just now'}}
+            last={true}
+          />
+          <Message
+            own={true}
+            message={{username: 'ali', text: 'hello', time: '1 min ago'}}
+          />
+          <Message
+            message={{username: 'reza', text: 'hello world', time: 'just now'}}
+          />
+          <Message
+            message={{username: 'sara', text: 'hi', time: 'just now'}}
+            last={true}
+          />
+          <SendMessage />
+          <ChatBox />
+          <button onClick={themeChanger}>toggle</button>
+        </div>
       </div>
     </StyledChat>
   )
