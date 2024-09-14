@@ -8,7 +8,7 @@ export const StyledChat = styled.div`
   gap: 15px;
   padding: 40px;
   background-color: ${({theme}) => theme.secondary};
-  & > div {
+  & > div:not(.chatBox) {
     -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.05);
     -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.05);
     box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.05);
@@ -32,7 +32,7 @@ export const StyledChat = styled.div`
     border-radius: 10px;
     background-color: inherit;
   }
-  & > .main > div {
+  & > .main > div:not(.chatbox) {
     background-color: ${({theme}) => theme.body};
     width: 100%;
     position: absolute;

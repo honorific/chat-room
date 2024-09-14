@@ -18,6 +18,7 @@ const Chat = () => {
       <div className='rightbarContainer'>
         <Rightbar />
       </div>
+      <ChatBox />
       <div className='main'>
         <div>
           <Message
@@ -76,7 +77,6 @@ const Chat = () => {
             last={true}
           />
           <SendMessage />
-          <ChatBox />
           <button onClick={themeChanger}>toggle</button>
         </div>
       </div>
