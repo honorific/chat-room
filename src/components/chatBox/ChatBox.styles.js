@@ -3,12 +3,14 @@ import styled from 'styled-components'
 export const StyledChatBox = styled.div`
   width: 400px;
   height: 40px;
+  direction: ltr;
   display: flex;
   background-color: ${({theme}) => theme.secondary};
   -webkit-box-shadow: -9px 4px 20px 3px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: -9px 4px 20px 3px rgba(0, 0, 0, 0.1);
   box-shadow: -9px 4px 20px 3px rgba(0, 0, 0, 0.1);
-  position: relative;
+  position: absolute;
+  z-index: 1000;
   padding: 0;
   & svg {
     padding: 10px;
