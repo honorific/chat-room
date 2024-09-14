@@ -20,7 +20,7 @@ const ChatBox = () => {
     })
   }
   return (
-    <StyledChatBox ref={elemref} onMouseDown={dragHandler}>
+    <StyledChatBox ref={elemref} onMouseDown={dragHandler} className='chatBox'>
       <Close />
       <Fullscreen />
       <Minimize />
