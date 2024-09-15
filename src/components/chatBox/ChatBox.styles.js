@@ -11,6 +11,8 @@ export const StyledChatBox = styled.div`
   box-shadow: -9px 4px 20px 3px rgba(0, 0, 0, 0.1);
   position: absolute;
   z-index: 1000;
+  top: 100px;
+  left: 100px;
   padding: 0;
   & svg {
     padding: 10px;
