@@ -15,30 +15,39 @@ export const StyledChat = styled.div`
     border-radius: 10px;
     background-color: ${({theme}) => theme.body};
   }
-  & .main {
+  & .mainScroller {
     overflow-y: scroll;
+    min-height: calc(100vh - 80px);
     background-clip: text;
-  }
-  & > div.main:hover {
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-  & > div.main::-webkit-scrollbar {
-    width: 5px;
-  }
-  & > div.main::-webkit-scrollbar-track {
+    position: relative;
     border-radius: 10px;
   }
-  & > div.main::-webkit-scrollbar-thumb {
+  & div.mainScroller:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  & div.mainScroller::-webkit-scrollbar {
+    width: 5px;
+  }
+  & div.mainScroller::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+  & div.mainScroller::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: inherit;
   }
-  & > .main > div:not(.chatbox) {
+  & .mainScroller > div:not(.chatbox) {
     background-color: ${({theme}) => theme.body};
     width: 100%;
     position: absolute;
   }
+  & > .main form {
+    bottom: 0px;
+  }
   .rightbarContainer {
     grid-column: 1 / 4;
+  }
+  & .mainScroller > div > div:last-of-type {
+    margin-bottom: 140px;
   }
   .main {
     grid-column: 4 / 13;
