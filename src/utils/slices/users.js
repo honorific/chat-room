@@ -37,6 +37,11 @@ export const usersSlice = createSlice({
       }
       state.usersAndCords = state.usersAndCords
     },
+    sortArrayOfUsers: (state, action) => {
+      let holder = state.users[action.payload[0]]
+      state.users[action.payload[0]] = state.users[action.payload[1]]
+      state.users[action.payload[1]] = holder
+    },
   },
 })
 
@@ -46,6 +51,7 @@ export const {
   resetUsersAndCords,
   changeCordY,
   sortByCordY,
+  sortArrayOfUsers,
 } = usersSlice.actions
 
 export default usersSlice.reducer
