@@ -100,7 +100,7 @@ const Chat = () => {
             <button onClick={themeChanger}>toggle</button>
           </div>
         </div>
-        <SendMessage />
+        <SendMessage destination='public' />
       </div>
     </StyledChat>
   )
