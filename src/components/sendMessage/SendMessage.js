@@ -1,9 +1,9 @@
 import {StyledSendMessage} from './SendMessage.styles'
 
 const SendMessage = ({destination}) => {
-
-  const newMessageHandler = (destination) => {
-    
+  const newMessageHandler = (e) => {
+    e.preventDefault()
+    console.log(destination)
   }
   return (
     <StyledSendMessage onSubmit={newMessageHandler}>
