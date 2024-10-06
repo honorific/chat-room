@@ -14,8 +14,9 @@ export const chatSlice = createSlice({
           state.chat.value = [
             ...state.chat.value,
             {
-              uid: action.payload.uid,
-              time: action.payload.time,
+              sender: action.payload.sender,
+              receiver: action.payload.receiver,
+              DateTime: action.payload.time,
               msg: action.payload.msg,
             },
           ]
