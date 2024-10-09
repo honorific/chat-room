@@ -1,4 +1,4 @@
-import {useRef} from 'react'
+import {useRef, useState} from 'react'
 import {StyledChatBox} from './ChatBox.styles'
 import {Close, Fullscreen, Minimize} from '@mui/icons-material'
 import Message from '../message/Message'
@@ -6,6 +6,8 @@ import SendMessage from '../sendMessage/SendMessage'
 
 const ChatBox = () => {
   const elemref = useRef('')
+  const sendMessageRef = useRef('')
+  const [minimized, setMinimized] = useState(true)
   const dragHandler = () => {
     const mouseMoveHandler = (el) => {
       if (el.buttons === 1) {
@@ -19,11 +21,17 @@ const ChatBox = () => {
       document.removeEventListener('mousemove', mouseMoveHandler)
     })
   }
+
+  const minimizeHandler = () => {
+    elemref.current.children[3].style.height = minimized ? '0px' : '300px'
+    sendMessageRef.current.style.visibility = minimized ? 'hidden' : 'visible'
+    setMinimized(!minimized)
+  }
   return (
     <StyledChatBox ref={elemref} onMouseDown={dragHandler} className='chatBox'>
       <Close />
       <Fullscreen />
-      <Minimize />
+      <Minimize onClick={minimizeHandler} />
       <div>
         <div>
           <Message
@@ -83,7 +91,7 @@ const ChatBox = () => {
           />
         </div>
       </div>
-      <SendMessage />
+      <SendMessage ref={sendMessageRef} />
     </StyledChatBox>
   )
 }

@@ -1,8 +1,11 @@
 import {StyledSendMessage} from './SendMessage.styles'
 import {useDispatch} from 'react-redux'
 import {addChat} from '../../utils/slices/chat'
-import {useState} from 'react'
-const SendMessage = ({destination}) => {
+import {forwardRef, useState} from 'react'
+const SendMessage = forwardRef(function SendMessage(
+  {destination},
+  sendMessageRef,
+) {
   const [message, setMessage] = useState('')
   const dispatch = useDispatch()
   const newMessageHandler = (e) => {
@@ -19,7 +22,7 @@ const SendMessage = ({destination}) => {
     )
   }
   return (
-    <StyledSendMessage onSubmit={newMessageHandler}>
+    <StyledSendMessage onSubmit={newMessageHandler} ref={sendMessageRef}>
       <input
         type='text'
         placeholder='Write your message...'
@@ -28,6 +31,6 @@ const SendMessage = ({destination}) => {
       <button>Send</button>
     </StyledSendMessage>
   )
-}
+})
 
 export default SendMessage
