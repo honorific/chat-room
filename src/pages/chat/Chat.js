@@ -1,17 +1,25 @@
-import {lazy} from 'react'
+import {lazy, useEffect} from 'react'
 import Message from '../../components/message/Message'
 import Rightbar from '../../components/rightbar/Rightbar'
 import SendMessage from '../../components/sendMessage/SendMessage'
 import {StyledChat} from './Chat.styles'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {toggleTheme} from '../../utils/slices/theme.js'
 const ChatBox = lazy(() => import('../../components/chatBox/ChatBox.js'))
 
 const Chat = () => {
   const dispatch = useDispatch()
+  const roomMessages = useSelector(
+    (state) => state.rootReducer.chat?.[0].messages,
+  )
+  console.log(roomMessages)
   const themeChanger = () => {
     dispatch(toggleTheme())
   }
+
+  // useEffect(() => {
+
+  // }, [roomMessages?.[0].messages])
 
   return (
     <StyledChat>
@@ -22,81 +30,41 @@ const Chat = () => {
       <div className='main'>
         <div className='mainScroller'>
           <div>
-            <Message
+            {/* {roomMessages.map((rm) => {
+              {
+                console.log('rm is: ', rm)
+              }
+              if (rm.room === 'public') {
+                rm.messages.map((m) => {
+                  return (
+                    <Message
+                      own={m.sender === 'ali'}
+                      message={{
+                        username: m.sender,
+                        text: m.msg,
+                        time: m.dateTime,
+                      }}
+                    />
+                  )
+                })
+              }
+            })} */}
+            {roomMessages.map((rm) => {
+              return (
+                <Message
+                  own={true}
+                  message={{
+                    username: rm.sender,
+                    text: rm.msg,
+                    time: '1 min ago',
+                  }}
+                />
+              )
+            })}
+            {/* <Message
               own={true}
               message={{username: 'ali', text: 'hello', time: '1 min ago'}}
-            />
-            <Message
-              message={{
-                username: 'reza',
-                text: 'hello world',
-                time: 'just now',
-              }}
-            />
-            <Message
-              message={{username: 'sara', text: 'hi', time: 'just now'}}
-              last={true}
-            />
-            <Message
-              own={true}
-              message={{username: 'ali', text: 'hello', time: '1 min ago'}}
-            />
-            <Message
-              message={{
-                username: 'reza',
-                text: 'hello world',
-                time: 'just now',
-              }}
-            />
-            <Message
-              message={{username: 'sara', text: 'hi', time: 'just now'}}
-              last={true}
-            />
-            <Message
-              own={true}
-              message={{username: 'ali', text: 'hello', time: '1 min ago'}}
-            />
-            <Message
-              message={{
-                username: 'reza',
-                text: 'hello world',
-                time: 'just now',
-              }}
-            />
-            <Message
-              message={{username: 'sara', text: 'hi', time: 'just now'}}
-              last={true}
-            />
-            <Message
-              own={true}
-              message={{username: 'ali', text: 'hello', time: '1 min ago'}}
-            />
-            <Message
-              message={{
-                username: 'reza',
-                text: 'hello world',
-                time: 'just now',
-              }}
-            />
-            <Message
-              message={{username: 'sara', text: 'hi', time: 'just now'}}
-              last={true}
-            />
-            <Message
-              own={true}
-              message={{username: 'ali', text: 'hello', time: '1 min ago'}}
-            />
-            <Message
-              message={{
-                username: 'reza',
-                text: 'hello world',
-                time: 'just now',
-              }}
-            />
-            <Message
-              message={{username: 'sara', text: 'hi', time: 'just now'}}
-              last={true}
-            />
+            /> */}
             <button onClick={themeChanger}>toggle</button>
           </div>
         </div>
