@@ -1,8 +1,10 @@
 import {createSlice} from '@reduxjs/toolkit'
+import cookies from './cookies'
 
 const initialState = {
   users: [],
   usersAndCords: [],
+  loggedInAs: cookies.get('loggedInAs'),
 }
 
 export const usersSlice = createSlice({
@@ -42,6 +44,10 @@ export const usersSlice = createSlice({
       state.users[action.payload[0]] = state.users[action.payload[1]]
       state.users[action.payload[1]] = holder
     },
+    loginUser: (state, action) => {
+      state.users.push(action.payload)
+      state.loggedInAs = action.payload
+    },
   },
 })
 
@@ -52,6 +58,7 @@ export const {
   changeCordY,
   sortByCordY,
   sortArrayOfUsers,
+  loginUser,
 } = usersSlice.actions
 
 export default usersSlice.reducer

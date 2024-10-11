@@ -5,6 +5,8 @@ import SendMessage from '../../components/sendMessage/SendMessage'
 import {StyledChat} from './Chat.styles'
 import {useDispatch, useSelector} from 'react-redux'
 import {toggleTheme} from '../../utils/slices/theme.js'
+import cookies from '../../utils/slices/cookies.js'
+import {Navigate} from 'react-router-dom'
 const ChatBox = lazy(() => import('../../components/chatBox/ChatBox.js'))
 
 const Chat = () => {
@@ -22,15 +24,19 @@ const Chat = () => {
   // }, [roomMessages?.[0].messages])
 
   return (
-    <StyledChat>
-      <div className='rightbarContainer'>
-        <Rightbar />
-      </div>
-      <ChatBox />
-      <div className='main'>
-        <div className='mainScroller'>
-          <div>
-            {/* {roomMessages.map((rm) => {
+    <>
+      {!cookies.get('loggedInAs') ? (
+        <Navigate to='/login' />
+      ) : (
+        <StyledChat>
+          <div className='rightbarContainer'>
+            <Rightbar />
+          </div>
+          <ChatBox />
+          <div className='main'>
+            <div className='mainScroller'>
+              <div>
+                {/* {roomMessages.map((rm) => {
               {
                 console.log('rm is: ', rm)
               }
@@ -49,28 +55,30 @@ const Chat = () => {
                 })
               }
             })} */}
-            {roomMessages.map((rm) => {
-              return (
-                <Message
-                  own={true}
-                  message={{
-                    username: rm.sender,
-                    text: rm.msg,
-                    time: '1 min ago',
-                  }}
-                />
-              )
-            })}
-            {/* <Message
+                {roomMessages.map((rm) => {
+                  return (
+                    <Message
+                      own={true}
+                      message={{
+                        username: rm.sender,
+                        text: rm.msg,
+                        time: '1 min ago',
+                      }}
+                    />
+                  )
+                })}
+                {/* <Message
               own={true}
               message={{username: 'ali', text: 'hello', time: '1 min ago'}}
             /> */}
-            <button onClick={themeChanger}>toggle</button>
+                <button onClick={themeChanger}>toggle</button>
+              </div>
+            </div>
+            <SendMessage destination='public' />
           </div>
-        </div>
-        <SendMessage destination='public' />
-      </div>
-    </StyledChat>
+        </StyledChat>
+      )}
+    </>
   )
 }
 
