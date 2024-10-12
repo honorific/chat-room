@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {toggleTheme} from '../../utils/slices/theme.js'
 import cookies from '../../utils/slices/cookies.js'
 import {Navigate} from 'react-router-dom'
+import {v4 as uuidv4} from 'uuid'
 const ChatBox = lazy(() => import('../../components/chatBox/ChatBox.js'))
 
 const Chat = () => {
@@ -18,10 +19,6 @@ const Chat = () => {
   const themeChanger = () => {
     dispatch(toggleTheme())
   }
-
-  // useEffect(() => {
-
-  // }, [roomMessages?.[0].messages])
 
   return (
     <>
@@ -36,25 +33,6 @@ const Chat = () => {
           <div className='main'>
             <div className='mainScroller'>
               <div>
-                {/* {roomMessages.map((rm) => {
-              {
-                console.log('rm is: ', rm)
-              }
-              if (rm.room === 'public') {
-                rm.messages.map((m) => {
-                  return (
-                    <Message
-                      own={m.sender === 'ali'}
-                      message={{
-                        username: m.sender,
-                        text: m.msg,
-                        time: m.dateTime,
-                      }}
-                    />
-                  )
-                })
-              }
-            })} */}
                 {roomMessages.map((rm) => {
                   return (
                     <Message
@@ -64,13 +42,10 @@ const Chat = () => {
                         text: rm.msg,
                         time: '1 min ago',
                       }}
+                      key={uuidv4()}
                     />
                   )
                 })}
-                {/* <Message
-              own={true}
-              message={{username: 'ali', text: 'hello', time: '1 min ago'}}
-            /> */}
                 <button onClick={themeChanger}>toggle</button>
               </div>
             </div>
