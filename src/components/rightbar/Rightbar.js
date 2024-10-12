@@ -23,10 +23,6 @@ const Rightbar = () => {
     dispatch(setUsers(fakeUsers))
   }, [])
 
-  // useEffect(() => {
-  //   dispatch(setUsers(users))
-  // }, [users])
-
   return (
     <StyledRightbar onScroll={scrollHandler}>
       <div className='content'>
