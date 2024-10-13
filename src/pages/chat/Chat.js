@@ -16,12 +16,6 @@ const Chat = () => {
     (state) => state.rootReducer.chat?.[0].messages,
   )
   const rooms = useSelector((state) => state.rootReducer.chat)
-  let arrayOfRooms = []
-  rooms.forEach((room) => {
-    if (room.room !== 'public') {
-      arrayOfRooms.push(room.room)
-    }
-  })
   console.log(roomMessages)
   const themeChanger = () => {
     dispatch(toggleTheme())
@@ -36,8 +30,10 @@ const Chat = () => {
           <div className='rightbarContainer'>
             <Rightbar />
           </div>
-          {arrayOfRooms.map((chbx) => {
-            return <ChatBox />
+          {rooms.map((r) => {
+            if (r.room !== 'public') {
+              return <ChatBox />
+            }
           })}
           <div className='main'>
             <div className='mainScroller'>
