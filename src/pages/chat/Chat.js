@@ -31,7 +31,7 @@ const Chat = () => {
             <Rightbar />
           </div>
           {rooms.map((r) => {
-            if (r.room !== 'public') {
+            if (r.room && r.room !== 'public') {
               return <ChatBox />
             }
           })}
