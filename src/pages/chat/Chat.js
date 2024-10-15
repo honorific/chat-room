@@ -1,4 +1,4 @@
-import {lazy, useEffect} from 'react'
+import {lazy, Suspense, useEffect} from 'react'
 import Message from '../../components/message/Message'
 import Rightbar from '../../components/rightbar/Rightbar'
 import SendMessage from '../../components/sendMessage/SendMessage'
@@ -31,8 +31,12 @@ const Chat = () => {
             <Rightbar />
           </div>
           {rooms.map((r) => {
-            if (r.room !== 'public') {
-              return <ChatBox />
+            if (r.room && r.room !== 'public') {
+              return (
+                <Suspense>
+                  <ChatBox key={uuidv4()} />
+                </Suspense>
+              )
             }
           })}
           <div className='main'>
