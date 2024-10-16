@@ -35,17 +35,34 @@ export const chatSlice = createSlice({
         }
       })
       if (newRoom === true) {
-        state.push({
-          room: action.payload.room,
-          messages: [
+        const chatLength = state.length
+        if (state[chatLength - 1].room === '') {
+          return [
             {
-              sender: action.payload.sender,
-              receiver: action.payload.receiver,
-              dateTime: action.payload.dateTime,
-              msg: action.payload.msg,
+              room: action.payload.room,
+              messages: [
+                {
+                  sender: action.payload.sender,
+                  receiver: action.payload.receiver,
+                  dateTime: action.payload.dateTime,
+                  msg: action.payload.msg,
+                },
+              ],
             },
-          ],
-        })
+          ]
+        } else {
+          state.push({
+            room: action.payload.room,
+            messages: [
+              {
+                sender: action.payload.sender,
+                receiver: action.payload.receiver,
+                dateTime: action.payload.dateTime,
+                msg: action.payload.msg,
+              },
+            ],
+          })
+        }
       }
     },
   },
