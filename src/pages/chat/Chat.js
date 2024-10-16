@@ -33,8 +33,8 @@ const Chat = () => {
           {rooms.map((r) => {
             if (r.room && r.room !== 'public') {
               return (
-                <Suspense>
-                  <ChatBox key={uuidv4()} />
+                <Suspense key={uuidv4()}>
+                  <ChatBox />
                 </Suspense>
               )
             }
