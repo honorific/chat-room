@@ -12,38 +12,13 @@ const OnlineUserOptions = ({show, coordinates, username, direct, inWindow}) => {
   )
   const zIndex = useSelector((state) => state.rootReducer.general.zIndex)
 
-  const closeMenuHandler = (e) => {
-    e.stopPropagation()
-    // dispatch(resetChatOpen())
-    console.log('you closed me')
-  }
-
-  const newWindowHandler = (e) => {
-    e.stopPropagation()
-    console.log('you clicked new window')
-    // dispatch(addChat({
-    //     sender: cookies.get('loggedInAs'),
-    //     receiver: username,
-    //     room: username,
-    //     dateTime: Date.now(),
-    //     msg: 'hi',
-    //   }),
-    // )
-  }
-
-  const newChatHandler = (e) => {
-    e.stopPropagation()
-    dispatch(resetChatOpen())
-    console.log('newChat')
-  }
-
   return (
     <StyledOnlineUserOptions
       show={show}
       coordinates={coordinates}
       onClick={(e) => e.stopPropagation()}
     >
-      <Close onClick={closeMenuHandler} fontSize='lg' />
+      <Close fontSize='lg' />
       <li onClick={direct}>
         chat with <i>{username}</i> in private
       </li>
