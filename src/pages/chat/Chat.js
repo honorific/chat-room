@@ -34,7 +34,7 @@ const Chat = () => {
             if (r.room && r.room !== 'public') {
               return (
                 <Suspense key={uuidv4()}>
-                  <ChatBox />
+                  <ChatBox chatWith={r.room} />
                 </Suspense>
               )
             }
