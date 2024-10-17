@@ -87,7 +87,7 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
         receiver: username,
         room: username,
         dateTime: Date.now(),
-        msg: 'hi',
+        msg: '',
       }),
     )
   }
