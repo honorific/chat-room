@@ -4,7 +4,7 @@ import {Close, Fullscreen, Minimize} from '@mui/icons-material'
 import Message from '../message/Message'
 import SendMessage from '../sendMessage/SendMessage'
 
-const ChatBox = () => {
+const ChatBox = ({chatWith}) => {
   const elemref = useRef('')
   const sendMessageRef = useRef('')
   const [minimized, setMinimized] = useState(true)
@@ -23,7 +23,7 @@ const ChatBox = () => {
   }
 
   const minimizeHandler = () => {
-    elemref.current.children[3].style.height = minimized ? '0px' : '300px'
+    elemref.current.children[4].style.height = minimized ? '0px' : '300px'
     sendMessageRef.current.style.visibility = minimized ? 'hidden' : 'visible'
     setMinimized(!minimized)
   }
@@ -32,6 +32,7 @@ const ChatBox = () => {
       <Close />
       <Fullscreen />
       <Minimize onClick={minimizeHandler} />
+      <h6>chat with {chatWith}</h6>
       <div>
         <div>
           <Message

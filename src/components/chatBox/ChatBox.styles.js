@@ -73,4 +73,9 @@ export const StyledChatBox = styled.div`
   & form {
     bottom: -300px;
   }
+  & h6 {
+    display: inline-block;
+    margin: auto;
+    text-align: center;
+  }
 `
