@@ -1,4 +1,4 @@
-import {lazy, Suspense, useEffect} from 'react'
+import {lazy, Suspense, useEffect, useState} from 'react'
 import Message from '../../components/message/Message'
 import Rightbar from '../../components/rightbar/Rightbar'
 import SendMessage from '../../components/sendMessage/SendMessage'
@@ -12,14 +12,16 @@ const ChatBox = lazy(() => import('../../components/chatBox/ChatBox.js'))
 
 const Chat = () => {
   const dispatch = useDispatch()
+  const [roomIndex, setRoomIndex] = useState(0)
   const roomMessages = useSelector(
-    (state) => state.rootReducer.chat?.[0].messages,
+    (state) => state.rootReducer.chat?.[roomIndex].messages,
   )
   const rooms = useSelector((state) => state.rootReducer.chat)
   console.log(roomMessages)
   const themeChanger = () => {
     dispatch(toggleTheme())
   }
+  console.log('rooms are: ', rooms)
 
   return (
     <>
@@ -42,18 +44,22 @@ const Chat = () => {
           <div className='main'>
             <div className='mainScroller'>
               <div>
-                {roomMessages.map((rm) => {
-                  return (
-                    <Message
-                      own={true}
-                      message={{
-                        username: rm.sender,
-                        text: rm.msg,
-                        time: '1 min ago',
-                      }}
-                      key={uuidv4()}
-                    />
-                  )
+                {rooms.forEach((r, index) => {
+                  if (r.room === 'public') {
+                    setRoomIndex(index)
+                    r.messages.map((ch) => {
+                      return (
+                        <Message
+                          own={true}
+                          message={{
+                            username: ch.sender,
+                            text: ch.msg,
+                            time: ch.dateTime,
+                          }}
+                        />
+                      )
+                    })
+                  }
                 })}
                 <button onClick={themeChanger}>toggle</button>
               </div>
