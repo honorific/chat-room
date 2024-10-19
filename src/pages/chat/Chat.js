@@ -13,7 +13,7 @@ const ChatBox = lazy(() => import('../../components/chatBox/ChatBox.js'))
 const Chat = () => {
   const dispatch = useDispatch()
   const [roomIndex, setRoomIndex] = useState(0)
-  const roomMessages = useSelector(
+  let roomMessages = useSelector(
     (state) => state.rootReducer.chat?.[roomIndex].messages,
   )
   const rooms = useSelector((state) => state.rootReducer.chat)
@@ -21,7 +21,11 @@ const Chat = () => {
   const themeChanger = () => {
     dispatch(toggleTheme())
   }
-  console.log('rooms are: ', rooms)
+  // useEffect(() => {
+
+  // }, [roomMessages])
+
+  // console.log('rooms are: ', rooms)
 
   return (
     <>
@@ -44,20 +48,27 @@ const Chat = () => {
           <div className='main'>
             <div className='mainScroller'>
               <div>
-                {rooms.forEach((r, index) => {
+                {rooms.map((r, index) => {
+                  console.log('messages are:', r.messages)
                   if (r.room === 'public') {
-                    setRoomIndex(index)
+                    //setRoomIndex(index)
                     r.messages.map((ch) => {
-                      return (
-                        <Message
-                          own={true}
-                          message={{
-                            username: ch.sender,
-                            text: ch.msg,
-                            time: ch.dateTime,
-                          }}
-                        />
-                      )
+                      console.log('ch is:', ch)
+                      if (ch.msg !== '') {
+                        return <p key={uuidv4()}>hi</p>
+                        {
+                          /* {
+                           <Message
+                            own={false}
+                            message={{
+                              username: ch.sender,
+                              text: ch.msg,
+                              time: ch.dateTime,
+                            }}
+                          />
+                        } */
+                        }
+                      }
                     })
                   }
                 })}
