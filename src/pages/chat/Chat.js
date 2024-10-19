@@ -13,7 +13,6 @@ const ChatBox = lazy(() => import('../../components/chatBox/ChatBox.js'))
 const Chat = () => {
   const dispatch = useDispatch()
   const rooms = useSelector((state) => state.rootReducer.chat)
-  console.log(roomMessages)
   const themeChanger = () => {
     dispatch(toggleTheme())
   }
