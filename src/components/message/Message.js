@@ -1,6 +1,6 @@
 import {StyledMessage} from './Message.styles'
 
-const Message = ({own, message, last, dm = false}) => {
+const Message = ({own, message, last = false, dm = false}) => {
   return (
     <StyledMessage sty={own} dm={dm}>
       {own !== true && message.username ? <span>{message.username}:</span> : ''}
