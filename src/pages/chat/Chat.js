@@ -12,20 +12,11 @@ const ChatBox = lazy(() => import('../../components/chatBox/ChatBox.js'))
 
 const Chat = () => {
   const dispatch = useDispatch()
-  const [roomIndex, setRoomIndex] = useState(0)
-  let roomMessages = useSelector(
-    (state) => state.rootReducer.chat?.[roomIndex].messages,
-  )
   const rooms = useSelector((state) => state.rootReducer.chat)
   console.log(roomMessages)
   const themeChanger = () => {
     dispatch(toggleTheme())
   }
-  // useEffect(() => {
-
-  // }, [roomMessages])
-
-  // console.log('rooms are: ', rooms)
 
   return (
     <>
@@ -48,28 +39,27 @@ const Chat = () => {
           <div className='main'>
             <div className='mainScroller'>
               <div>
-                {rooms.map((r, index) => {
-                  console.log('messages are:', r.messages)
+                {rooms.map((r) => {
                   if (r.room === 'public') {
-                    //setRoomIndex(index)
-                    r.messages.map((ch) => {
-                      console.log('ch is:', ch)
-                      if (ch.msg !== '') {
-                        return <p key={uuidv4()}>hi</p>
-                        {
-                          /* {
-                           <Message
-                            own={false}
-                            message={{
-                              username: ch.sender,
-                              text: ch.msg,
-                              time: ch.dateTime,
-                            }}
-                          />
-                        } */
+                    return [
+                      r.messages.map((ch) => {
+                        console.log('ch is:', ch)
+                        if (ch.msg !== '') {
+                          {
+                            return (
+                              <Message
+                                own={false}
+                                message={{
+                                  username: ch.sender,
+                                  text: ch.msg,
+                                  time: ch.dateTime,
+                                }}
+                              />
+                            )
+                          }
                         }
-                      }
-                    })
+                      }),
+                    ]
                   }
                 })}
                 <button onClick={themeChanger}>toggle</button>
