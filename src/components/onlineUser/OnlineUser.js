@@ -2,7 +2,6 @@ import {Female, Male} from '@mui/icons-material'
 import {StyledOnlineUser} from './OnlineUser.styles'
 import OnlineUserOptions from '../onlineUserOptions/OnlineUserOptions'
 import {
-  addChatBox,
   addChatopen,
   addZindex,
   closeAllChatMenus,
@@ -10,13 +9,11 @@ import {
 } from '../../utils/slices/general'
 import {useSelector, useDispatch} from 'react-redux'
 import {useState, useRef, useEffect} from 'react'
-import {sortByCordY, sortArrayOfUsers} from '../../utils/slices/users'
 import {addChat} from '../../utils/slices/chat'
 import cookies from '../../utils/slices/cookies'
 
 const OnlineUser = ({gender, username, chatting, selector}) => {
   const [cords, setCords] = useState([0, 0])
-  const [elemWidth, setElemWidth] = useState(0)
   const listHeightRef = useRef(0)
   const elemref = useRef('')
   const dispatch = useDispatch()
@@ -27,7 +24,6 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
 
   useEffect(() => {
     if (elemref.current !== '') {
-      setElemWidth(elemref.current.offsetWidth)
       listHeightRef.current = document
         .querySelector('.onlineUsers')
         .getBoundingClientRect().height
@@ -46,10 +42,7 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
     const rect = e.target.getBoundingClientRect()
     setCords([rect.left, rect.top])
   }
-  let oldY = 0
   const dragHandler = (e) => {
-    let listArr = [44, 88, 132, 176, 220]
-
     const mouseMoveHandler = (el) => {
       if (el.buttons === 1) {
         let elIndex
@@ -60,7 +53,6 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
             break
           }
         }
-        oldY = el.clientY
       }
     }
     const mouseUpHandler = (elm) => {
