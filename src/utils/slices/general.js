@@ -3,7 +3,7 @@ import {createSlice} from '@reduxjs/toolkit'
 const initialState = {
   chatMenuOpen: [],
   chatBox: [],
-  leftDistance: 100,
+  leftDistance: [100],
 }
 
 export const generalSlice = createSlice({
@@ -32,7 +32,9 @@ export const generalSlice = createSlice({
       })
     },
     addLeftDistance: (state) => {
-      state.leftDistance += 20
+      state.leftDistance.push(
+        state.leftDistance[state.leftDistance.length - 1] + 40,
+      )
     },
   },
 })
