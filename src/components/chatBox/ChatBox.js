@@ -4,7 +4,7 @@ import {Close, Fullscreen, Minimize} from '@mui/icons-material'
 import Message from '../message/Message'
 import SendMessage from '../sendMessage/SendMessage'
 
-const ChatBox = ({chatWith}) => {
+const ChatBox = ({chatWith, leftDistance}) => {
   const elemref = useRef('')
   const sendMessageRef = useRef('')
   const [minimized, setMinimized] = useState(true)
@@ -28,7 +28,12 @@ const ChatBox = ({chatWith}) => {
     setMinimized(!minimized)
   }
   return (
-    <StyledChatBox ref={elemref} onMouseDown={dragHandler} className='chatBox'>
+    <StyledChatBox
+      ref={elemref}
+      onMouseDown={dragHandler}
+      className='chatBox'
+      leftDistance={leftDistance}
+    >
       <Close />
       <Fullscreen />
       <Minimize onClick={minimizeHandler} />

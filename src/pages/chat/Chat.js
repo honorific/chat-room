@@ -12,6 +12,10 @@ const ChatBox = lazy(() => import('../../components/chatBox/ChatBox.js'))
 
 const Chat = () => {
   const dispatch = useDispatch()
+  const leftDistance = useSelector(
+    (state) => state.rootReducer.general.leftDistance,
+  )
+  console.log(leftDistance)
   const rooms = useSelector((state) => state.rootReducer.chat)
   const themeChanger = () => {
     dispatch(toggleTheme())
@@ -26,11 +30,11 @@ const Chat = () => {
           <div className='rightbarContainer'>
             <Rightbar />
           </div>
-          {rooms.map((r) => {
+          {rooms.map((r, i) => {
             if (r.room && r.room !== 'public') {
               return (
                 <Suspense key={uuidv4()}>
-                  <ChatBox chatWith={r.room} />
+                  <ChatBox chatWith={r.room} leftDistance={leftDistance[i]} />
                 </Suspense>
               )
             }

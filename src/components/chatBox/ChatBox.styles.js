@@ -1,6 +1,8 @@
 import styled from 'styled-components'
-
-export const StyledChatBox = styled.div`
+const unForwardedProps = ['chatWith', 'leftDistance']
+export const StyledChatBox = styled.div.withConfig({
+  shouldForwardProp: (props) => !unForwardedProps.includes(props),
+})`
   width: 400px;
   height: 40px;
   direction: ltr;
@@ -12,7 +14,7 @@ export const StyledChatBox = styled.div`
   position: absolute;
   z-index: 1000;
   top: 100px;
-  left: 100px;
+  left: ${(props) => props.leftDistance}px;
   padding: 0;
   & svg {
     padding: 10px;
