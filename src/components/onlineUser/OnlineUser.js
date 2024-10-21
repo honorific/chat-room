@@ -3,7 +3,7 @@ import {StyledOnlineUser} from './OnlineUser.styles'
 import OnlineUserOptions from '../onlineUserOptions/OnlineUserOptions'
 import {
   addChatopen,
-  addZindex,
+  addLeftDistance,
   closeAllChatMenus,
   resetChatOpen,
 } from '../../utils/slices/general'
@@ -71,7 +71,7 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
     document.addEventListener('mouseup', mouseUpHandler)
   }
   const directHandler = () => {
-    dispatch(addZindex())
+    dispatch(addLeftDistance())
     dispatch(resetChatOpen())
     dispatch(
       addChat({

@@ -3,7 +3,7 @@ import {createSlice} from '@reduxjs/toolkit'
 const initialState = {
   chatMenuOpen: [],
   chatBox: [],
-  zIndex: 100,
+  leftDistance: 100,
 }
 
 export const generalSlice = createSlice({
@@ -31,8 +31,8 @@ export const generalSlice = createSlice({
         zIndex: action.payload.zIndex,
       })
     },
-    addZindex: (state) => {
-      state.zIndex++
+    addLeftDistance: (state) => {
+      state.leftDistance += 20
     },
   },
 })
@@ -42,7 +42,7 @@ export const {
   resetChatOpen,
   closeAllChatMenus,
   addChatBox,
-  addZindex,
+  addLeftDistance,
 } = generalSlice.actions
 
 export default generalSlice.reducer
