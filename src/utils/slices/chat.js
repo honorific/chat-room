@@ -77,6 +77,6 @@ export const chatSlice = createSlice({
   },
 })
 
-export const {addChat} = chatSlice.actions
+export const {addChat, changeChatCords} = chatSlice.actions
 
 export default chatSlice.reducer
