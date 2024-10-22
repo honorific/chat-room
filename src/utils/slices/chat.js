@@ -1,10 +1,11 @@
-import {StarRateSharp} from '@mui/icons-material'
 import {createSlice, current} from '@reduxjs/toolkit'
 
 const initialState = [
   {
     room: '',
     messages: [],
+    left: 100,
+    top: 100,
   },
 ]
 
@@ -48,6 +49,8 @@ export const chatSlice = createSlice({
                   msg: action.payload.msg,
                 },
               ],
+              top: 100,
+              left: 100,
             },
           ]
         } else {
@@ -61,6 +64,8 @@ export const chatSlice = createSlice({
                 msg: action.payload.msg,
               },
             ],
+            left: state[state.length - 1].left + 40,
+            top: state[state.length - 1].top + 40,
           })
         }
       }
