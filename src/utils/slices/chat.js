@@ -70,6 +70,10 @@ export const chatSlice = createSlice({
         }
       }
     },
+    changeChatCords: (state, action) => {
+      state[action.payload.index].top = action.payload.top
+      state[action.payload.index].left = action.payload.left
+    },
   },
 })
 
