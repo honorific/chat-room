@@ -3,9 +3,13 @@ import {StyledChatBox} from './ChatBox.styles'
 import {Close, Fullscreen, Minimize} from '@mui/icons-material'
 import Message from '../message/Message'
 import SendMessage from '../sendMessage/SendMessage'
+import {useDispatch, useSelector} from 'react-redux'
+import {changeChatCords} from '../../utils/slices/chat'
 
-const ChatBox = ({chatWith, leftDistance}) => {
+const ChatBox = ({chatWith, cords}) => {
   const elemref = useRef('')
+  const rooms = useSelector((state) => state.rootReducer.chat)
+  const dispatch = useDispatch()
   const sendMessageRef = useRef('')
   const [minimized, setMinimized] = useState(true)
   const dragHandler = () => {
@@ -16,9 +20,23 @@ const ChatBox = ({chatWith, leftDistance}) => {
         elemref.current.style.top = `${el.clientY - 50}px`
       }
     }
-    document.addEventListener('mousemove', mouseMoveHandler)
-    document.addEventListener('mouseup', () => {
-      document.removeEventListener('mousemove', mouseMoveHandler)
+    elemref.current.addEventListener('mousemove', mouseMoveHandler)
+    elemref.current.addEventListener('mouseup', () => {
+      let indexOfChat = 0
+      elemref.current.removeEventListener('mousemove', mouseMoveHandler)
+      rooms.forEach((r, index) => {
+        if (r.room === chatWith) {
+          indexOfChat = index
+        }
+      })
+      console.log('indexOfChat is: ', indexOfChat)
+      dispatch(
+        changeChatCords({
+          index: indexOfChat,
+          top: elemref.current.style.top.replace(/^\D+/g, ''),
+          left: elemref.current.style.left.replace(/^\D+/g, ''),
+        }),
+      )
     })
   }
 
@@ -32,7 +50,7 @@ const ChatBox = ({chatWith, leftDistance}) => {
       ref={elemref}
       onMouseDown={dragHandler}
       className='chatBox'
-      leftDistance={leftDistance}
+      cords={cords}
     >
       <Close />
       <Fullscreen />
