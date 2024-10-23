@@ -33,8 +33,8 @@ const ChatBox = ({chatWith, cords}) => {
       dispatch(
         changeChatCords({
           index: indexOfChat,
-          top: elemref.current.style.top.replace(/^\D+/g, ''),
-          left: elemref.current.style.left.replace(/^\D+/g, ''),
+          top: Number(elemref.current.style.top.match(/\d+/)[0]),
+          left: Number(elemref.current.style.left.match(/\d+/)[0]),
         }),
       )
     })
