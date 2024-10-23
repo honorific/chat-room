@@ -9,7 +9,7 @@ export const StyledOnlineUserOptions = styled.ul.withConfig({
   left: calc(${(props) => props.coordinates[0]}px - 220px);
   top: ${(props) =>
     window.screen.height - 300 < props.coordinates[1]
-      ? `calc(${props.coordinates[1]}px - ${window.scrollY}px - 70px )`
+      ? `calc(${props.coordinates[1]}px - ${window.scrollY}px - 70px)`
       : (props) => props.coordinates[1] - window.scrollY + 'px'};
   background-color: black;
   color: white;
@@ -18,7 +18,7 @@ export const StyledOnlineUserOptions = styled.ul.withConfig({
   transition: opacity 0.7s, visibility 0.7s;
   opacity: ${(props) => (props.show ? 0.8 : 0)};
   width: 200px;
-  z-index: 99;
+  z-index: 2000;
   border-radius: 10px;
   padding: 10px;
   cursor: auto;

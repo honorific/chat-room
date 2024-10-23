@@ -13,8 +13,8 @@ export const StyledChatBox = styled.div.withConfig({
   box-shadow: -9px 4px 20px 3px rgba(0, 0, 0, 0.1);
   position: absolute;
   z-index: 1000;
-  top: ${(props) => props.cords.top}px;
-  left: ${(props) => props.cords.left}px;
+  top: ${(props) => (props.cords.top ? `${props.cords.top}px` : '100px')};
+  left: ${(props) => (props.cords.left ? `${props.cords.left}px` : '100px')};
   padding: 0;
   & svg {
     padding: 10px;
