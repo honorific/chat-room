@@ -13,17 +13,19 @@ const ChatBox = ({chatWith, cords}) => {
   const sendMessageRef = useRef('')
   const [minimized, setMinimized] = useState(true)
   const dragHandler = () => {
+    let dragChecker = false
     const mouseMoveHandler = (el) => {
       if (el.buttons === 1) {
         elemref.current.style.position = 'absolute'
         elemref.current.style.left = `${el.clientX - 200}px`
         elemref.current.style.top = `${el.clientY - 50}px`
+        dragChecker = true
       }
     }
     elemref.current.addEventListener('mousemove', mouseMoveHandler)
     elemref.current.addEventListener('mouseup', () => {
       let indexOfChat = 0
-      elemref.current.removeEventListener('mousemove', mouseMoveHandler)
+      elemref?.current?.removeEventListener('mousemove', mouseMoveHandler)
       rooms.forEach((r, index) => {
         if (r.room === chatWith) {
           indexOfChat = index
@@ -33,8 +35,12 @@ const ChatBox = ({chatWith, cords}) => {
       dispatch(
         changeChatCords({
           index: indexOfChat,
-          top: Number(elemref.current.style.top.match(/\d+/)[0]),
-          left: Number(elemref.current.style.left.match(/\d+/)[0]),
+          top: elemref.current
+            ? Number(elemref.current.style.top.match(/\d+/)[0])
+            : '100px',
+          left: elemref.current
+            ? Number(elemref.current.style.left.match(/\d+/)[0])
+            : '100px',
         }),
       )
     })
@@ -51,6 +57,7 @@ const ChatBox = ({chatWith, cords}) => {
       onMouseDown={dragHandler}
       className='chatBox'
       cords={cords}
+      style={{top: cords.top, left: cords.left}}
     >
       <Close />
       <Fullscreen />
