@@ -5,14 +5,24 @@ import Message from '../message/Message'
 import SendMessage from '../sendMessage/SendMessage'
 import {useDispatch, useSelector} from 'react-redux'
 import {changeChatCords} from '../../utils/slices/chat'
+import {addZIndex} from '../../utils/slices/general'
 
 const ChatBox = ({chatWith, cords}) => {
   const elemref = useRef('')
   const rooms = useSelector((state) => state.rootReducer.chat)
+  const zIndex = useSelector((state) => state.rootReducer.general.zIndex)
   const dispatch = useDispatch()
   const sendMessageRef = useRef('')
   const [minimized, setMinimized] = useState(true)
+  const mouseUpHandler = () => {
+    dispatch(addZIndex())
+    elemref.current.style.zIndex = zIndex
+    console.log('zindex is: ', elemref.current.style.zIndex)
+  }
   const dragHandler = () => {
+    dispatch(addZIndex())
+    elemref.current.style.zIndex = zIndex
+    elemref.current.style.zIndex = zIndex
     let dragChecker = false
     const mouseMoveHandler = (el) => {
       if (el.buttons === 1) {
@@ -55,6 +65,7 @@ const ChatBox = ({chatWith, cords}) => {
     <StyledChatBox
       ref={elemref}
       onMouseDown={dragHandler}
+      onMouseUp={mouseUpHandler}
       className='chatBox'
       cords={cords}
       style={{top: cords.top, left: cords.left}}
