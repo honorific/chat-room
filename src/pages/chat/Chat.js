@@ -27,12 +27,13 @@ const Chat = () => {
             <Rightbar />
           </div>
           {rooms.map((r, i) => {
-            if (r.room && r.room !== 'public') {
+            if (r.room && r.room !== 'public' && r.open === true) {
               return (
                 <Suspense key={uuidv4()}>
                   <ChatBox
                     chatWith={r.room}
                     cords={{top: r.top, left: r.left}}
+                    index={i}
                   />
                 </Suspense>
               )
