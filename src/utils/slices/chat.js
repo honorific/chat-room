@@ -6,6 +6,7 @@ const initialState = [
     messages: [],
     left: 100,
     top: 100,
+    open: false,
   },
 ]
 
@@ -32,6 +33,7 @@ export const chatSlice = createSlice({
             ch.messages[messagesLength - 1].dateTime = action.payload.dateTime
             ch.messages[messagesLength - 1].msg = action.payload.msg
           }
+          ch.open = true
           newRoom = false
         }
       })
@@ -51,6 +53,7 @@ export const chatSlice = createSlice({
               ],
               top: 100,
               left: 100,
+              open: true,
             },
           ]
         } else {
@@ -66,6 +69,7 @@ export const chatSlice = createSlice({
             ],
             left: state[state.length - 1].left + 40,
             top: state[state.length - 1].top + 40,
+            open: true,
           })
         }
       }
@@ -74,9 +78,12 @@ export const chatSlice = createSlice({
       state[action.payload.index].top = action.payload.top
       state[action.payload.index].left = action.payload.left
     },
+    chatCloser: (state, action) => {
+      state[action.payload.index].open = false
+    },
   },
 })
 
-export const {addChat, changeChatCords} = chatSlice.actions
+export const {addChat, changeChatCords, chatCloser} = chatSlice.actions
 
 export default chatSlice.reducer
