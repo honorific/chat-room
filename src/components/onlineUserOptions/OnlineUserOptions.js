@@ -1,24 +1,22 @@
 import {Close} from '@mui/icons-material'
 import {StyledOnlineUserOptions} from './OnlineUserOptions.styles'
 import {useDispatch, useSelector} from 'react-redux'
-import {resetChatOpen, addChatBox, addZindex} from '../../utils/slices/general'
-import cookies from '../../utils/slices/cookies'
-import {addChat} from '../../utils/slices/chat'
 
-const OnlineUserOptions = ({show, coordinates, username, direct, inWindow}) => {
-  const dispatch = useDispatch()
-  const globalShow = useSelector(
-    (state) => state.rootReducer.general.chatMenuOpen,
-  )
-  const zIndex = useSelector((state) => state.rootReducer.general.zIndex)
-
+const OnlineUserOptions = ({
+  show,
+  coordinates,
+  username,
+  direct,
+  close,
+  inWindow,
+}) => {
   return (
     <StyledOnlineUserOptions
       show={show}
       coordinates={coordinates}
       onClick={(e) => e.stopPropagation()}
     >
-      <Close fontSize='lg' />
+      <Close fontSize='lg' onClick={close} />
       <li onClick={direct}>
         chat with <i>{username}</i> in private
       </li>
