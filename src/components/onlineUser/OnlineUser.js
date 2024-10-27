@@ -81,6 +81,9 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
       }),
     )
   }
+  const closeHandler = () => {
+    dispatch(resetChatOpen())
+  }
 
   const inWindowHandler = () => {
     console.log('inWindow')
@@ -112,6 +115,7 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
           coordinates={cords}
           username={username}
           direct={directHandler}
+          close={closeHandler}
           inWindow={inWindowHandler}
         />
       )}
