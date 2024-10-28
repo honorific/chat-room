@@ -1,6 +1,6 @@
 import {useRef, useState} from 'react'
 import {StyledChatBox} from './ChatBox.styles'
-import {Close, Fullscreen, Minimize} from '@mui/icons-material'
+import {Close, FlashOffRounded, Fullscreen, Minimize} from '@mui/icons-material'
 import Message from '../message/Message'
 import SendMessage from '../sendMessage/SendMessage'
 import {useDispatch, useSelector} from 'react-redux'
@@ -8,6 +8,7 @@ import {changeChatCords, chatCloser} from '../../utils/slices/chat'
 import {addZIndex} from '../../utils/slices/general'
 
 const ChatBox = ({chatWith, cords, index}) => {
+  const [fScreen, setFScreen] = useState(false)
   const elemref = useRef('')
   const rooms = useSelector((state) => state.rootReducer.chat)
   const zIndex = useSelector((state) => state.rootReducer.general.zIndex)
@@ -65,6 +66,21 @@ const ChatBox = ({chatWith, cords, index}) => {
     sendMessageRef.current.style.visibility = minimized ? 'hidden' : 'visible'
     setMinimized(!minimized)
   }
+  const fullScreenHandler = () => {
+    elemref.current.style.height = fScreen
+      ? '40px'
+      : `calc(100vh - ${
+          sendMessageRef.current.getBoundingClientRect().height
+        }px )`
+    elemref.current.children[4].style.height = fScreen
+      ? '300px'
+      : `calc(100vh - ${
+          sendMessageRef.current.getBoundingClientRect().height
+        }px )`
+    setFScreen(!fScreen)
+
+    console.log('fscreen is: ', fScreen)
+  }
   return (
     <StyledChatBox
       ref={elemref}
@@ -73,9 +89,10 @@ const ChatBox = ({chatWith, cords, index}) => {
       className='chatBox'
       cords={cords}
       style={{top: cords.top, left: cords.left}}
+      fscreen={fScreen}
     >
       <Close onClick={closeHandler} />
-      <Fullscreen />
+      <Fullscreen onClick={fullScreenHandler} />
       <Minimize onClick={minimizeHandler} />
       <h6>chat with {chatWith}</h6>
       <div>
