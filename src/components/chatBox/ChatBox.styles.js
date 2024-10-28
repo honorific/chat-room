@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-const unForwardedProps = ['chatWith', 'cords']
+const unForwardedProps = ['chatWith', 'cords', 'fscreen']
 export const StyledChatBox = styled.div.withConfig({
   shouldForwardProp: (props) => !unForwardedProps.includes(props),
 })`
-  width: 400px;
+  width: ${(props) => (props.fscreen ? '100vw' : '400px')};
   height: 40px;
   direction: ltr;
   display: flex;
@@ -13,8 +13,18 @@ export const StyledChatBox = styled.div.withConfig({
   box-shadow: -9px 4px 20px 3px rgba(0, 0, 0, 0.1);
   position: absolute;
   z-index: 1000;
-  top: ${(props) => (props.cords.top ? `${props.cords.top}px` : '100px')};
-  left: ${(props) => (props.cords.left ? `${props.cords.left}px` : '100px')};
+  top: ${(props) =>
+    !props.fscreen && props.cords.top
+      ? `${props.cords.top}px`
+      : props.fscreen
+      ? '0px !important'
+      : '100px'};
+  left: ${(props) =>
+    !props.fscreen && props.cords.left
+      ? `${props.cords.left}px`
+      : props.fscreen
+      ? '0px !important'
+      : '100px'};
   padding: 0;
   & svg {
     padding: 10px;
@@ -73,7 +83,7 @@ export const StyledChatBox = styled.div.withConfig({
     margin-bottom: 140px;
   }
   & form {
-    bottom: -300px;
+    bottom: ${(props) => (props.fscreen ? '-70px' : '-300px')};
   }
   & h6 {
     display: inline-block;
