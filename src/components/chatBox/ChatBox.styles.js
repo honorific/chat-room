@@ -89,5 +89,6 @@ export const StyledChatBox = styled.div.withConfig({
     display: inline-block;
     margin: auto;
     text-align: center;
+    color: ${({theme}) => theme.text};
   }
 `
