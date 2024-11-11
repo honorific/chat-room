@@ -5,7 +5,7 @@ import SendMessage from '../../components/sendMessage/SendMessage'
 import {StyledChat} from './Chat.styles'
 import {useDispatch, useSelector} from 'react-redux'
 import {toggleTheme} from '../../utils/slices/theme.js'
-import cookies from '../../utils/slices/cookies.js'
+import cookies from '../../utils/cookies.js'
 import {Navigate} from 'react-router-dom'
 import {v4 as uuidv4} from 'uuid'
 const ChatBox = lazy(() => import('../../components/chatBox/ChatBox.js'))

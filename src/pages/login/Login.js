@@ -1,8 +1,8 @@
 import {Navigate} from 'react-router-dom'
-import cookies from '../../utils/slices/cookies'
+import cookies from '../../utils/cookies'
 import {StyledLogin} from './Login.styles'
 import {useSelector, useDispatch} from 'react-redux'
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import {loginUser} from '../../utils/slices/users'
 
 const Login = () => {
