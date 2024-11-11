@@ -20,7 +20,10 @@ const Rightbar = () => {
   }
 
   useEffect(() => {
-    dispatch(setUsers(fakeUsers))
+    //dispatch(setUsers(fakeUsers))
+    fakeUsers.forEach((fuser) => {
+      dispatch(setUsers(fuser))
+    })
   }, [])
 
   return (
