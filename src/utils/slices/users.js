@@ -1,18 +1,31 @@
-import {createSlice} from '@reduxjs/toolkit'
-import cookies from './cookies'
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+import cookies from '../cookies'
+import userApi from '../../api/userApi'
 
 const initialState = {
   users: [],
   usersAndCords: [],
   loggedInAs: cookies.get('loggedInAs'),
+  loginLoading: false,
 }
+
+export const loginUser = createAsyncThunk(
+  'users/loginUser',
+  async (username, thunkAPI) => {
+    const response = await userApi.post('/register', {
+      username,
+    })
+    console.log(response)
+    return response.data
+  },
+)
 
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
     setUsers: (state, action) => {
-      state.users = action.payload
+      state.users.push(action.payload)
     },
     addUserWithCords: (state, action) => {
       state.usersAndCords.push(action.payload)
@@ -44,10 +57,24 @@ export const usersSlice = createSlice({
       state.users[action.payload[0]] = state.users[action.payload[1]]
       state.users[action.payload[1]] = holder
     },
-    loginUser: (state, action) => {
-      state.users.push(action.payload)
-      state.loggedInAs = action.payload
-    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      state.users.push({gender: 'male', username: action.payload.username})
+      state.loggedInAs = action.payload.username
+      state.loginLoading = false
+      cookies.set('loggedInAs', action.payload.username, [
+        '/',
+        Date.now() + 3600,
+      ])
+    })
+    builder.addCase(loginUser.pending, (state) => {
+      state.loginLoading = true
+    })
+    builder.addCase(loginUser.rejected, (state) => {
+      state.loggedInAs = 'failed'
+      state.loginLoading = false
+    })
   },
 })
 
@@ -58,7 +85,6 @@ export const {
   changeCordY,
   sortByCordY,
   sortArrayOfUsers,
-  loginUser,
 } = usersSlice.actions
 
 export default usersSlice.reducer

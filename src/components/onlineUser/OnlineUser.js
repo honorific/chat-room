@@ -9,7 +9,7 @@ import {
 import {useSelector, useDispatch} from 'react-redux'
 import {useState, useRef, useEffect} from 'react'
 import {addChat} from '../../utils/slices/chat'
-import cookies from '../../utils/slices/cookies'
+import cookies from '../../utils/cookies'
 
 const OnlineUser = ({gender, username, chatting, selector}) => {
   const [cords, setCords] = useState([0, 0])
