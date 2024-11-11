@@ -2,23 +2,32 @@ import {Navigate} from 'react-router-dom'
 import cookies from '../../utils/cookies'
 import {StyledLogin} from './Login.styles'
 import {useSelector, useDispatch} from 'react-redux'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import {loginUser} from '../../utils/slices/users'
+import userApi from '../../api/userApi'
 
 const Login = () => {
   const dispatch = useDispatch()
-  const loggedInUser = useSelector(
-    (state) => state.rootReducer.users.loggedInAs,
-  )
+  const users = useSelector((state) => state.rootReducer.users)
   const [name, setName] = useState('')
   const loginHandler = (e) => {
     e.preventDefault()
-    cookies.set('loggedInAs', name, ['/', Date.now() + 3600])
-    dispatch(loginUser(cookies.get('loggedInAs')))
+    dispatch(loginUser(name))
   }
+  // useEffect(() => {
+  //   const responser = async () => {
+  //     const response = await userApi.post('/register', {
+  //       username: 'gholi',
+  //     })
+  //     console.log(response)
+  //     return response
+  //   }
+  //   responser()
+  // }, [])
+
   return (
     <>
-      {loggedInUser ? (
+      {cookies.get('loggedInAs') ? (
         <Navigate to='/chat' />
       ) : (
         <StyledLogin>
