@@ -31,4 +31,23 @@ export const StyledLogin = styled.div`
     font-weight: bold;
     font-size: 18px;
   }
+  & div.gender {
+    cursor: pointer;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    border-radius: 10px;
+    padding: 2px;
+  }
+  & div.gender span {
+    padding: 5px 15px;
+    text-align: center;
+    border-radius: 10px;
+    width: 100%;
+  }
+  & span.selectedGender {
+    background-color: black;
+    color: white;
+  }
 `
