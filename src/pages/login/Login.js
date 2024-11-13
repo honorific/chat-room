@@ -10,20 +10,17 @@ const Login = () => {
   const dispatch = useDispatch()
   const users = useSelector((state) => state.rootReducer.users)
   const [name, setName] = useState('')
+  const [gender, setGender] = useState('')
+
+  const genderHandler = (e) => {
+    setGender(e.target.innerText)
+  }
+
   const loginHandler = (e) => {
     e.preventDefault()
-    dispatch(loginUser(name))
+    console.log(name, gender)
+    //dispatch(loginUser({username: name, gender}))
   }
-  // useEffect(() => {
-  //   const responser = async () => {
-  //     const response = await userApi.post('/register', {
-  //       username: 'gholi',
-  //     })
-  //     console.log(response)
-  //     return response
-  //   }
-  //   responser()
-  // }, [])
 
   return (
     <>
@@ -37,6 +34,20 @@ const Login = () => {
               onChange={(e) => setName(e.target.value)}
               value={name}
             />
+            <div className='gender'>
+              <span
+                onClick={genderHandler}
+                className={gender === 'Male' ? 'selectedGender' : ''}
+              >
+                Male
+              </span>
+              <span
+                onClick={genderHandler}
+                className={gender === 'Female' ? 'selectedGender' : ''}
+              >
+                Female
+              </span>
+            </div>
             <button>Enter</button>
           </form>
         </StyledLogin>
