@@ -11,8 +11,9 @@ const initialState = {
 
 export const loginUser = createAsyncThunk(
   'users/loginUser',
-  async (username, thunkAPI) => {
+  async ({gender, username}, thunkAPI) => {
     const response = await userApi.post('/register', {
+      gender,
       username,
     })
     console.log(response)
@@ -60,7 +61,7 @@ export const usersSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      state.users.push({gender: 'male', username: action.payload.username})
+      state.users.push(action.payload)
       state.loggedInAs = action.payload.username
       state.loginLoading = false
       cookies.set('loggedInAs', action.payload.username, [
