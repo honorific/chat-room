@@ -8,9 +8,8 @@ import userApi from '../../api/userApi'
 
 const Login = () => {
   const dispatch = useDispatch()
-  const users = useSelector((state) => state.rootReducer.users)
   const [name, setName] = useState('')
-  const [gender, setGender] = useState('')
+  const [gender, setGender] = useState('Male')
 
   const genderHandler = (e) => {
     setGender(e.target.innerText)
