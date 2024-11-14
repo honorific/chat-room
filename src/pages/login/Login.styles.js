@@ -45,6 +45,7 @@ export const StyledLogin = styled.div`
     text-align: center;
     border-radius: 10px;
     width: 100%;
+    font-weight: bold;
   }
   & span.selectedGender {
     background-color: black;
