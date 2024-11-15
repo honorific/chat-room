@@ -1,30 +1,32 @@
 import {Navigate} from 'react-router-dom'
 import cookies from '../../utils/cookies'
 import {StyledLogin} from './Login.styles'
-import {useSelector, useDispatch} from 'react-redux'
-import {useEffect, useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {useState} from 'react'
 import {loginUser} from '../../utils/slices/users'
 import userApi from '../../api/userApi'
 
 const Login = () => {
   const dispatch = useDispatch()
-  const users = useSelector((state) => state.rootReducer.users)
   const [name, setName] = useState('')
-  const [gender, setGender] = useState('')
+  const loggedInUser = useSelector(
+    (state) => state.rootReducer.users.loggedInAs,
+  )
+  const [gender, setGender] = useState('male')
 
   const genderHandler = (e) => {
-    setGender(e.target.innerText)
+    setGender(e.target.innerText.toLowerCase())
   }
 
   const loginHandler = (e) => {
     e.preventDefault()
     console.log(name, gender)
-    //dispatch(loginUser({username: name, gender}))
+    dispatch(loginUser({gender, username: name}))
   }
 
   return (
     <>
-      {cookies.get('loggedInAs') ? (
+      {cookies.get('loggedInAs') || loggedInUser ? (
         <Navigate to='/chat' />
       ) : (
         <StyledLogin>
@@ -37,13 +39,13 @@ const Login = () => {
             <div className='gender'>
               <span
                 onClick={genderHandler}
-                className={gender === 'Male' ? 'selectedGender' : ''}
+                className={gender === 'male' ? 'selectedGender' : ''}
               >
                 Male
               </span>
               <span
                 onClick={genderHandler}
-                className={gender === 'Female' ? 'selectedGender' : ''}
+                className={gender === 'female' ? 'selectedGender' : ''}
               >
                 Female
               </span>
