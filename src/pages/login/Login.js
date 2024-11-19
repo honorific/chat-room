@@ -4,7 +4,6 @@ import {StyledLogin} from './Login.styles'
 import {useDispatch, useSelector} from 'react-redux'
 import {useState} from 'react'
 import {loginUser} from '../../utils/slices/users'
-import userApi from '../../api/userApi'
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -26,7 +25,7 @@ const Login = () => {
 
   return (
     <>
-      {cookies.get('loggedInAs') || loggedInUser ? (
+      {cookies.get('loggedInAs') && loggedInUser ? (
         <Navigate to='/chat' />
       ) : (
         <StyledLogin>
