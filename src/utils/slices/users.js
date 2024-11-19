@@ -5,7 +5,7 @@ import userApi from '../../api/userApi'
 const initialState = {
   users: [],
   usersAndCords: [],
-  loggedInAs: cookies.get('loggedInAs'),
+  loggedInAs: cookies.get('loggedInAs') || '',
   loginLoading: false,
 }
 
