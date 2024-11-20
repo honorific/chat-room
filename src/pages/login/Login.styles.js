@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
-export const StyledLogin = styled.div`
+export const StyledLogin = styled.div.withConfig({
+  shouldForwardProp: (props) => props !== 'loading',
+})`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,10 +28,11 @@ export const StyledLogin = styled.div`
   }
 
   & form > button {
-    background-color: #146ef5;
+    background-color: ${(props) => (props.loading ? 'black' : '#146ef5')};
     color: white;
     font-weight: bold;
     font-size: 18px;
+    cursor: pointer;
   }
   & div.gender {
     cursor: pointer;
