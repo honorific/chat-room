@@ -11,6 +11,9 @@ const Login = () => {
   const loggedInUser = useSelector(
     (state) => state.rootReducer.users.loggedInAs,
   )
+  const loginLoading = useSelector(
+    (state) => state.rootReducer.users.loginLoading,
+  )
   const [gender, setGender] = useState('male')
 
   const genderHandler = (e) => {
@@ -28,7 +31,7 @@ const Login = () => {
       {cookies.get('loggedInAs') && loggedInUser ? (
         <Navigate to='/chat' />
       ) : (
-        <StyledLogin>
+        <StyledLogin loading={loginLoading}>
           <form onSubmit={loginHandler}>
             <input
               type='text'
@@ -49,7 +52,7 @@ const Login = () => {
                 Female
               </span>
             </div>
-            <button>Enter</button>
+            <button>{loginLoading ? '...' : 'Enter'}</button>
           </form>
         </StyledLogin>
       )}
