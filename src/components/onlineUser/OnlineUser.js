@@ -10,6 +10,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {useState, useRef, useEffect} from 'react'
 import {addChat} from '../../utils/slices/chat'
 import cookies from '../../utils/cookies'
+import {setActiveChatting} from '../../utils/slices/users'
 
 const OnlineUser = ({gender, username, chatting, selector}) => {
   const [cords, setCords] = useState([0, 0])
@@ -79,6 +80,7 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
         dateTime: Date.now(),
         msg: '',
       }),
+      dispatch(setActiveChatting({username})),
     )
   }
   const closeHandler = () => {
