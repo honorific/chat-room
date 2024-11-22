@@ -53,6 +53,13 @@ export const usersSlice = createSlice({
       }
       state.usersAndCords = state.usersAndCords
     },
+    setActiveChatting: (state, action) => {
+      state.users.forEach((user) => {
+        if (user.username === action.payload.username) {
+          user.chatting = true
+        }
+      })
+    },
     sortArrayOfUsers: (state, action) => {
       let holder = state.users[action.payload[0]]
       state.users[action.payload[0]] = state.users[action.payload[1]]
@@ -86,6 +93,7 @@ export const {
   changeCordY,
   sortByCordY,
   sortArrayOfUsers,
+  setActiveChatting,
 } = usersSlice.actions
 
 export default usersSlice.reducer
