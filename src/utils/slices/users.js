@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 import cookies from '../cookies'
 import userApi from '../../api/userApi'
+import {Info} from '@mui/icons-material'
 
 const initialState = {
   users: [],
@@ -60,6 +61,13 @@ export const usersSlice = createSlice({
         }
       })
     },
+    removeActiveChatting: (state, action) => {
+      for (let i = 0; i < state.users.length; i++) {
+        if (state.users[i].username === action.payload) {
+          delete state.users[i].chatting
+        }
+      }
+    },
     sortArrayOfUsers: (state, action) => {
       let holder = state.users[action.payload[0]]
       state.users[action.payload[0]] = state.users[action.payload[1]]
@@ -94,6 +102,7 @@ export const {
   sortByCordY,
   sortArrayOfUsers,
   setActiveChatting,
+  removeActiveChatting,
 } = usersSlice.actions
 
 export default usersSlice.reducer

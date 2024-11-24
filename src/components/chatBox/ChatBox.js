@@ -6,6 +6,7 @@ import SendMessage from '../sendMessage/SendMessage'
 import {useDispatch, useSelector} from 'react-redux'
 import {changeChatCords, chatCloser} from '../../utils/slices/chat'
 import {addZIndex} from '../../utils/slices/general'
+import {removeActiveChatting} from '../../utils/slices/users'
 
 const ChatBox = ({chatWith, cords, index}) => {
   const [fScreen, setFScreen] = useState(false)
@@ -22,6 +23,7 @@ const ChatBox = ({chatWith, cords, index}) => {
   }
   const closeHandler = () => {
     elemref.current.style.visibility = 'hidden'
+    dispatch(removeActiveChatting(chatWith))
     dispatch(chatCloser({index}))
   }
   const dragHandler = () => {
