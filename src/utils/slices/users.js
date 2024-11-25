@@ -62,11 +62,11 @@ export const usersSlice = createSlice({
       })
     },
     removeActiveChatting: (state, action) => {
-      for (let i = 0; i < state.users.length; i++) {
-        if (state.users[i].username === action.payload) {
-          delete state.users[i].chatting
+      state.users.forEach((user) => {
+        if (user.username === action.payload) {
+          delete user.chatting
         }
-      }
+      })
     },
     sortArrayOfUsers: (state, action) => {
       let holder = state.users[action.payload[0]]
