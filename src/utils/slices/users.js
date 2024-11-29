@@ -1,7 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 import cookies from '../cookies'
 import userApi from '../../api/userApi'
-import {Info} from '@mui/icons-material'
 
 const initialState = {
   users: [],
@@ -12,7 +11,7 @@ const initialState = {
 
 export const loginUser = createAsyncThunk(
   'users/loginUser',
-  async ({gender, username}, thunkAPI) => {
+  async ({gender, username}, _thunkAPI) => {
     const response = await userApi.post('/register', {
       gender,
       username,
