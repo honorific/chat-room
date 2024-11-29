@@ -2,10 +2,17 @@ import {Navigate} from 'react-router-dom'
 import cookies from '../../utils/cookies'
 import {StyledLogin} from './Login.styles'
 import {useDispatch, useSelector} from 'react-redux'
-import {useState} from 'react'
+import {useRef, useState} from 'react'
 import {loginUser} from '../../utils/slices/users'
+import {io} from 'socket.io-client'
+import {useEffect} from 'react'
 
 const Login = () => {
+  const socket = useRef()
+  useEffect(() => {
+    socket.current = io('ws://localhost:8900')
+  }, [])
+
   const dispatch = useDispatch()
   const [name, setName] = useState('')
   const loggedInUser = useSelector(
@@ -23,7 +30,13 @@ const Login = () => {
   const loginHandler = (e) => {
     e.preventDefault()
     console.log(name, gender)
-    dispatch(loginUser({gender, username: name}))
+    socket.current.emit('addUser', {gender, username: name})
+    socket.current.on('getUsers', (users) => {
+      console.log('users are', users)
+      users.forEach((u) => {
+        dispatch(loginUser({gender: u.gender, username: u.username}))
+      })
+    })
   }
 
   return (
