@@ -2,17 +2,11 @@ import {Navigate} from 'react-router-dom'
 import cookies from '../../utils/cookies'
 import {StyledLogin} from './Login.styles'
 import {useDispatch, useSelector} from 'react-redux'
-import {useRef, useState} from 'react'
-import {loginUser} from '../../utils/slices/users'
-import {io} from 'socket.io-client'
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
+import {loginUser, resetUsers, setUsers} from '../../utils/slices/users'
+import {chatSocket} from '../../utils/sockets'
 
 const Login = () => {
-  const socket = useRef()
-  useEffect(() => {
-    socket.current = io('ws://localhost:8900')
-  }, [])
-
   const dispatch = useDispatch()
   const [name, setName] = useState('')
   const loggedInUser = useSelector(
@@ -27,16 +21,21 @@ const Login = () => {
     setGender(e.target.innerText.toLowerCase())
   }
 
+  useEffect(() => {
+    chatSocket.on('getUsers', (users) => {
+      users.forEach((u) => {
+        dispatch(setUsers({gender: u.gender, username: u.username}))
+      })
+      console.log(users)
+    })
+  }, [chatSocket])
+
   const loginHandler = (e) => {
     e.preventDefault()
     console.log(name, gender)
-    socket.current.emit('addUser', {gender, username: name})
-    socket.current.on('getUsers', (users) => {
-      console.log('users are', users)
-      users.forEach((u) => {
-        dispatch(loginUser({gender: u.gender, username: u.username}))
-      })
-    })
+    dispatch(resetUsers())
+    chatSocket.emit('addUser', {gender, username: name})
+    dispatch(loginUser({gender: gender, username: name}))
   }
 
   return (

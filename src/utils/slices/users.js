@@ -72,10 +72,13 @@ export const usersSlice = createSlice({
       state.users[action.payload[0]] = state.users[action.payload[1]]
       state.users[action.payload[1]] = holder
     },
+    resetUsers: (state, action) => {
+      state.users = []
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      state.users.push(action.payload)
+      // state.users.push(action.payload)
       state.loggedInAs = action.payload.username
       state.loginLoading = false
       cookies.set('loggedInAs', action.payload.username, [
@@ -102,6 +105,7 @@ export const {
   sortArrayOfUsers,
   setActiveChatting,
   removeActiveChatting,
+  resetUsers,
 } = usersSlice.actions
 
 export default usersSlice.reducer

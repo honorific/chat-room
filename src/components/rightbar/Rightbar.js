@@ -2,17 +2,11 @@ import {useDispatch, useSelector} from 'react-redux'
 import RoomAndUsers from '../roomAndUsers/RoomAndUsers'
 import {StyledRightbar} from './Rightbar.styles'
 import {resetChatOpen} from '../../utils/slices/general'
-import {setUsers} from '../../utils/slices/users'
+import {resetUsers, setUsers} from '../../utils/slices/users'
 import {useEffect} from 'react'
+import {chatSocket} from '../../utils/sockets'
 
 const Rightbar = () => {
-  const fakeUsers = [
-    {gender: 'male', username: 'ali'},
-    {gender: 'female', username: 'atena'},
-    {gender: 'female', username: 'zahra', chatting: true},
-    {gender: 'female', username: 'mohadese'},
-    {gender: 'female', username: 'sara', chatting: {number: 3}},
-  ]
   const users = useSelector((state) => state.rootReducer.users.users)
   const dispatch = useDispatch()
   const scrollHandler = () => {
@@ -20,11 +14,18 @@ const Rightbar = () => {
   }
 
   useEffect(() => {
-    //dispatch(setUsers(fakeUsers))
-    fakeUsers.forEach((fuser) => {
-      dispatch(setUsers(fuser))
-    })
+    dispatch(resetUsers())
+    chatSocket.emit('getAllUsers')
   }, [])
+
+  useEffect(() => {
+    dispatch(resetUsers())
+    chatSocket.on('getUsers', (listOfUsers) => {
+      listOfUsers.forEach((u) => {
+        dispatch(setUsers({gender: u.gender, username: u.username}))
+      })
+    })
+  }, [chatSocket])
 
   return (
     <StyledRightbar onScroll={scrollHandler}>
