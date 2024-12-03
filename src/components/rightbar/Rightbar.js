@@ -13,14 +13,23 @@ const Rightbar = () => {
     dispatch(resetChatOpen())
   }
 
-  useEffect(() => {
-    dispatch(resetUsers())
-    chatSocket.emit('getAllUsers')
-  }, [])
+  // useEffect(() => {
+  //   chatSocket.emit('getAllUsers')
+  //   dispatch(resetUsers())
+  //   chatSocket.on('getUsers', (listOfUsers) => {
+  //     console.log('list of users are: ', listOfUsers)
+  //     listOfUsers.forEach((u) => {
+  //       dispatch(setUsers({gender: u.gender, username: u.username}))
+  //     })
+  //   })
+  // }, [])
 
   useEffect(() => {
     dispatch(resetUsers())
+    chatSocket.emit('getAllUsers')
     chatSocket.on('getUsers', (listOfUsers) => {
+      dispatch(resetUsers())
+      console.log('list of users are: ', listOfUsers)
       listOfUsers.forEach((u) => {
         dispatch(setUsers({gender: u.gender, username: u.username}))
       })
