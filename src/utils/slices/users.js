@@ -72,7 +72,7 @@ export const usersSlice = createSlice({
       state.users[action.payload[0]] = state.users[action.payload[1]]
       state.users[action.payload[1]] = holder
     },
-    resetUsers: (state, action) => {
+    resetUsers: (state, _action) => {
       state.users = []
     },
   },
