@@ -21,14 +21,14 @@ const Login = () => {
     setGender(e.target.innerText.toLowerCase())
   }
 
-  useEffect(() => {
-    chatSocket.on('getUsers', (users) => {
-      users.forEach((u) => {
-        dispatch(setUsers({gender: u.gender, username: u.username}))
-      })
-      console.log(users)
-    })
-  }, [chatSocket])
+  // useEffect(() => {
+  //   chatSocket.on('getUsers', (users) => {
+  //     users.forEach((u) => {
+  //       dispatch(setUsers({gender: u.gender, username: u.username}))
+  //     })
+  //     console.log(users)
+  //   })
+  // }, [chatSocket])
 
   const loginHandler = (e) => {
     e.preventDefault()
