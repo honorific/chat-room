@@ -15,6 +15,17 @@ const Rightbar = () => {
   }
 
   useEffect(() => {
+    if (cookies.get('loggedInAs')) {
+      const {gender, username} = cookies.get('loggedInAs')
+      console.log('gender of cookie:', gender)
+      console.log('username of cookie:', username)
+      chatSocket.emit('addUser', {
+        gender,
+        username,
+      })
+    }
+  }, [])
+  useEffect(() => {
     chatSocket.emit('getAllUsers')
     chatSocket.on('getUsers', (listOfUsers) => {
       dispatch(resetUsers())
@@ -27,10 +38,10 @@ const Rightbar = () => {
     // it wont affect the last user that is online
   }, [chatSocket])
 
-  window.addEventListener('beforeunload', (e) => {
-    e.preventDefault()
-    cookies.remove('loggedInAs')
-  })
+  // window.addEventListener('beforeunload', (e) => {
+  //   e.preventDefault()
+  //   cookies.remove('loggedInAs')
+  // })
 
   return (
     <StyledRightbar onScroll={scrollHandler}>

@@ -81,10 +81,11 @@ export const usersSlice = createSlice({
       // state.users.push(action.payload)
       state.loggedInAs = action.payload.username
       state.loginLoading = false
-      cookies.set('loggedInAs', action.payload.username, [
-        '/',
-        Date.now() + 3600,
-      ])
+      cookies.set(
+        'loggedInAs',
+        {username: action.payload.username, gender: action.payload.gender},
+        ['/', Date.now() + 3600],
+      )
     })
     builder.addCase(loginUser.pending, (state) => {
       state.loginLoading = true
