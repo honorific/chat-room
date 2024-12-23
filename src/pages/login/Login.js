@@ -2,7 +2,7 @@ import {Navigate} from 'react-router-dom'
 import cookies from '../../utils/cookies'
 import {StyledLogin} from './Login.styles'
 import {useDispatch, useSelector} from 'react-redux'
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import {loginUser, resetUsers, setUsers} from '../../utils/slices/users'
 import {chatSocket} from '../../utils/sockets'
 
