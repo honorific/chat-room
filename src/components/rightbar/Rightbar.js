@@ -2,10 +2,11 @@ import {useDispatch, useSelector} from 'react-redux'
 import RoomAndUsers from '../roomAndUsers/RoomAndUsers'
 import {StyledRightbar} from './Rightbar.styles'
 import {resetChatOpen} from '../../utils/slices/general'
-import {resetUsers, setUsers} from '../../utils/slices/users'
 import {useEffect} from 'react'
 import {chatSocket} from '../../utils/sockets'
 import cookies from '../../utils/cookies'
+import {loginUser} from '../../utils/slices/users'
+import {showOnlineUsers} from '../../utils/socketActions/user'
 
 const Rightbar = () => {
   const users = useSelector((state) => state.rootReducer.users.users)
@@ -23,17 +24,11 @@ const Rightbar = () => {
         gender,
         username,
       })
+      dispatch(loginUser({gender, username}))
     }
   }, [])
   useEffect(() => {
-    chatSocket.emit('getAllUsers')
-    chatSocket.on('getUsers', (listOfUsers) => {
-      dispatch(resetUsers())
-      console.log('list of users are: ', listOfUsers)
-      listOfUsers.forEach((u) => {
-        dispatch(setUsers({gender: u.gender, username: u.username}))
-      })
-    })
+    showOnlineUsers(chatSocket, dispatch)
     // cant send request of user deletion from database in client, because
     // it wont affect the last user that is online
   }, [chatSocket])
