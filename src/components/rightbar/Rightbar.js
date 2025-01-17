@@ -21,10 +21,8 @@ const Rightbar = () => {
     const usernameChecker = async (username) => {
       try {
         const response = await userApiExist(username)
-        if (response.data === true) {
+        if (!response.data) {
           console.log(response)
-          setInDb(response.data)
-        } else {
           setInDb(false)
         }
       } catch (error) {
