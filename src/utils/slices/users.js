@@ -83,7 +83,11 @@ export const usersSlice = createSlice({
       state.loginLoading = false
       cookies.set(
         'loggedInAs',
-        {username: action.payload.username, gender: action.payload.gender},
+        {
+          username: action.payload.username,
+          gender: action.payload.gender,
+          token: action.payload.gender,
+        },
         ['/', Date.now() + 3600],
       )
     })
