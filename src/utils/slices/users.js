@@ -78,7 +78,6 @@ export const usersSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      // state.users.push(action.payload)
       state.loggedInAs = action.payload.username
       state.loginLoading = false
       cookies.set(
@@ -86,7 +85,7 @@ export const usersSlice = createSlice({
         {
           username: action.payload.username,
           gender: action.payload.gender,
-          token: action.payload.gender,
+          token: action.payload.token,
         },
         ['/', Date.now() + 3600],
       )
@@ -94,9 +93,10 @@ export const usersSlice = createSlice({
     builder.addCase(loginUser.pending, (state) => {
       state.loginLoading = true
     })
-    builder.addCase(loginUser.rejected, (state) => {
+    builder.addCase(loginUser.rejected, (state, action) => {
       state.loggedInAs = 'failed'
       state.loginLoading = false
+      console.log('payload when rejected: ', action)
     })
   },
 })
