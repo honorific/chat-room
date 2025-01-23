@@ -2,6 +2,7 @@ import {StyledSendMessage} from './SendMessage.styles'
 import {useDispatch} from 'react-redux'
 import {addChat} from '../../utils/slices/chat'
 import {forwardRef, useState} from 'react'
+
 const SendMessage = forwardRef(function SendMessage(
   {destination},
   sendMessageRef,
@@ -15,7 +16,7 @@ const SendMessage = forwardRef(function SendMessage(
       addChat({
         sender: 'ali',
         receiver: 'public',
-        room: 'public',
+        room: destination,
         dateTime: Date.now(),
         msg: message,
       }),
