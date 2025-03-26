@@ -1,6 +1,6 @@
 import {StyledSendMessage} from './SendMessage.styles'
 import {useDispatch} from 'react-redux'
-import {addChat} from '../../utils/slices/chat'
+import {addAsyncChat, addChat} from '../../utils/slices/chat'
 import {forwardRef, useState} from 'react'
 
 const SendMessage = forwardRef(function SendMessage(
@@ -13,7 +13,7 @@ const SendMessage = forwardRef(function SendMessage(
     e.preventDefault()
     console.log(destination)
     dispatch(
-      addChat({
+      addAsyncChat({
         sender: 'ali',
         receiver: 'public',
         room: destination,
