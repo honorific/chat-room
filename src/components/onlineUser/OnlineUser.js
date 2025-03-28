@@ -11,6 +11,7 @@ import {useState, useRef, useEffect} from 'react'
 import {addChat} from '../../utils/slices/chat'
 import cookies from '../../utils/cookies'
 import {setActiveChatting} from '../../utils/slices/users'
+import {Navigate} from 'react-router-dom'
 
 const OnlineUser = ({gender, username, chatting, selector}) => {
   const [cords, setCords] = useState([0, 0])
@@ -21,6 +22,11 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
     (state) => state.rootReducer.general.chatMenuOpen,
   )
   const users = useSelector((state) => state.rootReducer.users.users)
+  let sender = null
+  if (cookies.get('loggedInAs')) {
+    const userData = cookies.get('loggedInAs')
+    sender = userData.username
+  }
 
   useEffect(() => {
     if (elemref.current !== '') {
@@ -74,7 +80,7 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
     dispatch(resetChatOpen())
     dispatch(
       addChat({
-        sender: cookies.get('loggedInAs'),
+        sender,
         receiver: username,
         room: username,
         dateTime: Date.now(),
@@ -91,38 +97,42 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
     console.log('inWindow')
   }
 
-  return (
-    <StyledOnlineUser
-      sty={{chatting}}
-      onClick={clickHandler}
-      //onMouseDown={dragHandler}
-      data-id={selector}
-      ref={elemref}
-    >
-      <div>
-        {gender === 'male' ? (
-          <Male sx={{color: 'blueviolet'}} />
-        ) : (
-          <Female sx={{color: 'pink'}} />
+  if (!cookies.get('loggedInAs')) {
+    return <Navigate to='/login' />
+  } else {
+    return (
+      <StyledOnlineUser
+        sty={{chatting}}
+        onClick={clickHandler}
+        //onMouseDown={dragHandler}
+        data-id={selector}
+        ref={elemref}
+      >
+        <div>
+          {gender === 'male' ? (
+            <Male sx={{color: 'blueviolet'}} />
+          ) : (
+            <Female sx={{color: 'pink'}} />
+          )}
+          {username}
+        </div>
+        {chatting && <span>{chatting.number ? chatting.number : ''}</span>}
+        {globalShow[globalShow.length - 1]?.show === true && (
+          <OnlineUserOptions
+            show={
+              globalShow[globalShow.length - 1]?.id === selector &&
+              globalShow[globalShow.length - 1]?.show === true
+            }
+            coordinates={cords}
+            username={username}
+            direct={directHandler}
+            close={closeHandler}
+            inWindow={inWindowHandler}
+          />
         )}
-        {username}
-      </div>
-      {chatting && <span>{chatting.number ? chatting.number : ''}</span>}
-      {globalShow[globalShow.length - 1]?.show === true && (
-        <OnlineUserOptions
-          show={
-            globalShow[globalShow.length - 1]?.id === selector &&
-            globalShow[globalShow.length - 1]?.show === true
-          }
-          coordinates={cords}
-          username={username}
-          direct={directHandler}
-          close={closeHandler}
-          inWindow={inWindowHandler}
-        />
-      )}
-    </StyledOnlineUser>
-  )
+      </StyledOnlineUser>
+    )
+  }
 }
 
 export default OnlineUser
