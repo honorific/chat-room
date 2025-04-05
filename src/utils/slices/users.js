@@ -1,6 +1,8 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
-import cookies from '../cookies'
+import cookies from '../cookie/initialize'
 import {authApiRegister} from '../../api/authApi'
+import {setAuthCookie} from '../cookie/setAuthCookie'
+import {authUser} from '../socketActions/auth'
 
 const initialState = {
   users: [],
@@ -78,17 +80,11 @@ export const usersSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      state.loggedInAs = action.payload.username
+      const {username, gender, token} = action.payload
+      state.loggedInAs = username
       state.loginLoading = false
-      cookies.set(
-        'loggedInAs',
-        {
-          username: action.payload.username,
-          gender: action.payload.gender,
-          token: action.payload.token,
-        },
-        ['/', Date.now() + 3600],
-      )
+      setAuthCookie(username, gender, token)
+      authUser(gender, username)
     })
     builder.addCase(loginUser.pending, (state) => {
       state.loginLoading = true
