@@ -9,7 +9,7 @@ import {
 import {useSelector, useDispatch} from 'react-redux'
 import {useState, useRef, useEffect} from 'react'
 import {addChat} from '../../utils/slices/chat'
-import cookies from '../../utils/cookies'
+import cookies from '../../utils/cookie/initialize'
 import {setActiveChatting} from '../../utils/slices/users'
 import {Navigate} from 'react-router-dom'
 

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import cookies from '../utils/cookies'
+import cookies from '../utils/cookie/initialize'
 
 let token = null
 if (cookies.get('loggedInAs')) {
