@@ -6,9 +6,9 @@ let unsubscribe = null
 
 // Initialize socket with current state
 const initializeSocket = () => {
-  const {users} = store.getState().rootReducer.users.users
+  const {users} = store.getState().rootReducer.users.loggedInAs
 
-  if (users.length) {
+  if (users) {
     // Clean up existing socket if it exists
     if (chatSocket) {
       chatSocket.disconnect()
