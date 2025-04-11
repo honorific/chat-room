@@ -6,7 +6,7 @@ let unsubscribe = null
 
 // Initialize socket with current state
 const initializeSocket = () => {
-  const {users} = store.getState().rootReducer.users
+  const {users} = store.getState().rootReducer.users.users
 
   if (users.length) {
     // Clean up existing socket if it exists
