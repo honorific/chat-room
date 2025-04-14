@@ -1,12 +1,12 @@
 import {useRef, useState} from 'react'
 import {StyledChatBox} from './ChatBox.styles'
-import {Close, FlashOffRounded, Fullscreen, Minimize} from '@mui/icons-material'
+import {Close, Fullscreen, Minimize} from '@mui/icons-material'
 import Message from '../message/Message'
 import SendMessage from '../sendMessage/SendMessage'
 import {useDispatch, useSelector} from 'react-redux'
-import {changeChatCords, chatCloser} from '../../utils/slices/chat'
-import {addZIndex} from '../../utils/slices/general'
-import {removeActiveChatting} from '../../utils/slices/users'
+import {changeChatCords, chatCloser} from '../../redux/slices/chat'
+import {addZIndex} from '../../redux/slices/general'
+import {removeActiveChatting} from '../../redux/slices/users'
 
 const ChatBox = ({chatWith, cords, index}) => {
   const [fScreen, setFScreen] = useState(false)

@@ -5,12 +5,12 @@ import {
   addChatopen,
   closeAllChatMenus,
   resetChatOpen,
-} from '../../utils/slices/general'
+} from '../../redux/slices/general'
 import {useSelector, useDispatch} from 'react-redux'
 import {useState, useRef, useEffect} from 'react'
-import {addChat} from '../../utils/slices/chat'
+import {addChat} from '../../redux/slices/chat'
 import cookies from '../../utils/cookie/initialize'
-import {setActiveChatting} from '../../utils/slices/users'
+import {setActiveChatting} from '../../redux/slices/users'
 import {Navigate} from 'react-router-dom'
 
 const OnlineUser = ({gender, username, chatting, selector}) => {

@@ -1,10 +1,9 @@
 import {Navigate} from 'react-router-dom'
-import cookies from '../../utils/cookies'
+import cookies from '../../utils/cookie/initialize'
 import {StyledLogin} from './Login.styles'
 import {useDispatch, useSelector} from 'react-redux'
 import {useState} from 'react'
-import {loginUser, resetUsers, setUsers} from '../../utils/slices/users'
-import {chatSocket} from '../../utils/sockets'
+import {loginUser, resetUsers} from '../../redux/slices/users'
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -21,21 +20,11 @@ const Login = () => {
     setGender(e.target.innerText.toLowerCase())
   }
 
-  // useEffect(() => {
-  //   chatSocket.on('getUsers', (users) => {
-  //     users.forEach((u) => {
-  //       dispatch(setUsers({gender: u.gender, username: u.username}))
-  //     })
-  //     console.log(users)
-  //   })
-  // }, [chatSocket])
-
   const loginHandler = (e) => {
     e.preventDefault()
     console.log(name, gender)
     dispatch(resetUsers())
-    chatSocket.emit('addUser', {gender, username: name})
-    dispatch(loginUser({gender: gender, username: name}))
+    dispatch(loginUser({gender, username: name}))
   }
 
   return (

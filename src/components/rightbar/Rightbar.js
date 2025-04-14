@@ -1,12 +1,12 @@
 import {useDispatch, useSelector} from 'react-redux'
 import RoomAndUsers from '../roomAndUsers/RoomAndUsers'
 import {StyledRightbar} from './Rightbar.styles'
-import {resetChatOpen} from '../../utils/slices/general'
+import {resetChatOpen} from '../../redux/slices/general'
 import {useEffect, useState} from 'react'
-import {chatSocket} from '../../utils/sockets'
+import {chatSocket} from '../../socket/sockets/chatSocket'
 import cookies from '../../utils/cookie/initialize'
-import {loginUser} from '../../utils/slices/users'
-import {showOnlineUsers} from '../../utils/socketActions/user'
+import {loginUser} from '../../redux/slices/users'
+import {showOnlineUsers} from '../../socket/socketActions/chat/user'
 import {userApiExist} from '../../api/userApi'
 
 const Rightbar = () => {

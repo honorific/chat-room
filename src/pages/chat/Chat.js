@@ -4,14 +4,15 @@ import Rightbar from '../../components/rightbar/Rightbar'
 import SendMessage from '../../components/sendMessage/SendMessage'
 import {StyledChat} from './Chat.styles'
 import {useDispatch, useSelector} from 'react-redux'
-import {toggleTheme} from '../../utils/slices/theme.js'
-import cookies from '../../utils/cookies.js'
+import {toggleTheme} from '../../redux/slices/theme.js'
+import cookies from '../../utils/cookie/initialize.js'
 import {Navigate} from 'react-router-dom'
 import {v4 as uuidv4} from 'uuid'
 const ChatBox = lazy(() => import('../../components/chatBox/ChatBox.js'))
 
 const Chat = () => {
   const dispatch = useDispatch()
+  const users = useSelector((state) => state.rootReducer.users.users)
   const rooms = useSelector((state) => state.rootReducer.chat)
   const themeChanger = () => {
     dispatch(toggleTheme())
