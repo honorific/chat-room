@@ -1,4 +1,4 @@
-import {resetUsers, setUsers} from '../../redux/slices/users'
+import {resetUsers, setUsers} from '../../../redux/slices/users'
 
 export const getUsersHandler = (listOfUsers, dispatch) => {
   dispatch(resetUsers())
