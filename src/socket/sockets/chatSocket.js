@@ -1,21 +1,18 @@
 import {io} from 'socket.io-client'
-import {store} from '../redux/store' // import your Redux store
 
 let chatSocket = null
 let unsubscribe = null
 
 // Initialize socket with current state
-const initializeSocket = () => {
-  const {users} = store.getState().rootReducer.users.loggedInAs
+const initializeSocket = (users) => {
+  // Accept store as parameter
 
   if (users) {
-    // Clean up existing socket if it exists
     if (chatSocket) {
       chatSocket.disconnect()
       chatSocket.removeAllListeners()
     }
 
-    // Create new socket with credentials
     chatSocket = io('ws://localhost:8900', {
       withCredentials: true,
       autoConnect: true,
@@ -24,7 +21,6 @@ const initializeSocket = () => {
       reconnectionDelay: 1000,
     })
 
-    // Add basic event listeners
     chatSocket.on('connect', () => {
       console.log('Socket connected with fresh credentials')
     })
@@ -36,15 +32,15 @@ const initializeSocket = () => {
 }
 
 // Start listening to Redux store changes
-const startSocketListener = () => {
-  // Initialize immediately if users exist
-  initializeSocket()
-
-  // Subscribe to future changes
-  unsubscribe = store.subscribe(initializeSocket)
+const startSocketListener = (store) => {
+  // Accept store as parameter
+  initializeSocket(store.getState().rootReducer.users.loggedInAs)
+  unsubscribe = store.subscribe(() => {
+    const users = store.getState().rootReducer.users.loggedInAs?.users
+    initializeSocket(users)
+  })
 }
 
-// Clean up everything
 const cleanupSocket = () => {
   if (unsubscribe) unsubscribe()
   if (chatSocket) {
@@ -53,5 +49,4 @@ const cleanupSocket = () => {
   }
 }
 
-// Export the socket instance and management functions
 export {chatSocket, startSocketListener, cleanupSocket}

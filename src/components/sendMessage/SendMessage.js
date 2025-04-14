@@ -1,6 +1,6 @@
 import {StyledSendMessage} from './SendMessage.styles'
 import {useDispatch} from 'react-redux'
-import {addAsyncChat, addChat} from '../../utils/slices/chat'
+import {addAsyncChat, addChat} from '../../redux/slices/chat'
 import {forwardRef, useState} from 'react'
 
 const SendMessage = forwardRef(function SendMessage(
