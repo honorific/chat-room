@@ -1,4 +1,4 @@
-import { startSocketListener } from '../../sockets/chatSocket'
+import {startSocketListener} from '../../../socket/sockets/chatSocket'
 import {emitWithSocket} from './socketManager'
 
 export const authUser = (gender, username) => {

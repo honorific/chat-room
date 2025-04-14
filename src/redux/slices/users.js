@@ -1,8 +1,8 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
-import cookies from '../cookie/initialize'
+import cookies from '../../utils/cookie/initialize'
 import {authApiRegister} from '../../api/authApi'
-import {setAuthCookie} from '../cookie/setAuthCookie'
-import {authUser} from '../socketActions/auth'
+import {setAuthCookie} from '../../utils/cookie/setAuthCookie'
+import {authUser} from '../../socket/socketActions/chat/auth'
 
 const initialState = {
   users: [],

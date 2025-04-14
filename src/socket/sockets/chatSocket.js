@@ -1,5 +1,5 @@
 import {io} from 'socket.io-client'
-import {store} from '../store' // import your Redux store
+import {store} from '../redux/store' // import your Redux store
 
 let chatSocket = null
 let unsubscribe = null
