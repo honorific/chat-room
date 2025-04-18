@@ -1,10 +1,20 @@
 import {configureStore} from '@reduxjs/toolkit'
+import listenerMiddleware from './middlewares/listenerMiddleware'
 import reducers from './reducers'
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
     rootReducer: reducers,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: {
+          subscribe: (listener) => store.subscribe(listener),
+        },
+      },
+    }).prepend(listenerMiddleware.middleware),
   devTools: process.env.NODE_ENV !== 'production',
 })
+
+export {store}
