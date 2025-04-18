@@ -34,9 +34,9 @@ const initializeSocket = (users) => {
 // Start listening to Redux store changes
 const startSocketListener = (store) => {
   // Accept store as parameter
-  initializeSocket(store.getState().rootReducer.users.loggedInAs)
+  initializeSocket(store.rootReducer.users.loggedInAs)
   unsubscribe = store.subscribe(() => {
-    const users = store.getState().rootReducer.users.loggedInAs?.users
+    const users = store.rootReducer.users.loggedInAs?.users
     initializeSocket(users)
   })
 }
