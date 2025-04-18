@@ -1,7 +1,8 @@
 import {io} from 'socket.io-client'
+import listenerMiddleware from '../../redux/middlewares/listenerMiddleware'
 
 let chatSocket = null
-let unsubscribe = null
+let socketListenerUnsubscribe = null
 
 // Initialize socket with current state
 const initializeSocket = (users) => {
@@ -28,23 +29,43 @@ const initializeSocket = (users) => {
     chatSocket.on('disconnect', () => {
       console.log('Socket disconnected')
     })
+
+    return chatSocket
+  } else {
+    return
   }
 }
 
-// Start listening to Redux store changes
-const startSocketListener = (store) => {
-  // Accept store as parameter
-  initializeSocket(store.rootReducer.users.loggedInAs)
-  unsubscribe = store.subscribe(() => {
-    const users = store.rootReducer.users.loggedInAs?.users
-    initializeSocket(users)
+const startSocketListener = () => {
+  // Unsubscribe any existing listener first (avoid duplicates)
+  if (socketListenerUnsubscribe) socketListenerUnsubscribe()
+
+  // Start new listener and store unsubscribe function
+  socketListenerUnsubscribe = listenerMiddleware.startListening({
+    predicate: (action, currentState, previousState) => {
+      console.log('currnetState in predicate is: ', currentState)
+      return (
+        currentState.rootReducer.users.loggedInAs !==
+        previousState.rootReducer.users.loggedInAs
+      )
+    },
+    effect: (action, listenerApi) => {
+      const users = listenerApi.getState().rootReducer.users.loggedInAs
+      initializeSocket(users) // Store new socket
+    },
   })
+
+  return socketListenerUnsubscribe // Return the cleanup function
 }
 
+// Full cleanup function (unsubscribe + disconnect socket)
 const cleanupSocket = () => {
-  if (unsubscribe) unsubscribe()
+  if (socketListenerUnsubscribe) {
+    socketListenerUnsubscribe() // Remove Redux listener
+    socketListenerUnsubscribe = null
+  }
   if (chatSocket) {
-    chatSocket.disconnect()
+    chatSocket.disconnect() // Close socket
     chatSocket = null
   }
 }
