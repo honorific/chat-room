@@ -11,7 +11,7 @@ const initialState = {
   loginLoading: false,
 }
 
-let mainStore
+let mainState
 
 export const loginUser = createAsyncThunk(
   'users/loginUser',
@@ -20,7 +20,7 @@ export const loginUser = createAsyncThunk(
       gender,
       username,
     })
-    mainStore = thunkAPI.getState()
+    mainState = thunkAPI.getState()
     console.log(response)
     return response.data
   },
@@ -87,7 +87,7 @@ export const usersSlice = createSlice({
       state.loggedInAs = username
       state.loginLoading = false
       setAuthCookie(username, gender, token)
-      authUser(gender, username, mainStore)
+      authUser(gender, username, mainState)
     })
     builder.addCase(loginUser.pending, (state) => {
       state.loginLoading = true
