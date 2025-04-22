@@ -1,4 +1,5 @@
 import {resetUsers, setUsers} from '../../../redux/slices/users'
+import {emitWithSocket, onSocketEvent} from './socketManager'
 
 export const getUsersHandler = (listOfUsers, dispatch) => {
   dispatch(resetUsers())
@@ -8,7 +9,7 @@ export const getUsersHandler = (listOfUsers, dispatch) => {
   })
 }
 
-export const showOnlineUsers = (emitWithSocket, onSocketEvent, dispatch) => {
+export const showOnlineUsers = (dispatch) => {
   emitWithSocket('getAllUsers')
   onSocketEvent('getUsers', (listOfUsers) => {
     getUsersHandler(listOfUsers, dispatch)
