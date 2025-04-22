@@ -8,6 +8,7 @@ import cookies from '../../utils/cookie/initialize'
 import {loginUser} from '../../redux/slices/users'
 import {showOnlineUsers} from '../../socket/socketActions/chat/user'
 import {userApiExist} from '../../api/userApi'
+import {emitWithSocket} from '../../socket/socketActions/chat/socketManager'
 
 const Rightbar = () => {
   const [inDb, setInDb] = useState(true)
@@ -33,15 +34,14 @@ const Rightbar = () => {
       const {gender, username} = cookies.get('loggedInAs')
       console.log('gender of cookie:', gender)
       console.log('username of cookie:', username)
-      chatSocket.emit('addUser', {
-        gender,
-        username,
-      })
+      emitWithSocket('addUser', {gender, username})
+        .then(() => {})
+        .catch((err) => console.error('Failed: adding user', err))
       usernameChecker(username)
     }
   }, [])
   useEffect(() => {
-    showOnlineUsers(chatSocket, dispatch)
+    showOnlineUsers(dispatch)
     // cant send request of user deletion from database in client, because
     // it wont affect the last user that is online
   }, [chatSocket])
