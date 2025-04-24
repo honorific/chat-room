@@ -13,7 +13,7 @@ const store = configureStore({
           subscribe: (listener) => store.subscribe(listener),
         },
       },
-    }).prepend(listenerMiddleware.middleware),
+    }).concat(listenerMiddleware.middleware),
   devTools: process.env.NODE_ENV !== 'production',
 })
 
