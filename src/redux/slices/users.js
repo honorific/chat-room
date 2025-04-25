@@ -7,7 +7,11 @@ import {authUser} from '../../socket/socketActions/chat/auth'
 const initialState = {
   users: [],
   usersAndCords: [],
-  loggedInAs: cookies.get('loggedInAs') || '',
+  loggedInAs: cookies.get('loggedInAs') || {
+    username: '',
+    gender: '',
+    token: '',
+  },
   loginLoading: false,
 }
 
@@ -80,14 +84,17 @@ export const usersSlice = createSlice({
     resetUsers: (state, _action) => {
       state.users = []
     },
+    setLoggedInAs: (state, action) => {
+      state.loggedInAs = action.payload
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(loginUser.fulfilled, (state, action) => {
       const {username, gender, token} = action.payload
-      state.loggedInAs = username
+      state.loggedInAs = action.payload
       state.loginLoading = false
       setAuthCookie(username, gender, token)
-      authUser(gender, username, mainState)
+      authUser(gender, username, true)
     })
     builder.addCase(loginUser.pending, (state) => {
       state.loginLoading = true
@@ -110,6 +117,7 @@ export const {
   setActiveChatting,
   removeActiveChatting,
   resetUsers,
+  setLoggedInAs,
 } = usersSlice.actions
 
 export default usersSlice.reducer
