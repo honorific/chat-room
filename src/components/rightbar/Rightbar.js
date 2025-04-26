@@ -5,14 +5,18 @@ import {resetChatOpen} from '../../redux/slices/general'
 import {useEffect, useState} from 'react'
 import {chatSocket} from '../../socket/sockets/chatSocket'
 import cookies from '../../utils/cookie/initialize'
-import {loginUser} from '../../redux/slices/users'
+import {loginUser, setLoggedInAs} from '../../redux/slices/users'
 import {showOnlineUsers} from '../../socket/socketActions/chat/user'
 import {userApiExist} from '../../api/userApi'
-import {emitWithSocket} from '../../socket/socketActions/chat/socketManager'
+import {authUser} from '../../socket/socketActions/chat/auth'
+import {connectChatSocketConnection} from '../../redux/slices/socket'
 
 const Rightbar = () => {
   const [inDb, setInDb] = useState(true)
   const users = useSelector((state) => state.rootReducer.users.users)
+  const chatSocketConnection = useSelector(
+    (state) => state.rootReducer.chatSocketConnection,
+  )
   const dispatch = useDispatch()
   const scrollHandler = () => {
     dispatch(resetChatOpen())
@@ -34,9 +38,11 @@ const Rightbar = () => {
       const {gender, username} = cookies.get('loggedInAs')
       console.log('gender of cookie:', gender)
       console.log('username of cookie:', username)
-      emitWithSocket('addUser', {gender, username})
-        .then(() => {})
-        .catch((err) => console.error('Failed: adding user', err))
+      // cleanupSocket()
+      console.log('username of cookie is: ', username)
+      dispatch(setLoggedInAs(cookies.get('loggedInAs')))
+      authUser(gender, username, chatSocketConnection)
+      dispatch(connectChatSocketConnection())
       usernameChecker(username)
     }
   }, [])
@@ -44,6 +50,7 @@ const Rightbar = () => {
     showOnlineUsers(dispatch)
     // cant send request of user deletion from database in client, because
     // it wont affect the last user that is online
+    console.log('change in chatSocket!')
   }, [chatSocket])
 
   useEffect(() => {
