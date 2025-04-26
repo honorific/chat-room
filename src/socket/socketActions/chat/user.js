@@ -10,7 +10,7 @@ export const getUsersHandler = (listOfUsers, dispatch) => {
 }
 
 export const showOnlineUsers = (dispatch) => {
-  emitWithSocket('getAllUsers')
+  emitWithSocket('getAllUsers').then(() => {})
   onSocketEvent('getUsers', (listOfUsers) => {
     getUsersHandler(listOfUsers, dispatch)
   })
