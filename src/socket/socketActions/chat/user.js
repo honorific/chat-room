@@ -1,17 +1,12 @@
 import {resetUsers, setUsers} from '../../../redux/slices/users'
-import {emitWithSocket, onSocketEvent} from './socketManager'
-
-export const getUsersHandler = (listOfUsers, dispatch) => {
-  dispatch(resetUsers())
-  console.log('list of users are: ', listOfUsers)
-  listOfUsers.forEach((u) => {
-    dispatch(setUsers({gender: u.gender, username: u.username}))
-  })
-}
+import {emitWithSocket} from './socketManager'
 
 export const showOnlineUsers = (dispatch) => {
-  emitWithSocket('getAllUsers').then(() => {})
-  onSocketEvent('getUsers', (listOfUsers) => {
-    getUsersHandler(listOfUsers, dispatch)
+  emitWithSocket('getAllUsers').then((users) => {
+    dispatch(resetUsers())
+    console.log('list of users are: ', users)
+    users.forEach((u) => {
+      dispatch(setUsers({gender: u.gender, username: u.username}))
+    })
   })
 }

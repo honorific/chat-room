@@ -9,7 +9,10 @@ import {loginUser, setLoggedInAs} from '../../redux/slices/users'
 import {showOnlineUsers} from '../../socket/socketActions/chat/user'
 import {userApiExist} from '../../api/userApi'
 import {authUser} from '../../socket/socketActions/chat/auth'
-import {connectChatSocketConnection} from '../../redux/slices/socket'
+import {
+  connectChatSocketConnection,
+  disconnectChatSocketConnection,
+} from '../../redux/slices/socket'
 
 const Rightbar = () => {
   const [inDb, setInDb] = useState(true)
@@ -47,7 +50,15 @@ const Rightbar = () => {
     }
   }, [])
   useEffect(() => {
-    showOnlineUsers(dispatch)
+    if (chatSocket.connected) {
+      if (!chatSocketConnection) {
+        dispatch(connectChatSocketConnection())
+      }
+      showOnlineUsers(dispatch)
+    } else {
+      dispatch(disconnectChatSocketConnection())
+    }
+
     // cant send request of user deletion from database in client, because
     // it wont affect the last user that is online
     console.log('change in chatSocket!')
