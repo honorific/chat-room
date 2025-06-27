@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 import cookies from '../../utils/cookie/initialize'
-import {authApiRegister} from '../../api/authApi'
+import {authApi} from '../../api/authApi'
 import {setAuthCookie} from '../../utils/cookie/setAuthCookie'
 import {authUser} from '../../socket/socketActions/chat/auth'
 
@@ -20,7 +20,7 @@ let mainState
 export const loginUser = createAsyncThunk(
   'users/loginUser',
   async ({gender, username}, thunkAPI) => {
-    const response = await authApiRegister({
+    const response = await authApi.register({
       gender,
       username,
     })
