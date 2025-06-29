@@ -7,7 +7,7 @@ if (cookies.get('loggedInAs')) {
   token = userData.token
 }
 
-const chatApi = axios.create({
+const chatApiInstance = axios.create({
   baseURL: 'http://localhost:4000/api/v1/chat',
   headers: {
     Authorization: `Bearer ${token}`, // Set the Authorization header
@@ -15,6 +15,10 @@ const chatApi = axios.create({
   },
 })
 
-export const chatApiAddChat = (args) => {
-  return chatApi.post('/send', args)
+export const chatApiAddChat = (args) => {}
+
+export const chatApi = {
+  addChat: (args) => {
+    return chatApiInstance.post('/send', args)
+  },
 }
