@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
-import {chatApiAddChat} from '../../api/chatApi'
+import { chatApi } from '../../api/chatApi'
+
 
 const initialState = [
   {
@@ -14,7 +15,7 @@ const initialState = [
 export const addAsyncChat = createAsyncThunk(
   'chat/addAsyncChat',
   async ({sender, receiver, room, dateTime, msg}, _thunkAPI) => {
-    const response = await chatApiAddChat({
+    const response = await chatApi.addChat({
       sender,
       receiver,
       dateTime,
