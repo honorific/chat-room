@@ -9,16 +9,20 @@ export const emitWithSocket = (event, data) => {
 
     if (chatSocket.connected) {
       chatSocket.emit(event, data, (response) => {
+        console.log(
+          `response in the event of ${event} is : ${response}`,
+          response,
+        )
         resolve(response)
       })
     } else {
       // Wait for connection if not immediately available
-      const timeout = setTimeout(() => {
-        reject(new Error('Socket connection timeout'))
-      }, 5000)
+      // const timeout = setTimeout(() => {
+      //   reject(new Error('Socket connection timeout'))
+      // }, 5000)
 
       chatSocket.once('connect', () => {
-        clearTimeout(timeout)
+        //clearTimeout(timeout)
         chatSocket.emit(event, data, (response) => {
           resolve(response)
         })
