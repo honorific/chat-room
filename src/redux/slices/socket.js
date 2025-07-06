@@ -19,7 +19,7 @@ export const generalSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(loginUser.fulfilled, (state) => {
       // When login succeeds, set socketConnection to true
-      state.chatSocketConnection = true
+      //state.chatSocketConnection = true
     })
     builder.addCase(loginUser.rejected, (state) => {
       // When login succeeds, set socketConnection to true
