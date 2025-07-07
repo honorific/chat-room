@@ -1,5 +1,4 @@
 import {io} from 'socket.io-client'
-import listenerMiddleware from '../../redux/middlewares/listenerMiddleware'
 
 let chatSocket = null
 let socketListenerUnsubscribe = null
@@ -9,10 +8,10 @@ const initializeSocket = () => {
   // Accept store as parameter
 
   // if (users) {
-  if (chatSocket) {
-    chatSocket.disconnect()
-    chatSocket.removeAllListeners()
-  }
+  // if (chatSocket) {
+  //   chatSocket.disconnect()
+  //   chatSocket.removeAllListeners()
+  // }
   chatSocket = io('ws://localhost:8900', {
     withCredentials: true,
     autoConnect: true,
@@ -22,17 +21,19 @@ const initializeSocket = () => {
 
   chatSocket.on('connect', () => {
     console.log('Socket connected with fresh credentials')
+    console.log(chatSocket)
   })
 
   chatSocket.on('disconnect', () => {
     console.log('Socket disconnected')
   })
 
+  console.log('chatSocket is: ', chatSocket)
+
   return chatSocket
-  // } else {
-  //   return
-  // }
 }
+
+export const getChatSocket = () => chatSocket
 
 const startSocketListener = () => {
   // Unsubscribe any existing listener first (avoid duplicates)
