@@ -67,10 +67,10 @@ const Rightbar = () => {
       // cleanupSocket()
       console.log('username of cookie is: ', username)
       dispatch(setLoggedInAs(cookies.get('loggedInAs')))
-      authUser(gender, username, chatSocketConnection)
       //initSocket()
-      dispatch(connectChatSocketConnection())
       usernameChecker(username)
+      authUser(gender, username, false)
+      dispatch(connectChatSocketConnection())
     }
   }, [])
   useEffect(() => {
