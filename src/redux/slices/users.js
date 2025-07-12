@@ -94,7 +94,8 @@ export const usersSlice = createSlice({
       state.loggedInAs = action.payload
       state.loginLoading = false
       setAuthCookie(username, gender, token)
-      
+      state.users = []
+      state.users.push({gender, username})
       // authUser(gender, username, true)
     })
     builder.addCase(loginUser.pending, (state) => {
