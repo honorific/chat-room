@@ -15,6 +15,7 @@ import {Navigate} from 'react-router-dom'
 
 const OnlineUser = ({gender, username, chatting, selector}) => {
   const [cords, setCords] = useState([0, 0])
+  const [sender, setSender] = useState(null)
   const listHeightRef = useRef(0)
   const elemref = useRef('')
   const dispatch = useDispatch()
@@ -22,11 +23,13 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
     (state) => state.rootReducer.general.chatMenuOpen,
   )
   const users = useSelector((state) => state.rootReducer.users.users)
-  let sender = null
-  if (cookies.get('loggedInAs')) {
-    const userData = cookies.get('loggedInAs')
-    sender = userData.username
-  }
+
+  useEffect(() => {
+    if (cookies.get('loggedInAs')) {
+      const userData = cookies.get('loggedInAs')
+      setSender(userData.username)
+    }
+  }, [])
 
   useEffect(() => {
     if (elemref.current !== '') {
@@ -103,6 +106,7 @@ const OnlineUser = ({gender, username, chatting, selector}) => {
     return (
       <StyledOnlineUser
         sty={{chatting}}
+        loggedInUser={sender === username ? true : false}
         onClick={clickHandler}
         //onMouseDown={dragHandler}
         data-id={selector}
