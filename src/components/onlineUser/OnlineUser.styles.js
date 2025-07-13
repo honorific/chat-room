@@ -15,7 +15,11 @@ export const StyledOnlineUser = styled.li.withConfig({
     props.sty.chatting ? 'space-between' : 'flex-end'};
   align-items: center;
   background-color: ${(props) =>
-    props.sty.chatting ? props.theme.accent : props.theme.body};
+    props.sty.chatting
+      ? props.theme.accent
+      : props.loggedInUser
+      ? '#c9c9c9'
+      : props.theme.body};
   color: ${({theme}) => theme.text};
   &:hover {
     background-color: ${({theme}) => theme.accent};
