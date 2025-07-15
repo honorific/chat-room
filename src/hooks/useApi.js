@@ -1,16 +1,20 @@
 import {useState, useEffect} from 'react'
 
-export const useApi = (apiFunction, initialArgs = null) => {
+export const useApi = (
+  apiFunction,
+  {autoFetch = true, initialArgs = undefined} = {},
+) => {
   const [data, setData] = useState(null)
-  const [loading, setLoading] = useState(initialArgs !== null)
+  const [loading, setLoading] = useState(autoFetch)
   const [error, setError] = useState(null)
 
-  const callApi = async (args) => {
+  const callApi = async (args = initialArgs) => {
     setLoading(true)
     setError(null)
 
     try {
-      const response = await apiFunction(args)
+      const response =
+        args === undefined ? await apiFunction() : await apiFunction(args)
       setData(response.data)
       return response.data
     } catch (err) {
@@ -26,16 +30,18 @@ export const useApi = (apiFunction, initialArgs = null) => {
     }
   }
 
+  // Auto-fetch on mount if enabled
   useEffect(() => {
-    if (initialArgs !== null) {
+    // if (autoFetch && initialArgs !== undefined)
+    if (autoFetch) {
       callApi(initialArgs)
     }
-  }, [apiFunction])
+  }, [apiFunction]) // Only re-fetch if `apiFunction` changes
 
   return {
     data,
     loading,
     error,
-    callApi, // if you want to refetch manually
+    callApi, // Manual trigger
   }
 }
