@@ -7,12 +7,13 @@ import {getChatSocket} from '../../socket/sockets/chatSocket'
 import cookies from '../../utils/cookie/initialize'
 import {loginUser, setLoggedInAs} from '../../redux/slices/users'
 import {showOnlineUsers} from '../../socket/socketActions/chat/user'
-import {userApiExist} from '../../api/userApi'
+import {userApi, userApiExist} from '../../api/userApi'
 import {authUser} from '../../socket/socketActions/chat/auth'
 import {
   connectChatSocketConnection,
   disconnectChatSocketConnection,
 } from '../../redux/slices/socket'
+import {useApi} from '../../hooks/useApi'
 
 const Rightbar = () => {
   const [inDb, setInDb] = useState(true)
@@ -20,6 +21,9 @@ const Rightbar = () => {
   const chatSocketConnection = useSelector(
     (state) => state.rootReducer.chatSocketConnection,
   )
+  const {callApi} = useApi(userApi.exist, {
+    autoFetch: false, // Disable initial fetch
+  })
   const dispatch = useDispatch()
   const chatSocket = getChatSocket()
   const scrollHandler = () => {
@@ -29,7 +33,7 @@ const Rightbar = () => {
   useEffect(() => {
     const usernameChecker = async (username) => {
       try {
-        const response = await userApiExist(username)
+        const response = await callApi(username)
         if (!response.data) {
           console.log(response)
           setInDb(false)
