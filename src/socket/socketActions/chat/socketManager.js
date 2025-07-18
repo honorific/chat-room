@@ -34,5 +34,7 @@ export const emitWithSocket = (event, data) => {
 export const onSocketEvent = (eventName, callback) => {
   if (chatSocket) {
     chatSocket.on(eventName, callback)
+  } else {
+    console.log('chatSocket not initialized')
   }
 }
