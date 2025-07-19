@@ -15,8 +15,6 @@ const chatApiInstance = axios.create({
   },
 })
 
-export const chatApiAddChat = (args) => {}
-
 export const chatApi = {
   addChat: (args) => {
     return chatApiInstance.post('/send', args)

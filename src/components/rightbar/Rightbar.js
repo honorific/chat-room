@@ -7,7 +7,7 @@ import {getChatSocket} from '../../socket/sockets/chatSocket'
 import cookies from '../../utils/cookie/initialize'
 import {loginUser, setLoggedInAs} from '../../redux/slices/users'
 import {showOnlineUsers} from '../../socket/socketActions/chat/user'
-import {userApi, userApiExist} from '../../api/userApi'
+import {userApi} from '../../api/userApi'
 import {authUser} from '../../socket/socketActions/chat/auth'
 import {
   connectChatSocketConnection,
